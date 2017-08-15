@@ -23,7 +23,7 @@ http.createServer(function (req, res) {
     page += '</head>';
     page += '<body>';
     url_z = 'http://textadventures.co.uk/games/play/5zyoqrsugeopel3ffhz_vq'
-    page += '<iframe src="' + url_z +'" height=600 width=900></iframe><br>'
+    page += '<iframe src="' + url_z +'" height=600 width=900 id="frame_inner"></iframe><br>'
     page += '<p>' + url_z + '</p>';
     
     
