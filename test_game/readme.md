@@ -14,3 +14,9 @@ $ git clone https://github.com/DavidGriffith/frotz.git
 $ cd frotz
 $ make dumb
 ```
+setup the directory structure:
+```
+$ ./do_make_dir.sh
+
+```
+
