@@ -96,10 +96,10 @@ word2vec_game = w2v.Word2Vec(
 
 word2vec_game.build_vocab(sentences)
 
-#print("Word2Vec vocabulary length:", len(word2vec_game.vocab))
+print("Word2Vec vocabulary length:", len(word2vec_game.wv.vocab))
 
 word2vec_game.train(sentences,
-                    total_examples=len(sentences),
+                    total_examples=len(word2vec_game.wv.vocab),
                     epochs=10)
 
 if not os.path.exists("trained"):
