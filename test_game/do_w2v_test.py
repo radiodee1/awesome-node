@@ -52,11 +52,12 @@ points = pd.DataFrame(
     columns=["word", "x", "y"]
 )
 
-#print (points.head[10])
+print (points)
 #points.head[10]
 
 sns.set_context("poster")
 points.plot.scatter("x", "y", s=10, figsize=(20, 12))
+#points.plot.scatter("x", "y", s=10, figsize=(20, 12))
 
 
 def plot_region(x_bounds, y_bounds):
@@ -66,8 +67,9 @@ def plot_region(x_bounds, y_bounds):
         (y_bounds[0] <= points.y) &
         (points.y <= y_bounds[1])
         ]
+    #ax = slice.plot.scatter("x", "y", s=35, figsize=(10, 8))
 
-    ax = slice.plot.scatter("x", "y", s=35, figsize=(10, 8))
+    ax = slice.plot(1, 2, s=35, figsize=(10, 8))
     for i, point in slice.iterrows():
         ax.text(point.x + 0.005, point.y + 0.005, point.word, fontsize=11)
 
@@ -77,13 +79,39 @@ plot_region(x_bounds=(0, 1), y_bounds=(4, 4.5))
 
 '''
 
-print ("west")
+print ("\nwest")
 print (word2vec_game.most_similar("west") )
 
 
-print ("Aerys")
-print (word2vec_game.most_similar("Aerys") )
+#print ("\nAerys")
+#print (word2vec_game.most_similar("Aerys".lower() ) )
 
-print ("direwolf")
-print (word2vec_game.most_similar("direwolf") )
+#print ("\ndirewolf")
+#print (word2vec_game.most_similar("direwolf".lower() ) )
+
+print ()
+
+def nearest_similarity_cosmul(start1, end1, end2):
+    similarities = word2vec_game.most_similar_cosmul(
+        positive=[end2.lower(), start1.lower()],
+        negative=[end1.lower()]
+    )
+    start2 = similarities[0][0]
+    print("{start1} is related to {end1}, as {start2} is related to {end2}".format(**locals()))
+    return start2
+
+#nearest_similarity_cosmul("Stark", "Winterfell", "Riverrun")
+#nearest_similarity_cosmul("Jaime", "sword", "wine")
+#nearest_similarity_cosmul("Arya", "Nymeria", "dragons")
+
+print ("\ngo")
+print (word2vec_game.most_similar("go"))
+print ("\ngone")
+print (word2vec_game.most_similar("gone"))
+print ()
+nearest_similarity_cosmul("go","gone","walk")
+print ("\nw")
+print (word2vec_game.most_similar("w"))
+
+
 
