@@ -1,6 +1,36 @@
 #!/usr/bin/python
 
 from __future__ import absolute_import, division, print_function
+import codecs
+
+import glob
+
+import logging
+
+import multiprocessing
+
+import os
+
+import pprint
+
+import re
+
+import nltk
+
+import gensim.models.word2vec as w2v
+
+import sklearn.manifold
+
+import numpy as np
+
+import matplotlib.pyplot as plt
+
+import pandas as pd
+
+import seaborn as sns
+
+
+'''
 
 import textplayer.textPlayer as tp
 t = tp.TextPlayer('zork1.z5')
@@ -18,3 +48,4 @@ while command_in != 'q':
 if t.get_score() != None:
     score, possible_score = t.get_score()
 t.quit()
+'''
