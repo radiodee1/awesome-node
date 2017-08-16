@@ -61,7 +61,7 @@ def sentence_to_wordlist(raw):
     pre = raw #raw.split()
     raw = ""
     #w = []
-    if not (type(pre) is list): return [pre]
+    if not (type(pre) is list): return [pre.lower()]
     for x in pre:
         if not x.endswith( u"'s"):
             #w.append(x)
@@ -87,6 +87,7 @@ print(sentence_to_wordlist(raw_sentences[0]))
 token_count = sum([len(sentence) for sentence in sentences])
 print("The book corpus contains {0:,} tokens".format(token_count))
 
+
 ####################################################
 
 num_features = 300
@@ -98,7 +99,7 @@ min_word_count = 3
 num_workers = multiprocessing.cpu_count()
 
 # Context window length.
-context_size = 7
+context_size = 3 # 4 # 7
 
 # Downsample setting for frequent words.
 #0 - 1e-5 is good for this
