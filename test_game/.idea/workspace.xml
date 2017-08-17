@@ -11,13 +11,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="do_w2v_train.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="do_w2v_train.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/do_w2v_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="403">
-              <caret line="89" column="0" lean-forward="true" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+            <state relative-caret-position="72">
+              <caret line="92" column="21" lean-forward="false" selection-start-line="92" selection-start-column="21" selection-end-line="92" selection-end-column="21" />
               <folding>
                 <element signature="e#19#83#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="do_w2v_plot.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/do_w2v_plot.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="565">
+              <caret line="61" column="18" lean-forward="false" selection-start-line="61" selection-start-column="18" selection-end-line="61" selection-end-column="18" />
+              <folding>
+                <element signature="e#20#84#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -36,8 +48,8 @@
       <file leaf-file-name="do_w2v_test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/do_w2v_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="799">
-              <caret line="111" column="43" lean-forward="false" selection-start-line="111" selection-start-column="43" selection-end-line="111" selection-end-column="43" />
+            <state relative-caret-position="558">
+              <caret line="79" column="3" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="79" selection-end-column="3" />
               <folding>
                 <element signature="e#19#83#0" expanded="true" />
               </folding>
@@ -47,6 +59,13 @@
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -54,6 +73,7 @@
         <option value="$PROJECT_DIR$/do_w2v_test.py" />
         <option value="$PROJECT_DIR$/data/read.txt" />
         <option value="$PROJECT_DIR$/do_w2v_train.py" />
+        <option value="$PROJECT_DIR$/do_w2v_plot.py" />
       </list>
     </option>
   </component>
@@ -78,6 +98,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -95,7 +116,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -159,6 +179,34 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/do_w2v_train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#19#83#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/read.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="30" lean-forward="false" selection-start-line="0" selection-start-column="30" selection-end-line="0" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/do_w2v_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1512">
+          <caret line="111" column="43" lean-forward="false" selection-start-line="111" selection-start-column="43" selection-end-line="111" selection-end-column="43" />
+          <folding>
+            <element signature="e#19#83#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/do_w2v_train.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
@@ -237,22 +285,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/do_w2v_test.py">
+    <entry file="file://$PROJECT_DIR$/do_w2v_train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="799">
-          <caret line="111" column="43" lean-forward="false" selection-start-line="111" selection-start-column="43" selection-end-line="111" selection-end-column="43" />
+        <state relative-caret-position="72">
+          <caret line="92" column="21" lean-forward="false" selection-start-line="92" selection-start-column="21" selection-end-line="92" selection-end-column="21" />
           <folding>
             <element signature="e#19#83#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/do_w2v_train.py">
+    <entry file="file://$PROJECT_DIR$/do_w2v_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="89" column="0" lean-forward="true" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+        <state relative-caret-position="558">
+          <caret line="79" column="3" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="79" selection-end-column="3" />
           <folding>
             <element signature="e#19#83#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/do_w2v_plot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="565">
+          <caret line="61" column="18" lean-forward="false" selection-start-line="61" selection-start-column="18" selection-end-line="61" selection-end-column="18" />
+          <folding>
+            <element signature="e#20#84#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -90,7 +90,7 @@ print("The book corpus contains {0:,} tokens".format(token_count))
 
 ####################################################
 
-num_features = 300
+num_features = 100 # 300
 # Minimum word count threshold.
 min_word_count = 3
 
