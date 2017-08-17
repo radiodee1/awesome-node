@@ -90,7 +90,7 @@ print("The book corpus contains {0:,} tokens".format(token_count))
 
 ####################################################
 
-num_features = 100 # 300
+num_features = 20 # 100 # 300
 # Minimum word count threshold.
 min_word_count = 3
 
@@ -99,7 +99,7 @@ min_word_count = 3
 num_workers = multiprocessing.cpu_count()
 
 # Context window length.
-context_size = 3 # 4 # 7
+context_size = 4 # 7
 
 # Downsample setting for frequent words.
 #0 - 1e-5 is good for this
