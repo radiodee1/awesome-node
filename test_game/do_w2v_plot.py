@@ -1,7 +1,6 @@
-
 #!/usr/bin/python
 
-from __future__ import absolute_import, division, print_function
+from __future__ import division, print_function
 import codecs
 
 import glob
@@ -27,6 +26,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 import pandas as pd
+import matplotlib.pyplot as plt
 
 import seaborn as sns
 
@@ -59,7 +59,7 @@ print (points)
 sns.set_context("poster")
 points.plot.scatter("x", "y", s=10, figsize=(20, 12))
 #points.plot.scatter("x", "y", s=10, figsize=(20, 12))
-points.plot.show()
+
 
 def plot_region(x_bounds, y_bounds):
     slice = points[
@@ -70,7 +70,7 @@ def plot_region(x_bounds, y_bounds):
         ]
     #ax = slice.plot.scatter("x", "y", s=35, figsize=(10, 8))
 
-    ax = slice.plot(1, 2, s=35, figsize=(10, 8))
+    ax = slice.plot.scatter("x", "y", s=35, figsize=(10, 8))
     for i, point in slice.iterrows():
         ax.text(point.x + 0.005, point.y + 0.005, point.word, fontsize=11)
 
@@ -78,3 +78,4 @@ plot_region(x_bounds=(4.0, 4.2), y_bounds=(-0.5, -0.1))
 
 plot_region(x_bounds=(0, 1), y_bounds=(4, 4.5))
 
+plt.show()
