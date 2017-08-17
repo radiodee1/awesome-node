@@ -17,7 +17,7 @@ class Game:
                            'look','l',
                            'northeast','ne','northwest','nw','southeast','se','southwest','sw',
                            'get','take','drop','leave', 'up','u','down','d',
-                           'go','inventory','i']
+                           'go','inventory','i','walk']
 
     def run(self):
         self.game  = player.TextPlayer("zork1.z5")

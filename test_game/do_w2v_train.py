@@ -117,8 +117,8 @@ def assemble_corpus(glob_txt, stem_words=False):
 
 ####################################################
 
-sentences = assemble_corpus("data/got*.txt", stem_words=False)
-sentences_game = assemble_corpus("data/z*.txt", stem_words=False)
+sentences_game = assemble_corpus("data/z*.txt", stem_words=True)
+sentences_book = assemble_corpus("data/got*.txt", stem_words=False)
 
 
 num_features =  100 # 300
@@ -155,11 +155,11 @@ word2vec_game = w2v.Word2Vec(
 
 word2vec_game.build_vocab(sentences_game)
 
-print("Word2Vec vocabulary length:", len(word2vec_game.wv.vocab))
+print("Word2Vec game vocabulary length:", len(word2vec_game.wv.vocab))
 
 word2vec_game.train(sentences_game,
                     total_examples=len(word2vec_game.wv.vocab),
-                    epochs=50)
+                    epochs=100)
 
 if not os.path.exists("trained"):
     os.makedirs("trained")
@@ -179,13 +179,13 @@ word2vec_book = w2v.Word2Vec(
     sample=downsampling
 )
 
-word2vec_book.build_vocab(sentences)
+word2vec_book.build_vocab(sentences_book)
 
-print("Word2Vec vocabulary length:", len(word2vec_book.wv.vocab))
+print("Word2Vec book vocabulary length:", len(word2vec_book.wv.vocab))
 
-word2vec_book.train(sentences,
+word2vec_book.train(sentences_book,
                     total_examples=len(word2vec_book.wv.vocab),
-                    epochs=50)
+                    epochs=100)
 
 if not os.path.exists("trained"):
     os.makedirs("trained")
