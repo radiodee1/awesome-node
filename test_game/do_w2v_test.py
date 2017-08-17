@@ -31,6 +31,7 @@ import seaborn as sns
 
 
 word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
+word2vec_book = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
 
 
 
@@ -61,8 +62,10 @@ def nearest_similarity_cosmul(start1, end1, end2):
 
 print ("\ngo")
 print (word2vec_game.most_similar("go"))
+print (word2vec_book.most_similar("go"))
 print ("\ngone")
 print (word2vec_game.most_similar("gone"))
+print (word2vec_book.most_similar("gone"))
 print ()
 nearest_similarity_cosmul("go","west","west")
 print ("\nw")
