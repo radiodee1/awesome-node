@@ -9,12 +9,22 @@ fi
 
 readarray -t my_array < $1
 
+ENDING=" - game"
+
 for line in "${my_array[@]}"; do
   # process the lines
-  if [[  $line == ">"* ]];
+  if [[  $line == ">"* || $line != *"." ]];
   
   then
-    echo $line
+  
+    if [[ $line == ">"* ]];
+    then
+        echo $line $ENDING"."
+    else
+        echo $line"."
+    fi
+  
+    #echo $line"."
   fi
   
   #echo $line

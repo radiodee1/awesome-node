@@ -37,7 +37,7 @@ nltk.download("stopwords")
 
 #########################################
 
-def sentence_to_wordlist(raw):
+def sentence_to_wordlist(raw, sentence_label=""):
     pre = raw #raw.split()
     raw = ""
     #w = []
@@ -54,12 +54,13 @@ def sentence_to_wordlist(raw):
     words = clean.split()
     words = [x.lower() for x in words]
 
+    if len(sentence_label) > 0: words.append(sentence_label)
     #print (words)
     return words
 
 ###########################################
 
-def assemble_corpus(glob_txt, stem_words=False):
+def assemble_corpus(glob_txt, stem_words=False, sentence_label=""):
     pass
 
     #add everything once
@@ -96,7 +97,7 @@ def assemble_corpus(glob_txt, stem_words=False):
     sentences = []
     for raw_sentence in raw_sentences:
         if len(raw_sentence) > 0:
-            sentences.append(sentence_to_wordlist(raw_sentence))
+            sentences.append(sentence_to_wordlist(raw_sentence, sentence_label=sentence_label))
 
     # stem words and add them
     if stem_words:
@@ -116,12 +117,16 @@ def assemble_corpus(glob_txt, stem_words=False):
     return sentences
 
 ####################################################
+game_glob1 = "data/zork1-output.txt"
+game_glob2 = "data/z*.txt" ## not for good game corpus
 
-sentences_game = assemble_corpus("data/zork1-output.txt", stem_words=False)
-sentences_book = assemble_corpus("data/*.txt", stem_words=False)
+sentences_game = assemble_corpus(game_glob1,    stem_words=False)
+sentences_book = assemble_corpus("data/g*.txt", stem_words=False, sentence_label="book")
+sentences_book.extend(sentences_game)
 
+print (sentences_book)
 
-num_features =  100 # 300
+num_features =   300
 # Minimum word count threshold.
 min_word_count = 1
 
@@ -134,7 +139,7 @@ context_size = 7 # 7
 
 # Downsample setting for frequent words.
 #0 - 1e-5 is good for this
-downsampling = 0 # 1e-3
+downsampling =  0#1e-3
 
 # Seed for the RNG, to make the results reproducible.
 #random number generator
@@ -166,8 +171,9 @@ if not os.path.exists("trained"):
 
 word2vec_game.save(os.path.join("trained", "word2vec_game.w2v"))
 
+
 ############################################
-num_features =  100 # 300
+num_features =    300
 # Minimum word count threshold.
 min_word_count = 3
 
@@ -180,7 +186,7 @@ context_size = 7 # 7
 
 # Downsample setting for frequent words.
 #0 - 1e-5 is good for this
-downsampling = 1e-3
+downsampling = 0 #1e-3
 
 # Seed for the RNG, to make the results reproducible.
 #random number generator

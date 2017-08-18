@@ -91,8 +91,21 @@ class Game:
         if self.bool_show_lists: print ("try resolve")
         results = []
         try:
-            vec = self.word2vec_book.wv[word]
-            results = self.word2vec_game.wv.similar_by_vector(vec, topn=10)
+            w = self.word2vec_book.wv.most_similar(word, topn=20)
+            if len(w) > 0 : results.append(w[0][0])
+            #print(len(w))
+            for i in w:
+                #print("--" + i[0])
+                try:
+                    vec = self.word2vec_game.wv.most_similar(i[0])
+                    results.extend(vec)
+                    if len(vec) > 1: break
+                    pass
+                except:
+                    pass
+
+            #vec = self.word2vec_book.wv[word]
+            #results = self.word2vec_game.wv.similar_by_vector(vec, topn=10)
         except:
             pass
         self.print_list(results,heading="resolve-"+ word, add_to_global=True, to_screen=self.bool_show_lists)
