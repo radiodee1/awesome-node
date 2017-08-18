@@ -107,8 +107,8 @@ def assemble_corpus(glob_txt, stem_words=False):
                 sent = [stemmer.stem(word) for word in sent]
                 sentences.append(sent)
 
-    print(raw_sentences[10])
-    print(sentence_to_wordlist(raw_sentences[10]))
+    print(raw_sentences[0])
+    print(sentence_to_wordlist(raw_sentences[0]))
 
     token_count = sum([len(sentence) for sentence in sentences])
     print("The book corpus contains {0:,} tokens".format(token_count))
@@ -117,7 +117,7 @@ def assemble_corpus(glob_txt, stem_words=False):
 
 ####################################################
 
-sentences_game = assemble_corpus("data/zork1-transcript.*.txt", stem_words=False)
+sentences_game = assemble_corpus("data/zork1-transcript-mod*.txt", stem_words=False)
 sentences_book = assemble_corpus("data/*.txt", stem_words=False)
 
 

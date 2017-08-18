@@ -31,7 +31,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
+#word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
+word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
 
 
 
@@ -61,6 +62,7 @@ points.plot.scatter("x", "y", s=10, figsize=(20, 12))
 
 plt.show()
 
+'''
 def plot_region(x_bounds, y_bounds):
     slice = points[
         (x_bounds[0] <= points.x) &
@@ -79,3 +81,5 @@ plot_region(x_bounds=(4.0, 4.2), y_bounds=(-0.5, -0.1))
 plot_region(x_bounds=(0, 1), y_bounds=(4, 4.5))
 
 plt.show()
+
+'''

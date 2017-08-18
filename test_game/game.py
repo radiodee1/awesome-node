@@ -73,12 +73,12 @@ class Game:
         if len(i) > 1:
             self.most_similar(i[0])
             self.most_similar(i[1])
-            '''
-            second_word = self.words_last[len(self.words_last)-1]
-            word = self.nearest_similarity_cosmul( second_word,i[1], i[0])
+
+            second_word ='command' # self.words_last[len(self.words_last)-1]
+            word = self.nearest_similarity_cosmul( i[0], i[1], second_word)
             print  (word, "??")
             self.most_similar(word)
-            '''
+
         pass
 
     def resolve_word(self, word):
@@ -96,18 +96,18 @@ class Game:
     def most_similar(self, word):
         results = []
         try:
-            #results = self.word2vec_game.most_similar(word)
+            results = self.word2vec_game.most_similar(word)
             pass
         except:
             pass
-        #self.print_list(results, heading="list-"+word)
+        self.print_list(results, heading="list-"+word)
 
         self.resolve_word(word)
 
     def nearest_similarity_cosmul(self, start1, end1, end2):
         start2 = ""
         try:
-            similarities = self.word2vec_game.most_similar_cosmul(
+            similarities = self.word2vec_book.most_similar_cosmul(
                 positive=[end2.lower(), start1.lower()],
                 negative=[end1.lower()],
                 topn=10
@@ -116,6 +116,7 @@ class Game:
             start2 = similarities[0][0]
             print("{start1} is related to {end1}, as {start2} is related to {end2}".format(**locals()))
         except:
+            print ("not similar enough?")
             pass
         return start2
 
