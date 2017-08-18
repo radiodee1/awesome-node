@@ -58,7 +58,7 @@ print (points)
 
 sns.set_context("poster")
 points.plot.scatter("x", "y", s=10, figsize=(20, 12))
-#points.plot.scatter("x", "y", s=10, figsize=(20, 12))
+
 plt.show()
 
 def plot_region(x_bounds, y_bounds):

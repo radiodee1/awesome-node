@@ -9,6 +9,7 @@ class Game:
     def __init__(self):
         self.name = ""
         self.word2vec_game = None
+        self.word2vec_book = None
 
         self.words_last = ['direction','direction']
         self.gameplay_flag = True
@@ -26,6 +27,7 @@ class Game:
 
     def load_w2v(self):
         self.word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
+        self.word2vec_book = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
 
     def play_loop(self):
         start_info = self.game.run()
@@ -37,10 +39,10 @@ class Game:
         while command_in not in self.words_quit:
 
             if len(command_in.split()) > 0  and not  all( word in self.words_game for word in command_in.split() ):
-                self.gameplay_flag = False
+                self.gameplay_flag = True #False
                 self.parse_input(command_in.split())
-                #if len(command_in.split()) == 1:
-                #    self.most_similar(command_in)
+
+
             else : self.gameplay_flag = True
 
             if self.gameplay_flag and len(command_in) > 0:
@@ -71,20 +73,36 @@ class Game:
         if len(i) > 1:
             self.most_similar(i[0])
             self.most_similar(i[1])
+            '''
             second_word = self.words_last[len(self.words_last)-1]
             word = self.nearest_similarity_cosmul( second_word,i[1], i[0])
             print  (word, "??")
             self.most_similar(word)
+            '''
         pass
 
+    def resolve_word(self, word):
+        print ("try resolve")
+        results = []
+        try:
+            vec = self.word2vec_book.wv[word]
+            results = self.word2vec_game.wv.similar_by_vector(vec, topn=10)
+        except:
+            pass
+        self.print_list(results,heading="resolve-"+ word)
+        print ("done resolve")
+        pass
 
     def most_similar(self, word):
         results = []
         try:
-            results = self.word2vec_game.most_similar(word)
+            #results = self.word2vec_game.most_similar(word)
+            pass
         except:
             pass
-        self.print_list(results, heading="list-"+word)
+        #self.print_list(results, heading="list-"+word)
+
+        self.resolve_word(word)
 
     def nearest_similarity_cosmul(self, start1, end1, end2):
         start2 = ""
@@ -104,11 +122,12 @@ class Game:
     def print_list(self, list, heading="list"):
         results = list
         if (len(results) > 0) :print ("--" + heading +"--")
+        else: print ("--none--")
         for i in results:
-            print (i[0], end="")
             if i[0] in self.words_game:
-                print (" <---")
-            else: print (" xxx")
+                print (" --> ", end="")
+            else: print (" xxx ", end="")
+            print (i[0])
 
 def main():
     print("zork 1")

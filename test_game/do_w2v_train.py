@@ -117,13 +117,13 @@ def assemble_corpus(glob_txt, stem_words=False):
 
 ####################################################
 
-sentences_game = assemble_corpus("data/z*.txt", stem_words=True)
-sentences_book = assemble_corpus("data/got*.txt", stem_words=False)
+sentences_game = assemble_corpus("data/zork1-transcript.*.txt", stem_words=False)
+sentences_book = assemble_corpus("data/*.txt", stem_words=False)
 
 
 num_features =  100 # 300
 # Minimum word count threshold.
-min_word_count = 3
+min_word_count = 1
 
 # Number of threads to run in parallel.
 #more workers, faster we train
@@ -134,7 +134,7 @@ context_size = 4 # 7
 
 # Downsample setting for frequent words.
 #0 - 1e-5 is good for this
-downsampling = 1e-3
+downsampling = 0 # 1e-3
 
 # Seed for the RNG, to make the results reproducible.
 #random number generator
@@ -167,7 +167,25 @@ if not os.path.exists("trained"):
 word2vec_game.save(os.path.join("trained", "word2vec_game.w2v"))
 
 ############################################
+num_features =  100 # 300
+# Minimum word count threshold.
+min_word_count = 3
 
+# Number of threads to run in parallel.
+#more workers, faster we train
+num_workers = multiprocessing.cpu_count()
+
+# Context window length.
+context_size = 4 # 7
+
+# Downsample setting for frequent words.
+#0 - 1e-5 is good for this
+downsampling = 1e-3
+
+# Seed for the RNG, to make the results reproducible.
+#random number generator
+#deterministic, good for debugging
+seed = 1
 
 word2vec_book = w2v.Word2Vec(
     sg=1,
