@@ -121,7 +121,7 @@ game_glob1 = "data/zork1-output.txt"
 game_glob2 = "data/z*.txt" ## not for good game corpus
 
 sentences_game = assemble_corpus(game_glob1,    stem_words=False)
-sentences_book = assemble_corpus("data/g*.txt", stem_words=False, sentence_label="book")
+sentences_book = assemble_corpus("data/g*.txt", stem_words=False, sentence_label="")
 sentences_book.extend(sentences_game)
 
 print (sentences_book)
