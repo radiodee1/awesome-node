@@ -117,7 +117,7 @@ def assemble_corpus(glob_txt, stem_words=False):
 
 ####################################################
 
-sentences_game = assemble_corpus("data/zork1-transcript-mod*.txt", stem_words=False)
+sentences_game = assemble_corpus("data/zork1-output.txt", stem_words=False)
 sentences_book = assemble_corpus("data/*.txt", stem_words=False)
 
 
@@ -130,7 +130,7 @@ min_word_count = 1
 num_workers = multiprocessing.cpu_count()
 
 # Context window length.
-context_size = 4 # 7
+context_size = 7 # 7
 
 # Downsample setting for frequent words.
 #0 - 1e-5 is good for this
@@ -176,7 +176,7 @@ min_word_count = 3
 num_workers = multiprocessing.cpu_count()
 
 # Context window length.
-context_size = 4 # 7
+context_size = 7 # 7
 
 # Downsample setting for frequent words.
 #0 - 1e-5 is good for this

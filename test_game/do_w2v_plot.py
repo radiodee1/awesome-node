@@ -1,29 +1,13 @@
 #!/usr/bin/python
 
 from __future__ import division, print_function
-import codecs
-
-import glob
-
-import logging
-
-import multiprocessing
 
 import os
-
-import pprint
-
-import re
-
-import nltk
 
 import gensim.models.word2vec as w2v
 
 import sklearn.manifold
 
-import numpy as np
-
-import matplotlib.pyplot as plt
 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -31,8 +15,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-#word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
-word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
+word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
+#word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
 
 
 
