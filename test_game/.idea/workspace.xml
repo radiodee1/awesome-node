@@ -14,7 +14,7 @@
       <file leaf-file-name="do_w2v_train.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/do_w2v_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
+            <state relative-caret-position="133">
               <caret line="123" column="82" lean-forward="false" selection-start-line="123" selection-start-column="82" selection-end-line="123" selection-end-column="82" />
               <folding>
                 <element signature="e#19#83#0" expanded="true" />
@@ -50,8 +50,8 @@
       <file leaf-file-name="game.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="72" column="54" lean-forward="false" selection-start-line="72" selection-start-column="54" selection-end-line="72" selection-end-column="54" />
+            <state relative-caret-position="407">
+              <caret line="85" column="72" lean-forward="false" selection-start-line="85" selection-start-column="72" selection-end-line="85" selection-end-column="72" />
               <folding>
                 <element signature="e#0#47#0" expanded="true" />
               </folding>
@@ -104,8 +104,8 @@
       <file leaf-file-name="do_w2v_test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/do_w2v_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="684">
-              <caret line="65" column="16" lean-forward="true" selection-start-line="56" selection-start-column="4" selection-end-line="65" selection-end-column="16" />
+            <state relative-caret-position="367">
+              <caret line="58" column="17" lean-forward="false" selection-start-line="58" selection-start-column="17" selection-end-line="58" selection-end-column="17" />
               <folding>
                 <element signature="e#19#83#0" expanded="true" />
               </folding>
@@ -134,8 +134,8 @@
         <option value="$PROJECT_DIR$/data/read.txt" />
         <option value="$PROJECT_DIR$/launch_game.sh" />
         <option value="$PROJECT_DIR$/do_w2v_plot.py" />
-        <option value="$PROJECT_DIR$/do_w2v_test.py" />
         <option value="$PROJECT_DIR$/do_w2v_train.py" />
+        <option value="$PROJECT_DIR$/do_w2v_test.py" />
         <option value="$PROJECT_DIR$/game.py" />
       </list>
     </option>
@@ -161,8 +161,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -660,20 +660,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/do_w2v_test.py">
+    <entry file="file://$PROJECT_DIR$/do_w2v_train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="684">
-          <caret line="65" column="16" lean-forward="true" selection-start-line="56" selection-start-column="4" selection-end-line="65" selection-end-column="16" />
+        <state relative-caret-position="133">
+          <caret line="123" column="82" lean-forward="false" selection-start-line="123" selection-start-column="82" selection-end-line="123" selection-end-column="82" />
           <folding>
             <element signature="e#19#83#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/do_w2v_train.py">
+    <entry file="file://$PROJECT_DIR$/do_w2v_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="123" column="82" lean-forward="false" selection-start-line="123" selection-start-column="82" selection-end-line="123" selection-end-column="82" />
+        <state relative-caret-position="367">
+          <caret line="58" column="17" lean-forward="false" selection-start-line="58" selection-start-column="17" selection-end-line="58" selection-end-column="17" />
           <folding>
             <element signature="e#19#83#0" expanded="true" />
           </folding>
@@ -682,8 +682,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="72" column="54" lean-forward="false" selection-start-line="72" selection-start-column="54" selection-end-line="72" selection-end-column="54" />
+        <state relative-caret-position="407">
+          <caret line="85" column="72" lean-forward="false" selection-start-line="85" selection-start-column="72" selection-end-line="85" selection-end-column="72" />
           <folding>
             <element signature="e#0#47#0" expanded="true" />
           </folding>

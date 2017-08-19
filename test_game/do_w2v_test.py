@@ -53,7 +53,9 @@ def nearest_similarity_cosmul(model, start1, end1, end2):
 def similar_book_to_game(word):
     print ("--"+word+"--")
     out = '' #vec = word2vec_book.wv[word]
-    w = word2vec_book.wv.most_similar(word)
+    w = [(word,0)]
+    w.extend( word2vec_book.wv.most_similar(word))
+    #w.append((word, 0))
     print (len(w))
     for i in w:
         print ( "--"+ i[0])

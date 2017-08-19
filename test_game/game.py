@@ -78,11 +78,12 @@ class Game:
     def resolve_word(self, word, debug_msg=False):
         if self.bool_show_lists or debug_msg: print ("try resolve")
         results = []
+        w = [(word,0)]
         try:
             if debug_msg:
                 print (self.word2vec_book)
                 print (self.word2vec_game)
-            w = self.word2vec_book.wv.most_similar(word, topn=20)
+            w.extend( self.word2vec_book.wv.most_similar(word, topn=20))
             #if len(w) > 0 : results.append(w[0][0])
             if debug_msg: print(w )
             for i in w:
