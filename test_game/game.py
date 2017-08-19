@@ -67,34 +67,24 @@ class Game:
     def parse_input(self, input):
         #if type(input) is not list and type(input) is str:
         #    self.most_similar(input)
-        if type(input) is list and len(input) == 1:
-            self.resolve_word(input[0])
-        if type(input) == str :
-            input = input.split()
-            for i in input:
-                if not (i in self.words_game):
-                    self.resolve_word(i)
-        i = input
-        if len(i) > 1:
-            for word in i:
-                self.resolve_word(word)
-                #self.resolve_word(i[1])
 
-            #second_word ='go' # self.words_last[len(self.words_last)-1]
-            #word = self.nearest_similarity_game( i[1], i[0], second_word)
-            #word2 = self.nearest_similarity_book( i[1], i[0], second_word)
-            #print  (word,word2, "??")
-            #self.most_similar(word2)
+        if True:
+            for word in input:
+                self.resolve_word(word,debug_msg=False)
+                #self.resolve_word(i[1])
 
         pass
 
     def resolve_word(self, word, debug_msg=False):
-        if self.bool_show_lists: print ("try resolve")
+        if self.bool_show_lists or debug_msg: print ("try resolve")
         results = []
         try:
+            if debug_msg:
+                print (self.word2vec_book)
+                print (self.word2vec_game)
             w = self.word2vec_book.wv.most_similar(word, topn=20)
             #if len(w) > 0 : results.append(w[0][0])
-            if debug_msg: print(w +"<<<")
+            if debug_msg: print(w )
             for i in w:
                 #print("--" + i[0])
                 try:
@@ -110,7 +100,7 @@ class Game:
 
             #vec = self.word2vec_book.wv[word]
             #results = self.word2vec_game.wv.similar_by_vector(vec, topn=10)
-        except:
+        except : #ZeroDivisionError:
             pass
         self.print_list(results,heading="resolve-"+ word, add_to_global=True, to_screen=self.bool_show_lists)
         if self.bool_show_lists: print ("done resolve")
