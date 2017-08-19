@@ -123,11 +123,13 @@ game_glob2 = "data/z*.txt" ## not for good game corpus
 sentences_game = assemble_corpus(game_glob1,    stem_words=False)
 sentences_book = assemble_corpus("data/g*.txt", stem_words=False, sentence_label="")
 sentences_zork = assemble_corpus(game_glob2)
+
 sentences_book.extend(sentences_zork)
+
 
 #print (sentences_book)
 
-num_features =   300
+num_features =   100
 # Minimum word count threshold.
 min_word_count = 1
 
@@ -172,9 +174,9 @@ if not os.path.exists("trained"):
 
 word2vec_game.save(os.path.join("trained", "word2vec_game.w2v"))
 
-
+#exit()
 ############################################
-num_features =    300
+num_features =    100
 # Minimum word count threshold.
 min_word_count = 1
 

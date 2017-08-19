@@ -169,9 +169,11 @@ class Game:
     def print_list_suggested(self):
         results = self.words_suggested
         print ("--suggested--")
-        for i in results:
-            print (i, " , ", end="")
-        print ("\n-----")
+        for i in range(len(results)):
+            if i < len(results) - 1:
+                print (results[i], " , ", end="")
+            else: print (results[i])
+        print ("-------------")
 
 def main():
     print("zork 1")

@@ -46,7 +46,7 @@ points.plot.scatter("x", "y", s=10, figsize=(20, 12))
 
 plt.show()
 
-'''
+
 def plot_region(x_bounds, y_bounds):
     slice = points[
         (x_bounds[0] <= points.x) &
@@ -60,10 +60,8 @@ def plot_region(x_bounds, y_bounds):
     for i, point in slice.iterrows():
         ax.text(point.x + 0.005, point.y + 0.005, point.word, fontsize=11)
 
-plot_region(x_bounds=(4.0, 4.2), y_bounds=(-0.5, -0.1))
+plot_region(x_bounds=(-25, -20), y_bounds=(-15, -5))
 
-plot_region(x_bounds=(0, 1), y_bounds=(4, 4.5))
+#plot_region(x_bounds=(-20, -12), y_bounds=(-10, -3))
 
 plt.show()
-
-'''
