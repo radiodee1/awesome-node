@@ -13,7 +13,9 @@ class Game:
 
         self.words_last = ['direction','direction']
         self.gameplay_flag = True
-        self.words_quit = ['q','quit','exit']
+        self.words_quit = ['q','quit','exit','save']
+                            # 'save' was added so that frotz would not do that
+
         self.words_game = ['north','n','south','s','west','w','east','e',
                            'look','l',
                            'northeast','ne','northwest','nw','southeast','se','southwest','sw',
@@ -47,7 +49,6 @@ class Game:
                 self.parse_input(command_in.split())
                 self.print_list_suggested()
 
-
             else : self.gameplay_flag = True
 
             if self.gameplay_flag and len(command_in) > 0:
@@ -57,7 +58,7 @@ class Game:
 
             command_in = raw_input("> ")
             command_in = command_in.strip().lower()
-            print(command_in.split())
+            if self.bool_show_lists: print(command_in.split())
 
     def play_stop(self):
         if self.game.get_score() != None:
