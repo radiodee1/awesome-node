@@ -76,8 +76,9 @@ class Game:
                     self.resolve_word(i)
         i = input
         if len(i) > 1:
-            self.resolve_word(i[0])
-            self.resolve_word(i[1])
+            for word in i:
+                self.resolve_word(word)
+                #self.resolve_word(i[1])
 
             #second_word ='go' # self.words_last[len(self.words_last)-1]
             #word = self.nearest_similarity_game( i[1], i[0], second_word)
@@ -87,19 +88,22 @@ class Game:
 
         pass
 
-    def resolve_word(self, word):
+    def resolve_word(self, word, debug_msg=False):
         if self.bool_show_lists: print ("try resolve")
         results = []
         try:
             w = self.word2vec_book.wv.most_similar(word, topn=20)
-            if len(w) > 0 : results.append(w[0][0])
-            #print(len(w))
+            #if len(w) > 0 : results.append(w[0][0])
+            if debug_msg: print(w +"<<<")
             for i in w:
                 #print("--" + i[0])
                 try:
                     vec = self.word2vec_game.wv.most_similar(i[0])
                     results.extend(vec)
-                    if len(vec) > 1: break
+                    if len(vec) > 1:
+                        results.append(i)
+                        if debug_msg: print (results)
+                        break
                     pass
                 except:
                     pass

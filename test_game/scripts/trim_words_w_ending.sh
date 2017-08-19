@@ -19,8 +19,7 @@ for line in "${my_array[@]}"; do
   
     if [[ $line == ">"* ]];
     then
-        #echo $line $ENDING"."
-        echo $line"."
+        echo $line $ENDING"."
     else
         echo $line"."
     fi
