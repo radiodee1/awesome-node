@@ -20,22 +20,10 @@ from nltk.tokenize import TweetTokenizer, sent_tokenize, PunktSentenceTokenizer
 from nltk.stem import *
 import gensim.models.word2vec as w2v
 
-import sklearn.manifold
 
-import numpy as np
-
-import matplotlib.pyplot as plt
-
-import pandas as pd
-
-import seaborn as sns
 
 nltk.download("punkt")
 nltk.download("stopwords")
-
-
-test = ["I go to school. I've gone to school. north. south. east. west."]
-
 
 
 #########################################
@@ -73,7 +61,17 @@ def sentence_to_wordlist(raw, sentence_label="", pos_tag=False):
 
 ########################################
 
-#print(sentence_to_wordlist(test, pos_tag=True))
+test = [["I go to school."],[" I've gone to school."],[" go north."],[" go south."],[" go east."],[" go west."],[" move south."]]
+
+
+new_test = []
+for t in test:
+    z = sentence_to_wordlist(t, pos_tag=True)
+    new_test.append(z)
+    #print (z)
+test = new_test
+print (test)
+
 #exit()
 
 ###########################################
@@ -145,7 +143,7 @@ sentences_book = assemble_corpus("data/g*.txt", stem_words=False, pos_tag=True)
 sentences_zork = assemble_corpus(game_glob2, pos_tag=True)
 
 sentences_book.extend(sentences_zork)
-
+sentences_book.extend(test)
 
 #print (sentences_book)
 #exit()
@@ -198,7 +196,7 @@ if False:
 
 #exit()
 ############################################
-num_features =  300 #  100
+num_features =  100 #  100
 # Minimum word count threshold.
 min_word_count = 1
 

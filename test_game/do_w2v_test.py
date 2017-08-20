@@ -62,7 +62,9 @@ def similar_book_to_game(word):
         try:
             vec = word2vec_game.most_similar(i[0])
             out = vec
-            if len(vec) > 1: break
+            if len(vec) > 1:
+                print (">>", i[0])
+                break
             pass
         except:
             pass
@@ -73,12 +75,14 @@ def similar_book_to_game(word):
     return out
 
 
-z = nearest_similarity_cosmul(word2vec_book,"VBP", "VBN", "gone")
+z = nearest_similarity_cosmul(word2vec_book,"gone", "VBN", "VB")
 
 similar_book_to_game(z)
 
 
 print ("---------------")
+nearest_similarity_cosmul(word2vec_book,"man", "king", "queen")
+
 nearest_similarity_cosmul(word2vec_book,"north","south", "west")
 
 nearest_similarity_cosmul(word2vec_game,"west", "northwest", "northeast")
@@ -97,4 +101,4 @@ similar_book_to_game("up")
 similar_book_to_game("look")
 
 similar_book_to_game("book")
-similar_book_to_game("game")
+similar_book_to_game("leaflet")
