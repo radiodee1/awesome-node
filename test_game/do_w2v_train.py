@@ -61,16 +61,19 @@ def sentence_to_wordlist(raw, sentence_label="", pos_tag=False):
 
 ########################################
 
-test = [["I go to school."],[" I've gone to school."],[" go north."],[" go south."],[" go east."],[" go west."],[" move south."]]
+test = []
+
+if False:
+    test = [["I go to school."],[" I've gone to school."],[" go north."],[" go south."],[" go east."],[" go west."],[" move south."]]
 
 
-new_test = []
-for t in test:
-    z = sentence_to_wordlist(t, pos_tag=True)
-    new_test.append(z)
-    #print (z)
-test = new_test
-print (test)
+    new_test = []
+    for t in test:
+        z = sentence_to_wordlist(t, pos_tag=True)
+        new_test.append(z)
+        #print (z)
+    test = new_test
+    print (test)
 
 #exit()
 
@@ -233,7 +236,7 @@ if True:
 
     word2vec_book.train(sentences_book,
                         total_examples=len(word2vec_book.wv.vocab),
-                        epochs=100)
+                        epochs=1)
 
     if not os.path.exists("trained"):
         os.makedirs("trained")
