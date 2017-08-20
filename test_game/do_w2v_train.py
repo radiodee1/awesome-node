@@ -16,7 +16,7 @@ import pprint
 import re
 
 import nltk
-from nltk.tokenize import TweetTokenizer, sent_tokenize
+from nltk.tokenize import TweetTokenizer, sent_tokenize, PunktSentenceTokenizer
 from nltk.stem import *
 import gensim.models.word2vec as w2v
 
@@ -33,11 +33,14 @@ import seaborn as sns
 nltk.download("punkt")
 nltk.download("stopwords")
 
-#book_filenames = sorted(glob.glob("data/*.txt"))
+
+test = ["I go to school. I've gone to school. north. south. east. west."]
+
+
 
 #########################################
 
-def sentence_to_wordlist(raw, sentence_label=""):
+def sentence_to_wordlist(raw, sentence_label="", pos_tag=False):
     pre = raw #raw.split()
     raw = ""
     #w = []
@@ -54,13 +57,28 @@ def sentence_to_wordlist(raw, sentence_label=""):
     words = clean.split()
     words = [x.lower() for x in words]
 
+    if pos_tag:
+        tag = []
+        words = nltk.pos_tag(words)
+        for word in words:
+            tag.append(word[0])
+            tag.append(word[1])
+        words = tag
+        #print (words)
+        pass
+
     if len(sentence_label) > 0: words.append(sentence_label)
     #print (words)
     return words
 
+########################################
+
+#print(sentence_to_wordlist(test, pos_tag=True))
+#exit()
+
 ###########################################
 
-def assemble_corpus(glob_txt, stem_words=False, sentence_label=""):
+def assemble_corpus(glob_txt, stem_words=False, sentence_label="", pos_tag=False):
     pass
 
     #add everything once
@@ -97,7 +115,9 @@ def assemble_corpus(glob_txt, stem_words=False, sentence_label=""):
     sentences = []
     for raw_sentence in raw_sentences:
         if len(raw_sentence) > 0:
-            sentences.append(sentence_to_wordlist(raw_sentence, sentence_label=sentence_label))
+            z = sentence_to_wordlist(raw_sentence, sentence_label=sentence_label, pos_tag=pos_tag)
+            if len(z) > 0:
+                sentences.append(z)
 
     # stem words and add them
     if stem_words:
@@ -121,13 +141,15 @@ game_glob1 = "data/zork1-output.txt"
 game_glob2 = "data/z*.txt" ## not for good game corpus
 
 sentences_game = assemble_corpus(game_glob1,    stem_words=False)
-sentences_book = assemble_corpus("data/g*.txt", stem_words=False, sentence_label="")
-sentences_zork = assemble_corpus(game_glob2)
+sentences_book = assemble_corpus("data/g*.txt", stem_words=False, pos_tag=True)
+sentences_zork = assemble_corpus(game_glob2, pos_tag=True)
 
 sentences_book.extend(sentences_zork)
 
 
 #print (sentences_book)
+#exit()
+####################################################
 
 num_features =   100
 # Minimum word count threshold.
@@ -150,33 +172,33 @@ downsampling =  0#1e-3
 seed = 1
 
 ###################################################
+if False:
+    word2vec_game = w2v.Word2Vec(
+        sg=1,
+        seed=seed,
+        workers=num_workers,
+        size=num_features,
+        min_count=min_word_count,
+        window=context_size,
+        sample=downsampling
+    )
 
-word2vec_game = w2v.Word2Vec(
-    sg=1,
-    seed=seed,
-    workers=num_workers,
-    size=num_features,
-    min_count=min_word_count,
-    window=context_size,
-    sample=downsampling
-)
+    word2vec_game.build_vocab(sentences_game)
 
-word2vec_game.build_vocab(sentences_game)
+    print("Word2Vec game vocabulary length:", len(word2vec_game.wv.vocab))
 
-print("Word2Vec game vocabulary length:", len(word2vec_game.wv.vocab))
+    word2vec_game.train(sentences_game,
+                        total_examples=len(word2vec_game.wv.vocab),
+                        epochs=100)
 
-word2vec_game.train(sentences_game,
-                    total_examples=len(word2vec_game.wv.vocab),
-                    epochs=100)
+    if not os.path.exists("trained"):
+        os.makedirs("trained")
 
-if not os.path.exists("trained"):
-    os.makedirs("trained")
-
-word2vec_game.save(os.path.join("trained", "word2vec_game.w2v"))
+    word2vec_game.save(os.path.join("trained", "word2vec_game.w2v"))
 
 #exit()
 ############################################
-num_features =    100
+num_features =  300 #  100
 # Minimum word count threshold.
 min_word_count = 1
 
@@ -196,27 +218,28 @@ downsampling = 0 #1e-3
 #deterministic, good for debugging
 seed = 1
 
-word2vec_book = w2v.Word2Vec(
-    sg=1,
-    seed=seed,
-    workers=num_workers,
-    size=num_features,
-    min_count=min_word_count,
-    window=context_size,
-    sample=downsampling
-)
+if True:
+    word2vec_book = w2v.Word2Vec(
+        sg=1,
+        seed=seed,
+        workers=num_workers,
+        size=num_features,
+        min_count=min_word_count,
+        window=context_size,
+        sample=downsampling
+    )
 
-word2vec_book.build_vocab(sentences_book)
+    word2vec_book.build_vocab(sentences_book)
 
-print("Word2Vec book vocabulary length:", len(word2vec_book.wv.vocab))
+    print("Word2Vec book vocabulary length:", len(word2vec_book.wv.vocab))
 
-word2vec_book.train(sentences_book,
-                    total_examples=len(word2vec_book.wv.vocab),
-                    epochs=100)
+    word2vec_book.train(sentences_book,
+                        total_examples=len(word2vec_book.wv.vocab),
+                        epochs=100)
 
-if not os.path.exists("trained"):
-    os.makedirs("trained")
+    if not os.path.exists("trained"):
+        os.makedirs("trained")
 
-word2vec_book.save(os.path.join("trained", "word2vec_book.w2v"))
+    word2vec_book.save(os.path.join("trained", "word2vec_book.w2v"))
 
 

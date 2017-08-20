@@ -15,8 +15,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
-#word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
+#word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
+word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
 
 
 

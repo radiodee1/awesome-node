@@ -43,8 +43,8 @@ print ()
 
 def nearest_similarity_cosmul(model, start1, end1, end2):
     similarities = model.most_similar_cosmul(
-        positive=[end2.lower(), start1.lower()],
-        negative=[end1.lower()]
+        positive=[end2, start1],
+        negative=[end1]
     )
     start2 = similarities[0][0]
     print("{start1} is related to {end1}, as {start2} is related to {end2}".format(**locals()))
@@ -73,7 +73,12 @@ def similar_book_to_game(word):
     return out
 
 
-nearest_similarity_cosmul(word2vec_book,"west", "northwest", "northeast")
+z = nearest_similarity_cosmul(word2vec_book,"VBP", "VBN", "gone")
+
+similar_book_to_game(z)
+
+
+print ("---------------")
 nearest_similarity_cosmul(word2vec_book,"north","south", "west")
 
 nearest_similarity_cosmul(word2vec_game,"west", "northwest", "northeast")
