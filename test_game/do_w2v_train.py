@@ -103,6 +103,7 @@ def assemble_corpus(glob_txt, stem_words=False, sentence_label="", pos_tag=False
 
     tokenizer = TweetTokenizer()
 
+    print ("stage: tweet")
 
     post_sent = []
     for i in pre_sent:
@@ -113,6 +114,8 @@ def assemble_corpus(glob_txt, stem_words=False, sentence_label="", pos_tag=False
 
     raw_sentences = post_sent
 
+    if pos_tag: print ("stage: pos tagging")
+
     sentences = []
     for raw_sentence in raw_sentences:
         if len(raw_sentence) > 0:
@@ -122,6 +125,7 @@ def assemble_corpus(glob_txt, stem_words=False, sentence_label="", pos_tag=False
 
     # stem words and add them
     if stem_words:
+        print ("stem")
         stemmer = SnowballStemmer("english", ignore_stopwords=True)
         for raw_sentence in raw_sentences:
             if len(raw_sentence) > 0:
@@ -129,8 +133,8 @@ def assemble_corpus(glob_txt, stem_words=False, sentence_label="", pos_tag=False
                 sent = [stemmer.stem(word) for word in sent]
                 sentences.append(sent)
 
-    print(raw_sentences[0])
-    print(sentence_to_wordlist(raw_sentences[0]))
+    print(sentences[0])
+    print(sentence_to_wordlist(raw_sentences[0], pos_tag=pos_tag))
 
     token_count = sum([len(sentence) for sentence in sentences])
     print("The book corpus contains {0:,} tokens".format(token_count))
@@ -140,9 +144,9 @@ def assemble_corpus(glob_txt, stem_words=False, sentence_label="", pos_tag=False
 ####################################################
 game_glob1 = "data/zork1-output.txt"
 game_glob2 = "data/z*.txt" ## not for good game corpus
-
+game_glob3 = "data/wiki*.txt"
 sentences_game = assemble_corpus(game_glob1,    stem_words=False)
-sentences_book = assemble_corpus("data/g*.txt", stem_words=False, pos_tag=True)
+sentences_book = assemble_corpus(game_glob3, pos_tag=True)
 sentences_zork = assemble_corpus(game_glob2, pos_tag=True)
 
 sentences_book.extend(sentences_zork)
@@ -236,7 +240,7 @@ if True:
 
     word2vec_book.train(sentences_book,
                         total_examples=len(word2vec_book.wv.vocab),
-                        epochs=1)
+                        epochs=50)
 
     if not os.path.exists("trained"):
         os.makedirs("trained")

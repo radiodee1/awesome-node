@@ -38,16 +38,16 @@ if __name__ == '__main__':
     wiki = WikiCorpus(inp, lemmatize=False, dictionary={})
     for text in wiki.get_texts():
         if six.PY3:
-            output.write(b' '.join(text).decode('utf-8') + '\n')
+            output.write(b' '.join(text).decode('utf-8') + '.\n')
         # ###another method###
         #    output.write(
         #            space.join(map(lambda x:x.decode("utf-8"), text)) + '\n')
         else:
-            output.write(space.join(text).encode('utf-8') + "\n")
+            output.write(space.join(text).encode('utf-8') + ".\n")
         i = i + 1
-        if (i % 10000 == 0):
+        if (i % 2500 == 0):
             logger.info("Saved " + str(i) + " articles")
-            if i > 5 * 10000: break
+            if i > 1 * 2500 or True: break
 
     output.close()
     logger.info("Finished Saved " + str(i) + " articles")
