@@ -148,7 +148,7 @@ game_glob1 = "data/zork1-output.txt" ## actual commands processed
 game_glob2 = "data/z*.txt" ## not for good game corpus
 game_glob3 = "data/wiki*.txt"
 
-if False:
+if True:
     sentences_game = assemble_corpus(game_glob1,    stem_words=False)
 
 sentences_zork = assemble_corpus(game_glob2, pos_tag=False)
@@ -184,7 +184,7 @@ downsampling =  0#1e-3
 seed = 1
 
 ###################################################
-if False:
+if True:
     word2vec_game = w2v.Word2Vec(
         sg=1,
         seed=seed,

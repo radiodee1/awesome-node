@@ -14,3 +14,4 @@ $ ./trim_words.sh input-walkthrough.txt > zork1-output.txt
 $ mv zork1-output.txt ../data/.
 $ cd ..
 ````
+If you come across other zork walkthrough files and you want to use them in some way, they can be added to the wikipedia corpus by putting them in the `data` folder. By convention they must be named with a starting 'z' and the ending suffix '.txt' so that the program knows to read the files during training.
