@@ -8,7 +8,7 @@ It is important to find an actual transcript of game play for the training of th
 
 The second version of the shell script in this folder also adds a keyword to the end of the sentences. This is so that they are labled somehow for the w2v program. This second version of the script is probably not needed for most people.
 
-A sample run of the most useful script is shown below. It assumes that the input file, called input-walkthrough.txt, is in this directory.
+A sample run of the most useful script is shown below. It assumes that the input file, called input-walkthrough.txt, is in this directory. It should ultimately be moved to the `data` directory.
 ````
 $ ./trim_words.sh input-walkthrough.txt > zork1-output.txt
 $ mv zork1-output.txt ../data/.
