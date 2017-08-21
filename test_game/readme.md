@@ -13,10 +13,14 @@ $ cd textplayer
 $ git clone https://github.com/DavidGriffith/frotz.git
 $ cd frotz
 $ make dumb
+$ cd ..
 ```
 setup the directory structure:
 ```
 $ ./do_make_dir.sh
 
 ```
-
+url for wiki material. put resulting file in 'data/' dir. Try this url with the `wget` command or your favorite web browser. Should take approx 2 hrs.
+````
+https://dumps.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2
+````
