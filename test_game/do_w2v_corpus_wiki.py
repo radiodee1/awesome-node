@@ -34,6 +34,7 @@ if __name__ == '__main__':
     space = " "
     i = 0
 
+    index = 0
     output = open(outp, 'w')
     wiki = WikiCorpus(inp, lemmatize=False, dictionary={})
     for text in wiki.get_texts():
@@ -47,7 +48,9 @@ if __name__ == '__main__':
         i = i + 1
         if (i % 2500 == 0):
             logger.info("Saved " + str(i) + " articles")
-            if i > 1 * 2500 or True: break
+            index += 1
+            if index >= 3  : break
+
 
     output.close()
     logger.info("Finished Saved " + str(i) + " articles")

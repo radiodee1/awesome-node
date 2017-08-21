@@ -11,7 +11,7 @@ class Game:
         self.word2vec_game = None
         self.word2vec_book = None
 
-        self.words_last = ['direction','direction']
+        self.words_last = []
         self.gameplay_flag = True
         self.words_quit = ['q','quit','exit','save']
                             # 'save' was added so that frotz would not do that
@@ -20,7 +20,7 @@ class Game:
                            'look','l',
                            'northeast','ne','northwest','nw','southeast','se','southwest','sw',
                            'get','take','drop','leave', 'up','u','down','d',
-                           'go','inventory','i','walk']
+                           'go','inventory','i','walk','move']
         self.words_suggested = []
 
         self.bool_show_lists = False
@@ -71,8 +71,14 @@ class Game:
 
         if True:
             for word in input:
-                self.resolve_word(word,debug_msg=False)
+                self.resolve_word(word,debug_msg=True)
                 #self.resolve_word(i[1])
+            for word in self.words_last:
+                self.resolve_word(word, debug_msg=False)
+            #print (input, self.words_last)
+
+            self.words_last = input
+
 
         pass
 
@@ -87,6 +93,13 @@ class Game:
             w.extend( self.word2vec_book.wv.most_similar(word, topn=20))
             #if len(w) > 0 : results.append(w[0][0])
             if debug_msg: print(w )
+            for i in w:
+                if i[0] in self.words_game:
+                    if not i in results:
+                        results.append(i)
+                    if debug_msg: print (i[0], "first-pass")
+                pass
+
             for i in w:
                 #print("--" + i[0])
                 try:
