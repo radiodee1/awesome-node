@@ -55,14 +55,14 @@ def similar_book_to_game(word):
     return out
 
 
-z = nearest_similarity_cosmul(word2vec_book,"gone", "VBN", "VBP")
+#z = nearest_similarity_cosmul(word2vec_book,"gone", "VBN", "VBP")
 
-similar_book_to_game(z)
+#similar_book_to_game(z)
 
 
 print ("---------------")
 print ("book")
-nearest_similarity_cosmul(word2vec_book,"man", "king", "queen")
+nearest_similarity_cosmul(word2vec_book,"woman", "king", "queen")
 
 nearest_similarity_cosmul(word2vec_book,"north","south", "west")
 

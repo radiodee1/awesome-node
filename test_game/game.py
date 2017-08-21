@@ -71,7 +71,7 @@ class Game:
 
         if True:
             for word in input:
-                self.resolve_word(word,debug_msg=True)
+                self.resolve_word(word,debug_msg=False)
                 #self.resolve_word(i[1])
             for word in self.words_last:
                 self.resolve_word(word, debug_msg=False)

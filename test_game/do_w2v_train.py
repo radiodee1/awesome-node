@@ -147,10 +147,13 @@ def assemble_corpus(glob_txt, stem_words=False, sentence_label="", pos_tag=False
 game_glob1 = "data/zork1-output.txt"
 game_glob2 = "data/z*.txt" ## not for good game corpus
 game_glob3 = "data/wiki*.txt"
-sentences_game = assemble_corpus(game_glob1,    stem_words=False)
-sentences_zork = assemble_corpus(game_glob2, pos_tag=True)
 
 if False:
+    sentences_game = assemble_corpus(game_glob1,    stem_words=False)
+
+sentences_zork = assemble_corpus(game_glob2, pos_tag=False)
+
+if True:
     sentences_book = assemble_corpus(game_glob3, pos_tag=False)
 
     sentences_book.extend(sentences_zork)
@@ -181,7 +184,7 @@ downsampling =  0#1e-3
 seed = 1
 
 ###################################################
-if True:
+if False:
     word2vec_game = w2v.Word2Vec(
         sg=1,
         seed=seed,
@@ -194,7 +197,7 @@ if True:
 
     word2vec_game.build_vocab(sentences_game)
 
-    print("Word2Vec game vocabulary length:", len(word2vec_game.wv.vocab))
+    print("stage: Word2Vec game vocabulary length:", len(word2vec_game.wv.vocab))
 
     print ("stage: train")
 
@@ -229,7 +232,7 @@ downsampling = 0 #1e-3
 #deterministic, good for debugging
 seed = 1
 
-if False:
+if True:
     word2vec_book = w2v.Word2Vec(
         sg=1,
         seed=seed,
@@ -242,7 +245,7 @@ if False:
 
     word2vec_book.build_vocab(sentences_book)
 
-    print("Word2Vec book vocabulary length:", len(word2vec_book.wv.vocab))
+    print("stage: Word2Vec book vocabulary length:", len(word2vec_book.wv.vocab))
 
     print ("stage: train")
 
