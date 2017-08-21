@@ -7,3 +7,10 @@ If you start out with an accurate transcription of the walkthrough, you will hav
 It is important to find an actual transcript of game play for the training of the word2vec program. There are many types of walkthrough out there. Try to get a real transcription of game play.
 
 The second version of the shell script in this folder also adds a keyword to the end of the sentences. This is so that they are labled somehow for the w2v program. This second version of the script is probably not needed for most people.
+
+A sample run of the most useful script is shown below. It assumes that the input file, called input-walkthrough.txt, is in this directory.
+````
+$ ./trim_words.sh input-walkthrough.txt > zork1-output.txt
+$ mv zork1-output.txt ../data/.
+$ cd ..
+````
