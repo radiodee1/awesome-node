@@ -42,8 +42,15 @@ You should find a transcript of gameplay on line and convert it into a text file
 A code sample is below.
 ````
 $ git clone https://github.com/radiodee1/awesome-node.git
+$ cd awesome-node/test_game/
+$ git clone https://github.com/danielricks/textplayer.git
+$ cd textplayer
+$ git clone https://github.com/DavidGriffith/frotz.git
+$ cd frotz
+$ make dumb
+$ cd ..
 $ ./do_make_dir.sh
-$ cd awesome-node/test-game/data
+$ cd data
 $ **download or copy txt files here as zork1-transcript.txt**
 $ ../scripts/trim_words.sh zork1-transcript.txt > zork1-output.txt
 $ ../scripts/trim_words_list.sh zork1-transcript.txt > list.txt
