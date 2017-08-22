@@ -22,8 +22,8 @@ import gensim.models.word2vec as w2v
 
 
 
-nltk.download("punkt")
-nltk.download("stopwords")
+#nltk.download("punkt")
+#nltk.download("stopwords")
 
 
 #########################################
@@ -95,7 +95,7 @@ def assemble_corpus(glob_txt, stem_words=False, sentence_label="", pos_tag=False
 
     corpus_raw = u""
     for book_filename in book_filenames:
-        print("Reading '{0}'...".format(book_filename))
+        print("stage: Reading '{0}'...".format(book_filename))
         with codecs.open(book_filename, "r", "utf-8") as book_file:
             corpus_raw += book_file.read()
         print("stage: Corpus is now {0} characters long".format(len(corpus_raw)))
@@ -184,7 +184,7 @@ downsampling =  0#1e-3
 seed = 1
 
 ###################################################
-if True:
+if False:
     word2vec_game = w2v.Word2Vec(
         sg=1,
         seed=seed,
@@ -232,7 +232,7 @@ downsampling = 0 #1e-3
 #deterministic, good for debugging
 seed = 1
 
-if True:
+if False:
     word2vec_book = w2v.Word2Vec(
         sg=1,
         seed=seed,
