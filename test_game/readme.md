@@ -46,7 +46,7 @@ $ ./do_make_dir.sh
 $ cd awesome-node/test-game/data
 $ **download or copy txt files here as zork1-transcript.txt**
 $ ../scripts/trim_words.sh zork1-transcript.txt > zork1-output.txt
-$ ../scripts/trim_words.sh zork1-transcript.txt > list.txt
+$ ../scripts/trim_words_list.sh zork1-transcript.txt > list.txt
 $ **download more zork files here saved as zork1-something.txt **
 $ cd ..
 $ ./do_make_nltk_data.sh
