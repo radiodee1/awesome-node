@@ -65,6 +65,7 @@ print ("book")
 nearest_similarity_cosmul(word2vec_book,"woman", "king", "queen")
 
 nearest_similarity_cosmul(word2vec_book,"north","south", "west")
+nearest_similarity_cosmul(word2vec_book,"west", "northwest", "northeast")
 
 print ("game")
 nearest_similarity_cosmul(word2vec_game,"west", "northwest", "northeast")
@@ -74,8 +75,8 @@ print()
 
 #nearest_similarity_cosmul(word2vec_game,"game","gone","west")
 #nearest_similarity_cosmul(word2vec_game,"game","west","gone")
-nearest_similarity_cosmul(word2vec_book,"game","look","out")
-nearest_similarity_cosmul(word2vec_book,"game","inventory","book")
+#nearest_similarity_cosmul(word2vec_book,"game","look","out")
+#nearest_similarity_cosmul(word2vec_book,"game","inventory","book")
 
 similar_book_to_game("west")
 similar_book_to_game("gone")

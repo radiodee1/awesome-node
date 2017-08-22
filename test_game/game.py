@@ -11,6 +11,7 @@ class Game:
         self.word2vec_game = None
         self.word2vec_book = None
 
+        self.game = None
         self.words_last = []
         self.gameplay_flag = True
         self.words_quit = ['q','quit','exit','save']
@@ -28,11 +29,25 @@ class Game:
     def run(self):
         self.game  = player.TextPlayer("zork1.z5")
         self.load_w2v()
+        self.read_word_list()
 
 
     def load_w2v(self):
         self.word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
         self.word2vec_book = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
+
+    def read_word_list(self):
+        if os.path.isfile("data/list.txt"):
+            f = open("data/list.txt","r")
+            for line in f:
+                line = line.strip().lower()
+                for word in line.split():
+                    if not word in self.words_game:
+                        self.words_game.append(word)
+            f.close()
+        #print (self.words_game)
+        pass
+
 
     def play_loop(self):
         start_info = self.game.run()
@@ -132,10 +147,10 @@ class Game:
 
         self.resolve_word(word)
 
-    def nearest_similarity_book(self, start1, end1, end2):
+    def nearest_similarity(self, model, start1, end1, end2):
         start2 = ""
         try:
-            similarities = self.word2vec_book.most_similar_cosmul(
+            similarities = model.most_similar_cosmul(
                 positive=[end2.lower(), start1.lower()],
                 negative=[end1.lower()],
                 topn=10
@@ -148,21 +163,7 @@ class Game:
             pass
         return start2
 
-    def nearest_similarity_game(self, start1, end1, end2):
-        start2 = ""
-        try:
-            similarities = self.word2vec_game.most_similar_cosmul(
-                positive=[end2.lower(), start1.lower()],
-                negative=[end1.lower()],
-                topn=10
-            )
-            self.print_list(similarities, heading= similarities[0][0] +"-(game)??")
-            start2 = similarities[0][0]
-            print("{start1} is related to {end1}, as {start2} is related to {end2} in games".format(**locals()))
-        except:
-            print ("not similar enough?")
-            pass
-        return start2
+
 
     def print_list(self, list, heading="list", to_screen=True, add_to_global=False):
         results = list
