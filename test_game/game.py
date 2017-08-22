@@ -18,7 +18,7 @@ class Game:
                             # 'save' was added so that frotz would not do that
 
         self.words_game = ['north','n','south','s','west','w','east','e',
-                           'look','l',
+                           'look','l','at',
                            'northeast','ne','northwest','nw','southeast','se','southwest','sw',
                            'get','take','drop','leave', 'up','u','down','d',
                            'go','inventory','i','walk','move']
