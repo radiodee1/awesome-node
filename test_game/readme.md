@@ -1,20 +1,12 @@
 ## Notes:
 
 Refer to these other projects.
-```
-see: https://github.com/danielricks/textplayer
-also see: $ git clone https://github.com/DavidGriffith/frotz.git
-```
 
-building frotz for this project:
-```
-$ git clone https://github.com/danielricks/textplayer.git
-$ cd textplayer
-$ git clone https://github.com/DavidGriffith/frotz.git
-$ cd frotz
-$ make dumb
-$ cd ..
-```
+* https://github.com/danielricks/textplayer
+* https://github.com/DavidGriffith/frotz.git
+
+
+
 setup the directory structure:
 ```
 $ ./do_make_dir.sh
@@ -22,12 +14,14 @@ $ ./do_make_dir.sh
 ```
 This is the url for wiki material. put resulting file in 'data/' dir. Try this url with the `wget` command or your favorite web browser. Should take approx 2 hrs.
 ````
-https://dumps.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2
+$ wget https://dumps.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2
 ````
 
-* Download this project and follow the instructions above to build `frotz` for use by the python scripts in this project. You will want to build the `textplayer` project also for everything to work. You need a copy of the file `zork1.z5` in the `textplayer/games` folder. That is the file for the actual game.
-* Run the `do_make_nltk_data.sh` script. This will install all the nltk resources in a central location on your computer. You need this for the training stage.
+## General:
+* Download this project.  Run the `do_make_dir.sh` script.
+* Run the `do_make_nltk_data.sh` script. This will install all the nltk resources in a central location on your computer. You need this for the training stage. This script will ask for your administrator password.
 * Download the wikipedia file and put it in the `data` directory. This should take 2 or more hours.
+* Search the internet for zork1 transcripts and walkthroughs. There are many of these online. You want at least one complete transcript of a complete game. Some walkthrouugh files contain general instruction and some have literal transcripts. For the sake of this project you want at least one literal transcript. Run the `trim_words_list.sh` script on the file to create a `list.txt` file.
 * Run the script `do_w2v_corpus_wiki.py` after that. This will separate out an approximately 185M text file. Keep this file in the `data` folder.
 * Run the script `do_w2v_train.py` first. This should take an hour and a half. After that your models should be trained. Files for the two models should be in the `trained` folder. 
 * Launch the game using the `launch_game.sh` script. 
@@ -39,6 +33,7 @@ Other files containing text on zork1, like the unprocessed walkthrough or other 
 
 You should find a transcript of gameplay on line and convert it into a text file and run it through the script, in the script directory, called `trim_words_list.sh`. The output of this script should be saved to a file called `list.txt` and put in the `data` folder. This helps the python code to determine the vocabulary for the actual game.
 
+## Example Setup:
 A code sample is below.
 ````bash
 $ git clone https://github.com/radiodee1/awesome-node.git
