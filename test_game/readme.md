@@ -40,7 +40,7 @@ Other files containing text on zork1, like the unprocessed walkthrough or other 
 You should find a transcript of gameplay on line and convert it into a text file and run it through the script, in the script directory, called `trim_words_list.sh`. The output of this script should be saved to a file called `list.txt` and put in the `data` folder. This helps the python code to determine the vocabulary for the actual game.
 
 A code sample is below.
-````
+````bash
 $ git clone https://github.com/radiodee1/awesome-node.git
 $ cd awesome-node/test_game/
 $ ./do_make_dir.sh
