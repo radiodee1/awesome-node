@@ -12,7 +12,7 @@ setup the directory structure:
 $ ./do_make_dir.sh
 
 ```
-This is the url for wiki material. put resulting file in 'data/' dir. Try this url with the `wget` command or your favorite web browser. Should take approx 2 hrs.
+This is the url for wiki material. put resulting file in `data` dir. Try this url with the `wget` command or your favorite web browser. Should take approx 2 hrs.
 ````
 $ wget https://dumps.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2
 ````
