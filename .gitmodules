@@ -1,6 +1,0 @@
-[submodule "test_game/textplayer"]
-	path = test_game/textplayer
-	url = https://github.com/danielricks/textplayer.git
-[submodule "test_game/frotz"]
-	path = test_game/frotz
-	url = https://github.com/DavidGriffith/frotz.git
