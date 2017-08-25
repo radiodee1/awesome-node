@@ -22,10 +22,6 @@ import gensim.models.word2vec as w2v
 
 
 
-#nltk.download("punkt")
-#nltk.download("stopwords")
-
-
 #########################################
 
 def sentence_to_wordlist(raw, sentence_label="", pos_tag=False):
@@ -155,7 +151,7 @@ sentences_zork = assemble_corpus(game_glob2, pos_tag=False)
 
 if True:
     sentences_book = []
-    #sentences_book = assemble_corpus(game_glob3, pos_tag=False)
+    sentences_book = assemble_corpus(game_glob3, pos_tag=False)
 
     sentences_book.extend(sentences_zork)
 
