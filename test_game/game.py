@@ -92,6 +92,7 @@ class Game:
                 self.resolve_word(word, debug_msg=False)
             #print (input, self.words_last)
 
+            print (self.resolve_word_closest(self.words_suggested,input))
             self.words_last = input
 
 
@@ -135,6 +136,29 @@ class Game:
         self.print_list(results,heading="resolve-"+ word, add_to_global=True, to_screen=self.bool_show_lists)
         if self.bool_show_lists: print ("done resolve")
         pass
+
+    def resolve_word_closest(self, list_sugested, list_command):
+        list_out = []
+        #
+        #
+        for word in list_command:
+            if not  (word in self.words_game):
+                num_best = 0
+                word_best = ""
+                #
+                for near in list_sugested:
+                    #
+                    num = self.word2vec_book.wv.similarity(word, near)
+                    print (word, near, num)
+                    if num > num_best:
+                        num_best = num
+                        word_best = near
+                    pass
+                list_out.append(word_best)
+                pass
+
+            pass
+        return list_out
 
     def most_similar(self, word):
         results = []

@@ -41,6 +41,17 @@ points = pd.DataFrame(
 print (points)
 #points.head[10]
 
+if True:
+    f = open("data/points.csv", "w")
+    #z = 0
+    for i in word2vec_game.wv.vocab :
+        ii = word2vec_game.wv.vocab[i].index
+        print (i, all_word_vectors_matrix_2d[ii][0], all_word_vectors_matrix_2d[ii][1])
+        f.write(i +","+ str(all_word_vectors_matrix_2d[ii][0])+","+ str(all_word_vectors_matrix_2d[ii][1])+"\n")
+        #z+=1
+    f.close()
+
+
 sns.set_context("poster")
 points.plot.scatter("x", "y", s=10, figsize=(20, 12))
 

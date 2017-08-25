@@ -154,9 +154,11 @@ if True:
 sentences_zork = assemble_corpus(game_glob2, pos_tag=False)
 
 if True:
-    sentences_book = assemble_corpus(game_glob3, pos_tag=False)
+    sentences_book = []
+    #sentences_book = assemble_corpus(game_glob3, pos_tag=False)
 
     sentences_book.extend(sentences_zork)
+
     sentences_book.extend(test)
 
 #print (sentences_book)
@@ -232,7 +234,7 @@ downsampling = 0 #1e-3
 #deterministic, good for debugging
 seed = 1
 
-if False:
+if True:
     word2vec_book = w2v.Word2Vec(
         sg=1,
         seed=seed,
