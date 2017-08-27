@@ -75,7 +75,7 @@ if False:
 
 ###########################################
 
-def assemble_corpus(glob_txt, stem_words=False, sentence_label="", pos_tag=False):
+def assemble_corpus(glob_txt, stem_words=False, sentence_label="", pos_tag=False, tweet_tag=False):
     pass
 
     #add everything once
@@ -99,24 +99,37 @@ def assemble_corpus(glob_txt, stem_words=False, sentence_label="", pos_tag=False
 
     pre_sent = sent_tokenize(corpus_raw)
 
-    tokenizer = TweetTokenizer()
+    corpus_raw = u""
 
-    print ("stage: tweet")
+    #########################
 
-    post_sent = []
-    for i in pre_sent:
-        raw_sentences = tokenizer.tokenize(i) ##tweet style
+    if tweet_tag:
+        tokenizer = TweetTokenizer()
 
-        post_sent.append(raw_sentences)
-        #print (raw_sentences)
+        print ("stage: tweet")
 
-    raw_sentences = post_sent
+        post_sent = []
+        for i in pre_sent:
+            raw_sentences = tokenizer.tokenize(i) ##tweet style
+
+            post_sent.append(raw_sentences)
+            #print (raw_sentences)
+
+        raw_sentences = post_sent
+        post_sent = []
+
+    else:
+        raw_sentences = pre_sent
+        pre_sent = []
+
+    ###########################
 
     if pos_tag: print ("stage: pos tagging")
 
     sentences = []
     for raw_sentence in raw_sentences:
         if len(raw_sentence) > 0:
+            if not type(raw_sentence) == list: raw_sentence = raw_sentence.split()
             z = sentence_to_wordlist(raw_sentence, sentence_label=sentence_label, pos_tag=pos_tag)
             if len(z) > 0:
                 sentences.append(z)
@@ -210,7 +223,7 @@ if False:
 
 #exit()
 ############################################
-num_features =  100 #  100
+num_features =  300 #  100
 # Minimum word count threshold.
 min_word_count = 1 # 3
 

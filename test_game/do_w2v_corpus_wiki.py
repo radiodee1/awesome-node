@@ -48,8 +48,9 @@ if __name__ == '__main__':
         i = i + 1
         if (i % 2500 == 0):
             logger.info("Saved " + str(i) + " articles")
+            #index += 1
+            if index >= 5  : break
             index += 1
-            if index >= 6  : break
 
 
     output.close()
