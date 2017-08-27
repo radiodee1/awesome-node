@@ -216,7 +216,7 @@ class Game:
             ### add to list??
 
     def print_list_suggested(self):
-        #results = self.words_suggested
+        
         results = []
         for i in self.words_suggested:
             if i in self.words_input or i in self.words_correct: continue
