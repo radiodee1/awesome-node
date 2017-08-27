@@ -23,7 +23,9 @@ class Game:
                            'get','take','drop','leave', 'up','u','down','d',
                            'go','inventory','i','walk','move']
         self.words_suggested = []
+        self.words_input = []
 
+        self.words_correct = []
         self.bool_show_lists = False
 
     def run(self):
@@ -62,6 +64,7 @@ class Game:
                 self.gameplay_flag = True #False
                 self.words_suggested = []
                 self.parse_input(command_in.split())
+                self.words_input = command_in.split()
                 self.print_list_suggested()
 
             else : self.gameplay_flag = True
@@ -92,7 +95,8 @@ class Game:
                 self.resolve_word(word, debug_msg=False)
             #print (input, self.words_last)
 
-            print (self.resolve_word_closest(self.words_suggested,input))
+            self.words_correct = self.resolve_word_closest(self.words_suggested, input)
+
             self.words_last = input
 
 
@@ -118,6 +122,7 @@ class Game:
 
             for i in w:
                 #print("--" + i[0])
+                #if i[0] in self.words_input: continue
                 try:
                     vec = self.word2vec_game.wv.most_similar(i[0])
                     results.extend(vec)
@@ -129,6 +134,7 @@ class Game:
                 except:
                     pass
 
+
             #vec = self.word2vec_book.wv[word]
             #results = self.word2vec_game.wv.similar_by_vector(vec, topn=10)
         except : #ZeroDivisionError:
@@ -137,7 +143,7 @@ class Game:
         if self.bool_show_lists: print ("done resolve")
         pass
 
-    def resolve_word_closest(self, list_sugested, list_command):
+    def resolve_word_closest(self, list_sugested, list_command, debug_msg=False):
         list_out = []
         #
         #
@@ -147,12 +153,16 @@ class Game:
                 word_best = ""
                 #
                 for near in list_sugested:
-                    #
-                    num = self.word2vec_book.wv.similarity(word, near)
-                    print (word, near, num)
-                    if num > num_best:
-                        num_best = num
-                        word_best = near
+                    ######
+                    try:
+                        num = self.word2vec_book.wv.similarity(word, near)
+                        if debug_msg: print (word, near, num)
+                        if num > num_best:
+                            num_best = num
+                            word_best = near
+                    except:
+                        pass
+                    ######
                     pass
                 list_out.append(word_best)
                 pass
@@ -201,12 +211,21 @@ class Game:
                 else: print (" xxx ", end="")
                 print (i[0])
             if i[0] in self.words_game and add_to_global and i[0] not in self.words_suggested:
+                #if not i[0] in self.words_input and not i[0] in self.words_correct:
                 self.words_suggested.append(i[0])
             ### add to list??
 
     def print_list_suggested(self):
-        results = self.words_suggested
+        #results = self.words_suggested
+        results = []
+        for i in self.words_suggested:
+            if i in self.words_input or i in self.words_correct: continue
+            results.append(i)
+
+        if len(results) == 0 : return
         print ("--suggested--")
+        if len(self.words_correct) > 0 and len(self.words_correct[0]) > 0 :
+            print ("try: '"+ self.words_correct[0]+ "', or:" )
         for i in range(len(results)):
             if i < len(results) - 1:
                 print (results[i], " , ", end="")
