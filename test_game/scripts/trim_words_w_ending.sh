@@ -3,13 +3,13 @@
 if [[ $# == 0 ]];
 then
     echo " used for stripping command type text from an adventure game transcript."
-    echo " type ./trim_words.sh textfile.txt > output.txt "
+    echo " type ./trim_words_w_ending.sh textfile.txt > output.txt "
     exit
 fi
 
 readarray -t my_array < $1
 
-ENDING=" - game"
+ENDING="-z"
 
 for line in "${my_array[@]}"; do
   # process the lines
@@ -19,7 +19,14 @@ for line in "${my_array[@]}"; do
   
     if [[ $line == ">"* ]];
     then
-        echo $line $ENDING"."
+    line="${line//>/}"
+    COMMAND=""
+        for word in $line; do
+            COMMAND=$COMMAND" "$word$ENDING
+            COMMAND="${COMMAND//$'\n'}"
+        done
+    
+        echo $COMMAND"."
     else
         echo $line"."
     fi
