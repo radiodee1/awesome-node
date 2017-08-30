@@ -14,25 +14,31 @@ import matplotlib.pyplot as plt
 
 import seaborn as sns
 
-
+plot_words = True
+find_z_words = True
+find_all_words = True
 
 if True:
     x = []
     y = []
+    z = []
     f = open("data/points.csv", "r")
     #z = 0
     for line in f:
         l = line.split(",")
-        x.append(l[1].strip())
-        y.append(l[2].strip())
+        if (l[0].strip().endswith("-z") and find_z_words) or find_all_words:
+            x.append(l[1].strip())
+            y.append(l[2].strip())
+            z.append(l[0].strip())
 
     print (x,y)
-    plt.plot(x,y, 'ro')
+    #plt.plot(x,y, 'ro',ms=0.5)
+    zz = plt.scatter(x,y, marker='o', c='b',s=3, label='word2vec')
+    
+if plot_words:
+    for i in range(len(z)):
+        plt.text(float(x[i]) + 0.005, float(y[i]) + 0.005, z[i], fontsize=12)
 
-
-
-#sns.set_context("poster")
-#points.plot.scatter("x", "y", s=10, figsize=(20, 12))
 
 plt.show()
 
