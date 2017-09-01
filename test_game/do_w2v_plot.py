@@ -42,7 +42,7 @@ print (points)
 #points.head[10]
 
 if True:
-    f = open("data/points.csv", "w")
+    f = open("trained/points.csv", "w")
     #z = 0
     for i in word2vec_game.wv.vocab :
         ii = word2vec_game.wv.vocab[i].index
@@ -51,6 +51,7 @@ if True:
         #z+=1
     f.close()
 
+exit()
 
 sns.set_context("poster")
 points.plot.scatter("x", "y", s=10, figsize=(20, 12))
