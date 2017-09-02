@@ -11,11 +11,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="do_w2v_train.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="do_w2v_train.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/do_w2v_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4428">
-              <caret line="264" column="31" lean-forward="false" selection-start-line="264" selection-start-column="31" selection-end-line="264" selection-end-column="31" />
+            <state relative-caret-position="227">
+              <caret line="227" column="18" lean-forward="false" selection-start-line="227" selection-start-column="18" selection-end-line="227" selection-end-column="18" />
               <folding>
                 <element signature="e#19#83#0" expanded="true" />
               </folding>
@@ -59,7 +59,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="do_w2v_plot.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="do_w2v_plot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/do_w2v_plot.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="360">
@@ -144,11 +144,11 @@
         <option value="$PROJECT_DIR$/scripts/readme.md" />
         <option value="$PROJECT_DIR$/readme.md" />
         <option value="$PROJECT_DIR$/do_w2v_corpus_wiki.py" />
-        <option value="$PROJECT_DIR$/do_w2v_train.py" />
         <option value="$PROJECT_DIR$/game.py" />
         <option value="$PROJECT_DIR$/do_w2v_test.py" />
         <option value="$PROJECT_DIR$/do_w2v_plot_csv.py" />
         <option value="$PROJECT_DIR$/do_w2v_plot.py" />
+        <option value="$PROJECT_DIR$/do_w2v_train.py" />
       </list>
     </option>
   </component>
@@ -173,7 +173,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -207,6 +206,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -624,16 +624,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/do_w2v_train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4428">
-          <caret line="264" column="31" lean-forward="false" selection-start-line="264" selection-start-column="31" selection-end-line="264" selection-end-column="31" />
-          <folding>
-            <element signature="e#19#83#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/game.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3870">
@@ -670,6 +660,16 @@
           <caret line="53" column="5" lean-forward="false" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
           <folding>
             <element signature="e#19#66#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/do_w2v_train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="227" column="18" lean-forward="false" selection-start-line="227" selection-start-column="18" selection-end-line="227" selection-end-column="18" />
+          <folding>
+            <element signature="e#19#83#0" expanded="true" />
           </folding>
         </state>
       </provider>

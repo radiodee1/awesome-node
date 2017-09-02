@@ -243,6 +243,8 @@ downsampling = 0 #1e-3
 #deterministic, good for debugging
 seed = 1
 
+epochs = 50
+
 if True:
     word2vec_book = w2v.Word2Vec(
         sg=1,
@@ -262,7 +264,7 @@ if True:
 
     word2vec_book.train(sentences_book,
                         total_examples=len(word2vec_book.wv.vocab),
-                        epochs=50)
+                        epochs=epochs)
 
     if not os.path.exists("trained"):
         os.makedirs("trained")
