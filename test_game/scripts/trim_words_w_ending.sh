@@ -9,7 +9,7 @@ fi
 
 readarray -t my_array < $1
 
-ENDING="-z"
+ENDING="zzz"
 
 for line in "${my_array[@]}"; do
   # process the lines

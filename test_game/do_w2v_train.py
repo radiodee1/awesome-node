@@ -171,6 +171,11 @@ if True:
     sentences_book.extend(test)
 
 #print (sentences_book)
+
+if False:
+    print ("e text")
+    print (assemble_corpus("data/zork1-e*.txt", pos_tag=False))
+
 #exit()
 ####################################################
 
