@@ -15,9 +15,10 @@ word2vec_book = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
 
 
 
-print ("\nwest")
-print (word2vec_game.most_similar("west") )
-
+print ("\nwestzzz")
+print (word2vec_book.most_similar("westzzz", topn=30) )
+print ("west")
+print (word2vec_book.most_similar("west", topn=30))
 
 print ()
 
@@ -66,7 +67,7 @@ nearest_similarity_cosmul(word2vec_book,"man", "king", "queen")
 
 nearest_similarity_cosmul(word2vec_book,"north","south", "west")
 nearest_similarity_cosmul(word2vec_book,"west", "northwest", "northeast")
-#nearest_similarity_cosmul(word2vec_book,"go","west","south")
+nearest_similarity_cosmul(word2vec_book,"went","go","gone")
 
 print ("game")
 nearest_similarity_cosmul(word2vec_game,"west", "northwest", "northeast")
@@ -79,6 +80,7 @@ print()
 #nearest_similarity_cosmul(word2vec_book,"game","look","out")
 #nearest_similarity_cosmul(word2vec_book,"game","inventory","book")
 
+'''
 similar_book_to_game("west")
 similar_book_to_game("gone")
 similar_book_to_game("up")
@@ -86,3 +88,4 @@ similar_book_to_game("look")
 
 similar_book_to_game("book")
 similar_book_to_game("leaflet")
+'''
