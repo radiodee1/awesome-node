@@ -156,6 +156,7 @@ def assemble_corpus(glob_txt, stem_words=False, sentence_label="", pos_tag=False
 game_glob1 = "data/zork1-output.txt" ## actual commands processed
 game_glob2 = "data/z*.txt" ## not for good game corpus
 game_glob3 = "data/wiki*.txt"
+game_glob4 = "data/zork1-e*.txt"
 
 if True:
     sentences_game = assemble_corpus(game_glob1,    stem_words=False)
@@ -166,8 +167,8 @@ if True:
     sentences_book = []
     sentences_book = assemble_corpus(game_glob3, pos_tag=False)
 
+if True:
     sentences_book.extend(sentences_zork)
-
     sentences_book.extend(test)
 
 #print (sentences_book)
@@ -232,7 +233,7 @@ if False:
 ############################################
 num_features =  300 #  100
 # Minimum word count threshold.
-min_word_count = 2 # 3
+min_word_count = 3 # 3
 
 # Number of threads to run in parallel.
 #more workers, faster we train

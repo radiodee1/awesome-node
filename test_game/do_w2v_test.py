@@ -15,10 +15,10 @@ word2vec_book = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
 
 
 
-print ("\nwestzzz")
-print (word2vec_book.most_similar("westzzz", topn=50) )
+print ("\ngo")
+print (word2vec_book.most_similar("go", topn=10) )
 print ("went")
-print (word2vec_book.most_similar("went", topn=30))
+print (word2vec_book.most_similar("went", topn=60))
 
 print ()
 
@@ -79,14 +79,22 @@ nearest_similarity_cosmul(word2vec_book,"man", "king", "queen")
 
 nearest_similarity_cosmul(word2vec_book,"north","south", "west")
 nearest_similarity_cosmul(word2vec_book,"west", "northwest", "northeast")
-nearest_similarity_cosmul(word2vec_book,"going","west", "west")
-nearest_similarity(word2vec_book,"going","west", "west")
+nearest_similarity_cosmul(word2vec_book,"go","west", "west")
+#nearest_similarity(word2vec_book,"going","west", "west")
 
 #print ("game")
 #nearest_similarity_cosmul(word2vec_game,"west", "northwest", "northeast")
 #nearest_similarity_cosmul(word2vec_game,"north","south", "west")
 
 print()
+
+print (word2vec_book.wv.similarity("go","west"))
+print (word2vec_book.wv.similarity("going","west"))
+print (word2vec_book.wv.similarity("goes","west"))
+print (word2vec_book.wv.similarity("went","west"))
+print (word2vec_book.wv.similarity("gone","west"))
+
+print (word2vec_book.wv.doesnt_match("go goes gone went going".split()))
 
 #nearest_similarity_cosmul(word2vec_game,"game","gone","west")
 #nearest_similarity_cosmul(word2vec_game,"game","west","gone")

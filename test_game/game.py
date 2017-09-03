@@ -84,8 +84,6 @@ class Game:
         self.game.quit()
 
     def parse_input(self, input):
-        #if type(input) is not list and type(input) is str:
-        #    self.most_similar(input)
 
         if True:
             for word in input:
@@ -95,7 +93,7 @@ class Game:
                 self.resolve_word(word, debug_msg=False)
             #print (input, self.words_last)
 
-            self.words_correct = self.resolve_word_closest(self.words_suggested, input)
+            self.words_correct = self.resolve_word_context(self.words_suggested, input, debug_msg=True)
 
             self.words_last = input
 
@@ -168,6 +166,61 @@ class Game:
                 pass
 
             pass
+        return list_out
+
+    def resolve_word_context(self, list_sugested, list_command, debug_msg=False):
+        list_out = []
+        #
+        try:
+            '''
+            print ("1",list_sugested)
+            j = list_sugested[:]
+            list_sugested = [self.word2vec_book.wv.doesnt_match(list_sugested)]
+            print ("2", list_sugested)
+
+            list_sugested = self.word2vec_book.wv.most_similar(list_sugested[0], topn=100)
+            print ("3",list_sugested)
+            for i in list_sugested:
+                j.append(i[0])
+            list_sugested = j
+            print("4",list_sugested)
+            '''
+            pass
+        except:
+            pass
+
+        for word in list_command:
+            if not (word in self.words_game):
+                num_best = 0
+                word_best = ""
+                #
+                #print (self.word2vec_book.wv.most_similar(word))
+                #list = []#list_command[:]
+                #list_sugested.extend(list_command)
+
+
+                for near in list_sugested:
+                    ######
+                    if True or (near in self.words_game):
+                        #print ("->"+near)
+                        #print (list)
+                        #print ( self.word2vec_book.wv.most_similar(positive=[near,word], negative=[near]))
+                        #print (self.word2vec_book.wv.doesnt_match(list_command))
+                        try:
+                            num = self.word2vec_book.wv.similarity(word, near)
+                            if debug_msg: print (word, near, num)
+                            if num > num_best:
+                                num_best = num
+                                word_best = near
+                                #word_best = word
+                        except:
+                            pass
+                    ######
+                    pass
+                list_out.append(word_best)
+                pass
+        if debug_msg: print (list_out)
+
         return list_out
 
     def most_similar(self, word):
