@@ -199,6 +199,8 @@ downsampling =  0#1e-3
 #deterministic, good for debugging
 seed = 1
 
+epochs = 500
+
 ###################################################
 if False:
     word2vec_game = w2v.Word2Vec(
@@ -219,7 +221,7 @@ if False:
 
     word2vec_game.train(sentences_game,
                         total_examples=len(word2vec_game.wv.vocab),
-                        epochs=500)
+                        epochs=epochs)
 
     if not os.path.exists("trained"):
         os.makedirs("trained")
@@ -241,7 +243,7 @@ context_size = 7 # 7
 
 # Downsample setting for frequent words.
 #0 - 1e-5 is good for this
-downsampling = 0 #1e-3
+downsampling = 1e-2 #
 
 # Seed for the RNG, to make the results reproducible.
 #random number generator

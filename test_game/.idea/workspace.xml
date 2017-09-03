@@ -14,8 +14,8 @@
       <file leaf-file-name="do_w2v_train.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/do_w2v_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="226" column="1" lean-forward="true" selection-start-line="226" selection-start-column="1" selection-end-line="226" selection-end-column="1" />
+            <state relative-caret-position="-331">
+              <caret line="223" column="37" lean-forward="false" selection-start-line="223" selection-start-column="37" selection-end-line="223" selection-end-column="37" />
               <folding>
                 <element signature="e#19#83#0" expanded="true" />
               </folding>
@@ -108,8 +108,8 @@
       <file leaf-file-name="do_w2v_test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/do_w2v_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="702">
-              <caret line="69" column="57" lean-forward="false" selection-start-line="69" selection-start-column="57" selection-end-line="69" selection-end-column="57" />
+            <state relative-caret-position="1159">
+              <caret line="81" column="61" lean-forward="false" selection-start-line="81" selection-start-column="61" selection-end-line="81" selection-end-column="61" />
               <folding>
                 <element signature="e#19#83#0" expanded="true" />
               </folding>
@@ -158,8 +158,8 @@
         <option value="$PROJECT_DIR$/do_w2v_plot.py" />
         <option value="$PROJECT_DIR$/do_w2v_corpus_wiki.py" />
         <option value="$PROJECT_DIR$/scripts/trim_words_w_ending.sh" />
-        <option value="$PROJECT_DIR$/do_w2v_train.py" />
         <option value="$PROJECT_DIR$/do_w2v_test.py" />
+        <option value="$PROJECT_DIR$/do_w2v_train.py" />
       </list>
     </option>
   </component>
@@ -184,7 +184,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -218,6 +217,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -665,8 +665,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/do_w2v_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="69" column="57" lean-forward="false" selection-start-line="69" selection-start-column="57" selection-end-line="69" selection-end-column="57" />
+        <state relative-caret-position="1159">
+          <caret line="81" column="61" lean-forward="false" selection-start-line="81" selection-start-column="61" selection-end-line="81" selection-end-column="61" />
           <folding>
             <element signature="e#19#83#0" expanded="true" />
           </folding>
@@ -675,8 +675,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/do_w2v_train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="226" column="1" lean-forward="true" selection-start-line="226" selection-start-column="1" selection-end-line="226" selection-end-column="1" />
+        <state relative-caret-position="-331">
+          <caret line="223" column="37" lean-forward="false" selection-start-line="223" selection-start-column="37" selection-end-line="223" selection-end-column="37" />
           <folding>
             <element signature="e#19#83#0" expanded="true" />
           </folding>

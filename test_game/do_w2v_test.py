@@ -16,9 +16,9 @@ word2vec_book = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
 
 
 print ("\nwestzzz")
-print (word2vec_book.most_similar("westzzz", topn=30) )
-print ("west")
-print (word2vec_book.most_similar("west", topn=30))
+print (word2vec_book.most_similar("westzzz", topn=50) )
+print ("went")
+print (word2vec_book.most_similar("went", topn=30))
 
 print ()
 
@@ -27,8 +27,23 @@ def nearest_similarity_cosmul(model, start1, end1, end2):
         positive=[end2, start1],
         negative=[end1], topn=20
     )
+
     start2 = similarities[0][0]
     print("{start1} is related to {end1}, as {start2} is related to {end2}".format(**locals()))
+    print (similarities)
+
+    return start2
+
+def nearest_similarity(model, start1, end1, end2):
+    similarities = model.most_similar(
+        positive=[end2, start1],
+        negative=[end1], topn=20
+    )
+
+    start2 = similarities[0][0]
+    print("{start1} is related to {end1}, as {start2} is related to {end2}".format(**locals()))
+    print (similarities)
+
     return start2
 
 def similar_book_to_game(word):
@@ -58,20 +73,18 @@ def similar_book_to_game(word):
 
 #z = nearest_similarity_cosmul(word2vec_book,"gone", "VBN", "VBP")
 
-#similar_book_to_game(z)
-
-
 print ("---------------")
 print ("book")
 nearest_similarity_cosmul(word2vec_book,"man", "king", "queen")
 
 nearest_similarity_cosmul(word2vec_book,"north","south", "west")
 nearest_similarity_cosmul(word2vec_book,"west", "northwest", "northeast")
-nearest_similarity_cosmul(word2vec_book,"went","go","gone")
+nearest_similarity_cosmul(word2vec_book,"going","west", "west")
+nearest_similarity(word2vec_book,"going","west", "west")
 
-print ("game")
-nearest_similarity_cosmul(word2vec_game,"west", "northwest", "northeast")
-nearest_similarity_cosmul(word2vec_game,"north","south", "west")
+#print ("game")
+#nearest_similarity_cosmul(word2vec_game,"west", "northwest", "northeast")
+#nearest_similarity_cosmul(word2vec_game,"north","south", "west")
 
 print()
 
