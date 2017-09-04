@@ -93,7 +93,7 @@ class Game:
                 self.resolve_word(word, debug_msg=False)
             #print (input, self.words_last)
 
-            self.words_correct = self.resolve_word_context(self.words_suggested, input, debug_msg=True)
+            self.words_correct = self.resolve_word_closest(self.words_suggested, input, debug_msg=False)
 
             self.words_last = input
 
