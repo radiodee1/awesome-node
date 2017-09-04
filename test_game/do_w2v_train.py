@@ -233,7 +233,7 @@ if False:
 ############################################
 num_features =  300 #  100
 # Minimum word count threshold.
-min_word_count = 3 # 3
+min_word_count = 1 # 3
 
 # Number of threads to run in parallel.
 #more workers, faster we train
