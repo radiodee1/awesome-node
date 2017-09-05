@@ -233,7 +233,7 @@ if False:
 ############################################
 num_features =  300 #  100
 # Minimum word count threshold.
-min_word_count = 1 # 3
+min_word_count = 2 # 3
 
 # Number of threads to run in parallel.
 #more workers, faster we train
@@ -251,7 +251,7 @@ downsampling = 1e-2 #
 #deterministic, good for debugging
 seed = 1
 
-epochs = 25
+epochs = 15
 
 if True:
     word2vec_book = w2v.Word2Vec(
