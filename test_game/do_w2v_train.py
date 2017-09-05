@@ -158,7 +158,7 @@ game_glob2 = "data/z*.txt" ## not for good game corpus
 game_glob3 = "data/wiki*.txt"
 game_glob4 = "data/zork1-e*.txt"
 
-if True:
+if False:
     sentences_game = assemble_corpus(game_glob1,    stem_words=False)
 
 sentences_zork = assemble_corpus(game_glob2, pos_tag=False)
@@ -167,7 +167,7 @@ if True:
     sentences_book = []
     sentences_book = assemble_corpus(game_glob3, pos_tag=False)
 
-if True:
+if False:
     sentences_book.extend(sentences_zork)
     sentences_book.extend(test)
 

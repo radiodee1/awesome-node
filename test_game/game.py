@@ -20,8 +20,9 @@ class Game:
         self.words_game = ['north','n','south','s','west','w','east','e',
                            'look','l','at',
                            'northeast','ne','northwest','nw','southeast','se','southwest','sw',
-                           'get','take','drop','leave', 'up','u','down','d',
+                           'get','take','drop','leave', 'up','u','down','d','open','close',
                            'go','inventory','i','walk','move']
+        self.words_all = []
         self.words_suggested = []
         self.words_input = []
 
@@ -39,13 +40,14 @@ class Game:
         self.word2vec_book = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
 
     def read_word_list(self):
+        self.words_all = self.words_game[:]
         if os.path.isfile("data/list.txt"):
             f = open("data/list.txt","r")
             for line in f:
                 line = line.strip().lower()
                 for word in line.split():
-                    if not word in self.words_game:
-                        self.words_game.append(word)
+                    if not word in self.words_all:
+                        self.words_all.append(word)
             f.close()
         #print (self.words_game)
         pass
@@ -60,7 +62,7 @@ class Game:
 
         while command_in not in self.words_quit:
 
-            if len(command_in.split()) > 0  and not  all( word in self.words_game for word in command_in.split() ):
+            if len(command_in.split()) > 0  and not  all( word in self.words_all for word in command_in.split() ):
                 self.gameplay_flag = True #False
                 self.words_suggested = []
                 self.parse_input(command_in.split())
