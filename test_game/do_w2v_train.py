@@ -158,7 +158,7 @@ game_glob2 = "data/z*.txt" ## not for good game corpus
 game_glob3 = "data/wiki*.txt"
 game_glob4 = "data/zork1-e*.txt"
 
-if False:
+if True:
     sentences_game = assemble_corpus(game_glob1,    stem_words=False)
 
 sentences_zork = assemble_corpus(game_glob2, pos_tag=False)
@@ -167,16 +167,16 @@ if True:
     sentences_book = []
     sentences_book = assemble_corpus(game_glob3, pos_tag=False)
 
-if False:
+if True:
     sentences_book.extend(sentences_zork)
     sentences_book.extend(test)
 
 #print (sentences_book)
 
 if False:
-    print ("e text")
-    print (assemble_corpus("data/zork1-e*.txt", pos_tag=False))
-
+    print ("o text")
+    print (assemble_corpus("data/zork1-o*.txt", pos_tag=False))
+    exit()
 #exit()
 ####################################################
 
@@ -203,7 +203,7 @@ seed = 1
 epochs = 500
 
 ###################################################
-if False:
+if True:
     word2vec_game = w2v.Word2Vec(
         sg=1,
         seed=seed,
@@ -233,7 +233,7 @@ if False:
 ############################################
 num_features =  300 #  100
 # Minimum word count threshold.
-min_word_count = 2 # 3
+min_word_count = 1 # 3
 
 # Number of threads to run in parallel.
 #more workers, faster we train

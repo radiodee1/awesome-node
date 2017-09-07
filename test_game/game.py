@@ -20,9 +20,9 @@ class Game:
         self.words_game = ['north','n','south','s','west','w','east','e',
                            'look','l','at',
                            'northeast','ne','northwest','nw','southeast','se','southwest','sw',
-                           'get','take','drop','leave', 'up','u','down','d','open','close',
-                           'go','inventory','i','walk','move']
-        self.words_all = []
+                           'get','take','drop','up','u','down','d','open','close',
+                           'go','inventory','i','walk']
+        self.words_all = [] 
         self.words_suggested = []
         self.words_input = []
 
@@ -143,16 +143,16 @@ class Game:
         if self.bool_show_lists: print ("done resolve")
         pass
 
-    def resolve_word_closest(self, list_sugested, list_command, debug_msg=False, use_ending=False):
+    def resolve_word_closest(self, list_suggested, list_command, debug_msg=False, use_ending=False):
         list_out = []
         #
         #
         for word in list_command:
-            if not  (word in self.words_game):
+            if not  (word in self.words_all):
                 num_best = 0
                 word_best = ""
                 #
-                for near in list_sugested:
+                for near in list_suggested:
                     ######
                     if use_ending: near = near + "zzz"
                     try:
@@ -169,6 +169,7 @@ class Game:
                 pass
 
             pass
+        if debug_msg: print (list_out)
         return list_out
 
 
@@ -213,7 +214,7 @@ class Game:
                     print (" --> ", end="")
                 else: print (" xxx ", end="")
                 print (i[0])
-            if i[0] in self.words_game and add_to_global and i[0] not in self.words_suggested:
+            if i[0] in self.words_all and add_to_global and i[0] not in self.words_suggested:
                 #if not i[0] in self.words_input and not i[0] in self.words_correct:
                 self.words_suggested.append(i[0])
             ### add to list??
