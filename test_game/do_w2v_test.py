@@ -88,11 +88,11 @@ nearest_similarity_cosmul(word2vec_book,"go","west", "west")
 
 print()
 
-print (word2vec_book.wv.similarity("go","west"))
-print (word2vec_book.wv.similarity("going","west"))
-print (word2vec_book.wv.similarity("goes","west"))
-print (word2vec_book.wv.similarity("went","west"))
-print (word2vec_book.wv.similarity("gone","west"))
+print ('go','west',word2vec_book.wv.similarity("go","west"))
+print ('going','west',word2vec_book.wv.similarity("going","west"))
+print ('goes','west',word2vec_book.wv.similarity("goes","west"))
+print ('went','west',word2vec_book.wv.similarity("went","west"))
+print ('gone','west',word2vec_book.wv.similarity("gone","west"))
 
 print (word2vec_book.wv.doesnt_match("go goes gone went going".split()))
 
