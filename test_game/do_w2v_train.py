@@ -144,7 +144,7 @@ def assemble_corpus(glob_txt, stem_words=False, sentence_label="", pos_tag=False
                 sent = [stemmer.stem(word) for word in sent]
                 sentences.append(sent)
 
-    print(sentences[0])
+    print(sentences[-1:])
     #print(sentence_to_wordlist(raw_sentences[0], pos_tag=pos_tag))
 
     token_count = sum([len(sentence) for sentence in sentences])
@@ -154,7 +154,7 @@ def assemble_corpus(glob_txt, stem_words=False, sentence_label="", pos_tag=False
 
 ####################################################
 game_glob1 = "data/zork1-output.txt" ## actual commands processed
-game_glob2 = "data/z*.txt" ## not for good game corpus
+game_glob2 = "data/*.txt" ## not for good game corpus
 game_glob3 = "data/wiki*.txt"
 game_glob4 = "data/zork1-e*.txt"
 
@@ -203,7 +203,7 @@ seed = 1
 epochs = 500
 
 ###################################################
-if True:
+if False:
     word2vec_game = w2v.Word2Vec(
         sg=1,
         seed=seed,
