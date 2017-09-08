@@ -22,7 +22,7 @@ class Game:
                            'northeast','ne','northwest','nw','southeast','se','southwest','sw',
                            'get','take','drop','up','u','down','d','open','close',
                            'go','inventory','i','walk']
-        self.words_all = [] 
+        self.words_all = []
         self.words_suggested = []
         self.words_input = []
 

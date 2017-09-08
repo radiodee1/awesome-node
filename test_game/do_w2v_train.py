@@ -244,7 +244,7 @@ context_size = 7 # 7
 
 # Downsample setting for frequent words.
 #0 - 1e-5 is good for this
-downsampling = 1e-2 #
+downsampling = 0 #1e-2 
 
 # Seed for the RNG, to make the results reproducible.
 #random number generator
