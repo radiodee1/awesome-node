@@ -1,12 +1,10 @@
 #!/usr/bin/python
 
 from __future__ import absolute_import, division, print_function
-
-
 import os
-
-
 import gensim.models.word2vec as w2v
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 
@@ -96,10 +94,33 @@ print ('gone','west',word2vec_book.wv.similarity("gone","west"))
 
 print (word2vec_book.wv.doesnt_match("go goes gone went going".split()))
 
-#nearest_similarity_cosmul(word2vec_game,"game","gone","west")
-#nearest_similarity_cosmul(word2vec_game,"game","west","gone")
-#nearest_similarity_cosmul(word2vec_book,"game","look","out")
-#nearest_similarity_cosmul(word2vec_book,"game","inventory","book")
+
+def graph_compare(word1, word2):
+    vec1 = word2vec_book.wv[word1]
+    y1 = np.arange(len(vec1))
+    vec2 = word2vec_book.wv[word2]
+    y2 = np.arange(len(vec2))
+
+    plt.figure(1)
+    plt.subplot(211)
+    plt.bar(y1,vec1)
+    plt.subplot(212)
+    plt.bar(y2,vec2)
+    plt.show()
+
+graph_compare('going','gone')
+
+#gone = word2vec_book.wv['gone']
+#gone2 = np.zeros_like(gone)
+#y_pos = np.arange(len(gone))
+
+
+#fig, ax = plt.subplots()
+#plt.bar(y_pos, gone)
+#plt.show()
+
+#print (gone)
+
 
 '''
 similar_book_to_game("west")
