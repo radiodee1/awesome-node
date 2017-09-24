@@ -53,6 +53,7 @@ class Game:
         pass
 
     def pre_game(self, debug_msg=False):
+        ''' randomly reverse one outlying word '''
         if debug_msg: print ("pre-game")
         self.odd_word = self.word2vec_book.wv.doesnt_match(self.words_game)
         self.odd_vec = self.word2vec_book.wv[self.odd_word]
