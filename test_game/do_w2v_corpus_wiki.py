@@ -49,7 +49,7 @@ if __name__ == '__main__':
         if (i % 2500 == 0):
             logger.info("Saved " + str(i) + " articles")
             #index += 1
-            if index >= 14 : break ## 9 = 25,000 articles
+            if index >= 20 : break ## 9 = 25,000 articles
             index += 1
 
 

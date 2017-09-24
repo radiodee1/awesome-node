@@ -161,7 +161,8 @@ game_glob4 = "data/zork1-e*.txt"
 if True:
     sentences_game = assemble_corpus(game_glob1,    stem_words=False)
 
-sentences_zork = assemble_corpus(game_glob2, pos_tag=False)
+if True:
+    sentences_zork = assemble_corpus(game_glob2, pos_tag=False)
 
 if True:
     sentences_book = []
