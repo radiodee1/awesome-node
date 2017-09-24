@@ -231,7 +231,7 @@ if False:
 
 #exit()
 ############################################
-num_features =  300 #  100
+num_features =  600 #  100
 # Minimum word count threshold.
 min_word_count = 1 # 3
 
@@ -251,7 +251,7 @@ downsampling = 0 #1e-2
 #deterministic, good for debugging
 seed = 1
 
-epochs = 15
+epochs = 5
 
 if True:
     word2vec_book = w2v.Word2Vec(

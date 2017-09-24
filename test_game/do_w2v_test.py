@@ -108,7 +108,8 @@ def graph_compare(word1, word2):
     plt.bar(y2,vec2)
     plt.show()
 
-graph_compare('going','gone')
+#graph_compare('going','gone')
+graph_compare('west','western')
 
 #gone = word2vec_book.wv['gone']
 #gone2 = np.zeros_like(gone)
