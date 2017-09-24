@@ -33,7 +33,7 @@ class Game:
         self.game  = player.TextPlayer("zork1.z5")
         self.load_w2v()
         self.read_word_list()
-
+        self.pre_game(debug_msg=False)
 
     def load_w2v(self):
         self.word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
@@ -52,6 +52,22 @@ class Game:
         #print (self.words_game)
         pass
 
+    def pre_game(self, debug_msg=False):
+        if debug_msg: print ("pre-game")
+        self.odd_word = self.word2vec_book.wv.doesnt_match(self.words_game)
+        self.odd_vec = self.word2vec_book.wv[self.odd_word]
+        magnitude = 0
+        position = 0
+        for i in range(len(self.odd_vec)):
+            if debug_msg: print (self.odd_vec[i])
+            if abs(self.odd_vec[i]) > magnitude:
+                magnitude = abs(self.odd_vec[i])
+                position = i
+        for i in range(len(self.odd_vec)):
+            if i != position:
+                self.odd_vec[i] = self.odd_vec[i] * -1
+        self.odd_word = self.word2vec_book.wv.most_similar(positive=[self.odd_vec], negative=[], topn=1)[0][0]
+        if debug_msg: print (self.odd_word)
 
     def play_loop(self):
         start_info = self.game.run()
@@ -95,7 +111,7 @@ class Game:
                 self.resolve_word(word, debug_msg=False)
             #print (input, self.words_last)
 
-            self.words_correct = self.resolve_word_closest(self.words_game, input, debug_msg=True, use_ending=False)
+            self.words_correct = self.resolve_word_closest(self.words_game, input, debug_msg=True, use_ending=False, odd_word=self.odd_word)
 
             self.words_last = input
 
@@ -143,7 +159,7 @@ class Game:
         if self.bool_show_lists: print ("done resolve")
         pass
 
-    def resolve_word_closest(self, list_suggested, list_command, debug_msg=False, use_ending=False):
+    def resolve_word_closest(self, list_suggested, list_command, odd_word=None , debug_msg=False, use_ending=False):
         list_out = []
         #
         #
@@ -157,8 +173,11 @@ class Game:
                     if use_ending: near = near + "zzz"
                     try:
                         num = self.word2vec_book.wv.similarity(word, near)
-                        if debug_msg: print (word, near, num)
-                        if num > num_best:
+                        if odd_word != None:
+                            num = num + self.word2vec_book.wv.similarity(word,odd_word)
+                            num = num + self.word2vec_book.wv.similarity(near,odd_word)
+                        if debug_msg: print (word, near, odd_word, num)
+                        if num > num_best and near != odd_word:
                             num_best = num
                             word_best = near
                     except:
