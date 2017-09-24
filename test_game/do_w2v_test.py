@@ -113,6 +113,7 @@ def graph_compare(word1, word2):
 #graph_compare('going','gone')
 graph_compare('west','western')
 
+graph_compare("go","gone")
 #gone = word2vec_book.wv['gone']
 #gone2 = np.zeros_like(gone)
 #y_pos = np.arange(len(gone))
