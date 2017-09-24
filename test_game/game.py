@@ -33,7 +33,7 @@ class Game:
         self.game  = player.TextPlayer("zork1.z5")
         self.load_w2v()
         self.read_word_list()
-        self.pre_game(debug_msg=False)
+        self.pre_game(debug_msg=True)
 
     def load_w2v(self):
         self.word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
@@ -54,9 +54,10 @@ class Game:
 
     def pre_game(self, debug_msg=False):
         ''' randomly reverse one outlying word '''
-        if debug_msg: print ("pre-game")
         self.odd_word = self.word2vec_book.wv.doesnt_match(self.words_game)
         self.odd_vec = self.word2vec_book.wv[self.odd_word]
+        if debug_msg: print ("pre-game", self.odd_word)
+
         magnitude = 0
         position = 0
         for i in range(len(self.odd_vec)):
@@ -67,6 +68,8 @@ class Game:
         for i in range(len(self.odd_vec)):
             if i != position:
                 self.odd_vec[i] = self.odd_vec[i] * -1
+
+        #self.odd_vec = self.odd_vec * -1
         self.odd_word = self.word2vec_book.wv.most_similar(positive=[self.odd_vec], negative=[], topn=1)[0][0]
         if debug_msg: print (self.odd_word)
 
