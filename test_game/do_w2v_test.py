@@ -103,8 +103,10 @@ def graph_compare(word1, word2):
 
     plt.figure(1)
     plt.subplot(211)
+    plt.title(word1)
     plt.bar(y1,vec1)
     plt.subplot(212)
+    plt.title(word2)
     plt.bar(y2,vec2)
     plt.show()
 
