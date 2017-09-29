@@ -75,7 +75,7 @@ if False:
 
 ###########################################
 
-def assemble_corpus(glob_txt, stem_words=False, sentence_label="", pos_tag=False, tweet_tag=False):
+def assemble_corpus(glob_txt, stem_words=False, sentence_label="", pos_tag=False, tweet_tag=False, print_sentences=False):
     pass
 
     #add everything once
@@ -144,7 +144,7 @@ def assemble_corpus(glob_txt, stem_words=False, sentence_label="", pos_tag=False
                 sent = [stemmer.stem(word) for word in sent]
                 sentences.append(sent)
 
-    print(sentences[-1:])
+    if print_sentences: print(sentences[-1:])
     #print(sentence_to_wordlist(raw_sentences[0], pos_tag=pos_tag))
 
     token_count = sum([len(sentence) for sentence in sentences])
@@ -219,6 +219,7 @@ if False:
 
     print("stage: Word2Vec game vocabulary length:", len(word2vec_game.wv.vocab))
 
+if False:
     print ("stage: train")
 
     word2vec_game.train(sentences_game,
@@ -232,9 +233,9 @@ if False:
 
 #exit()
 ############################################
-num_features =  600 #  100
+num_features =  900 #  100
 # Minimum word count threshold.
-min_word_count = 1 # 3
+min_word_count = 2 # 3
 
 # Number of threads to run in parallel.
 #more workers, faster we train
@@ -269,6 +270,7 @@ if True:
 
     print("stage: Word2Vec book vocabulary length:", len(word2vec_book.wv.vocab))
 
+if True:
     print ("stage: train")
 
     word2vec_book.train(sentences_book,
