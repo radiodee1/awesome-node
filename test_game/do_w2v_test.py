@@ -111,7 +111,7 @@ def graph_compare(word1, word2):
     plt.show()
 
 #graph_compare('going','gone')
-graph_compare('westerly','western')
+graph_compare('northwest','western')
 
 graph_compare("go","gone")
 #gone = word2vec_book.wv['gone']

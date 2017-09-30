@@ -15,10 +15,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-#word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
+word2vec_small = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
 word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
 
-
+print ("w2v loaded.")
 
 tsne = sklearn.manifold.TSNE(n_components=2, random_state=0)
 
@@ -26,13 +26,14 @@ all_word_vectors_matrix = word2vec_game.wv.syn0
 
 all_word_vectors_matrix_2d = tsne.fit_transform(all_word_vectors_matrix)
 
+print ("matrix 2d done.")
 
 points = pd.DataFrame(
     [
         (word, coords[0], coords[1])
         for word, coords in [
             (word, all_word_vectors_matrix_2d[word2vec_game.wv.vocab[word].index])
-            for word in word2vec_game.wv.vocab
+            for word in word2vec_small.wv.vocab
         ]
     ],
     columns=["word", "x", "y"]

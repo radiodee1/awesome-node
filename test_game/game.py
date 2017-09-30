@@ -33,7 +33,7 @@ class Game:
         self.game  = player.TextPlayer("zork1.z5")
         self.load_w2v()
         self.read_word_list()
-        self.pre_game(debug_msg=True, special_invert=True)
+        self.pre_game(odd_word="northwest",debug_msg=True, special_invert=False)
 
     def load_w2v(self):
         self.word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
@@ -52,25 +52,32 @@ class Game:
         #print (self.words_game)
         pass
 
-    def pre_game(self, debug_msg=False, special_invert=False):
+    def pre_game(self,odd_word=None, invert=True, debug_msg=False, special_invert=False):
         ''' randomly reverse one outlying word '''
-        self.odd_word = self.word2vec_book.wv.doesnt_match(self.words_game)
+        if odd_word == None:
+            self.odd_word = self.word2vec_book.wv.doesnt_match(self.words_game)
+        else:
+            self.odd_word = odd_word
+
         self.odd_vec = self.word2vec_book.wv[self.odd_word]
         if debug_msg: print ("pre-game", self.odd_word)
 
-        magnitude = 0
-        position = 0
-        for i in range(len(self.odd_vec)):
-            if debug_msg: print (self.odd_vec[i])
-            if abs(self.odd_vec[i]) > magnitude:
-                magnitude = abs(self.odd_vec[i])
-                position = i
-        for i in range(len(self.odd_vec)):
-            if i != position or not special_invert:
-                self.odd_vec[i] = self.odd_vec[i] * -1
+        if invert:
+            magnitude = 0
+            position = 0
+            for i in range(len(self.odd_vec)):
+                if debug_msg: print (self.odd_vec[i])
+                if abs(self.odd_vec[i]) > magnitude:
+                    magnitude = abs(self.odd_vec[i])
+                    position = i
+            for i in range(len(self.odd_vec)):
+                if i != position or not special_invert:
+                    pass
+                    self.odd_vec[i] = self.odd_vec[i] * -1
+            if debug_msg: print ("do invert")
+            #self.odd_vec = self.odd_vec * -1
+            self.odd_word = self.word2vec_book.wv.most_similar(positive=[self.odd_vec], negative=[], topn=1)[0][0]
 
-        #self.odd_vec = self.odd_vec * -1
-        self.odd_word = self.word2vec_book.wv.most_similar(positive=[self.odd_vec], negative=[], topn=1)[0][0]
         if debug_msg: print (self.odd_word)
 
     def play_loop(self):
@@ -169,7 +176,7 @@ class Game:
         #
         for word in list_command:
             if not  (word in self.words_all):
-                num_best = 0
+                num_best = -1
                 word_best = ""
                 #
                 for near in list_suggested:

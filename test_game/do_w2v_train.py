@@ -233,9 +233,9 @@ if False:
 
 #exit()
 ############################################
-num_features =  900 #  100
+num_features =  600 #  900 is not good
 # Minimum word count threshold.
-min_word_count = 2 # 3
+min_word_count = 1 # 3
 
 # Number of threads to run in parallel.
 #more workers, faster we train
