@@ -116,8 +116,10 @@ if True:
     list_g = ['goes','gone','went','going','western','eastern','southern','northern',
               'southerly','northerly','westerly','easterly','']
 
+    print ()
     g.load_w2v()
     g.read_word_list()
-    g.pre_game(debug_msg=True,special_invert=True)
+    g.pre_game(odd_word=None,debug_msg=True,special_invert=True)
     for i in list_g:
         g.resolve_word_closest(g.words_game, [i] ,odd_word=g.odd_word, debug_msg=True)
+        pass
