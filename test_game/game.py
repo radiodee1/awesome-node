@@ -213,7 +213,7 @@ class Game:
         return list_out
 
 
-
+    '''
     def most_similar(self, word):
         results = []
         try:
@@ -240,7 +240,7 @@ class Game:
             print ("not similar enough?")
             pass
         return start2
-
+    '''
 
 
     def print_list(self, list, heading="list", to_screen=True, add_to_global=False):
