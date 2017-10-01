@@ -5,7 +5,9 @@ import os
 import gensim.models.word2vec as w2v
 import matplotlib.pyplot as plt
 import numpy as np
+import game
 
+g = game.Game()
 
 
 word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
@@ -44,6 +46,7 @@ def nearest_similarity(model, start1, end1, end2):
 
     return start2
 
+'''
 def similar_book_to_game(word):
     print ("--"+word+"--")
     out = '' #vec = word2vec_book.wv[word]
@@ -67,9 +70,8 @@ def similar_book_to_game(word):
         print (i[0])
     print ("---")
     return out
+'''
 
-
-#z = nearest_similarity_cosmul(word2vec_book,"gone", "VBN", "VBP")
 
 print ("---------------")
 print ("book")
@@ -78,11 +80,6 @@ nearest_similarity_cosmul(word2vec_book,"man", "king", "queen")
 nearest_similarity_cosmul(word2vec_book,"north","south", "west")
 nearest_similarity_cosmul(word2vec_book,"west", "northwest", "northeast")
 nearest_similarity_cosmul(word2vec_book,"go","west", "west")
-#nearest_similarity(word2vec_book,"going","west", "west")
-
-#print ("game")
-#nearest_similarity_cosmul(word2vec_game,"west", "northwest", "northeast")
-#nearest_similarity_cosmul(word2vec_game,"north","south", "west")
 
 print()
 
@@ -110,28 +107,17 @@ def graph_compare(word1, word2):
     plt.bar(y2,vec2)
     plt.show()
 
-#graph_compare('going','gone')
-graph_compare('northwest','western')
+if False:
+    #graph_compare('going','gone')
+    graph_compare('northwest','western')
+    #graph_compare("go","gone")
 
-graph_compare("go","gone")
-#gone = word2vec_book.wv['gone']
-#gone2 = np.zeros_like(gone)
-#y_pos = np.arange(len(gone))
+if True:
+    list_g = ['goes','gone','went','going','western','eastern','southern','northern',
+              'southerly','northerly','westerly','easterly','']
 
-
-#fig, ax = plt.subplots()
-#plt.bar(y_pos, gone)
-#plt.show()
-
-#print (gone)
-
-
-'''
-similar_book_to_game("west")
-similar_book_to_game("gone")
-similar_book_to_game("up")
-similar_book_to_game("look")
-
-similar_book_to_game("book")
-similar_book_to_game("leaflet")
-'''
+    g.load_w2v()
+    g.read_word_list()
+    g.pre_game(debug_msg=True,special_invert=True)
+    for i in list_g:
+        g.resolve_word_closest(g.words_game, [i] ,odd_word=g.odd_word, debug_msg=True)
