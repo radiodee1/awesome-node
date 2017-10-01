@@ -28,12 +28,14 @@ class Game:
 
         self.words_correct = []
         self.bool_show_lists = False
+        self.odd_word = None
+        self.odd_vec = None
 
     def run(self):
         self.game  = player.TextPlayer("zork1.z5")
         self.load_w2v()
         self.read_word_list()
-        self.pre_game(odd_word="northwest",debug_msg=True, special_invert=False)
+        self.pre_game(odd_word=None,debug_msg=True, special_invert=True, invert_all=True)
 
     def load_w2v(self):
         self.word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
@@ -52,7 +54,7 @@ class Game:
         #print (self.words_game)
         pass
 
-    def pre_game(self,odd_word=None, invert=True, debug_msg=False, special_invert=False):
+    def pre_game(self,odd_word=None, invert_all=True, debug_msg=False, special_invert=False):
         ''' randomly reverse one outlying word '''
         if odd_word == None:
             self.odd_word = self.word2vec_book.wv.doesnt_match(self.words_game)
@@ -62,11 +64,11 @@ class Game:
         self.odd_vec = self.word2vec_book.wv[self.odd_word]
         if debug_msg: print ("pre-game", self.odd_word)
 
-        if invert:
+        if invert_all:
             magnitude = 0
             position = 0
             for i in range(len(self.odd_vec)):
-                if debug_msg: print (self.odd_vec[i])
+                if debug_msg and i < 5: print (self.odd_vec[i])
                 if abs(self.odd_vec[i]) > magnitude:
                     magnitude = abs(self.odd_vec[i])
                     position = i
@@ -74,9 +76,17 @@ class Game:
                 if i != position or not special_invert:
                     pass
                     self.odd_vec[i] = self.odd_vec[i] * -1
+                    if debug_msg and i < 5: print ("--->", self.odd_vec[i])
+
             if debug_msg: print ("do invert")
             #self.odd_vec = self.odd_vec * -1
-            self.odd_word = self.word2vec_book.wv.most_similar(positive=[self.odd_vec], negative=[], topn=1)[0][0]
+
+        middle_value = self.word2vec_book.wv.most_similar(positive=[self.odd_vec], negative=[], topn=4)
+        if debug_msg: print (middle_value)
+        position = 0
+        while middle_value[position][0] == odd_word:
+            position += 1
+        self.odd_word = middle_value[position][0]
 
         if debug_msg: print (self.odd_word)
 
@@ -176,7 +186,7 @@ class Game:
         #
         for word in list_command:
             if not  (word in self.words_all):
-                num_best = -1
+                num_best = -3
                 word_best = ""
                 #
                 for near in list_suggested:
