@@ -37,7 +37,10 @@ if True:
 
     list_v = ['go','west','east','north','south']
 
+    list_other = ['inventory','monadologia']
+
     list_g.extend(list_v)
+    #list_g.extend(list_other)
     print (list_g)
 
     for i in list_g:
