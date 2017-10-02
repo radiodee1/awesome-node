@@ -53,7 +53,7 @@ print ("matrix 2d done.")
 
 
 if True:
-    f = open("trained/points.csv", "w")
+    f = open("trained/word2vec_points.csv", "w")
     #z = 0
     for i in range(len(all_word_vectors_vocab)) :
         ii = list(all_word_vectors_vocab)[i]

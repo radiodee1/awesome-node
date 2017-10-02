@@ -22,7 +22,7 @@ if True:
     x = []
     y = []
     z = []
-    f = open("trained/points.csv", "r")
+    f = open("trained/word2vec_points.csv", "r")
     #z = 0
     for line in f:
         l = line.split(",")
