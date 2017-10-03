@@ -13,14 +13,17 @@ g = game.Game()
 word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
 word2vec_book = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
 
+if False:
+    word2vec_book = w2v.KeyedVectors.load_word2vec_format(os.path.join('trained','saved_google','GoogleNews-vectors-negative300.bin'),
+                                                  binary=True)
 
+if False:
+    print ("\ngo")
+    print (word2vec_book.most_similar("go", topn=10) )
+    print ("went")
+    print (word2vec_book.most_similar("went", topn=60))
 
-print ("\ngo")
-print (word2vec_book.most_similar("go", topn=10) )
-print ("went")
-print (word2vec_book.most_similar("went", topn=60))
-
-print ()
+    print ()
 
 def nearest_similarity_cosmul(model, start1, end1, end2):
     similarities = model.most_similar_cosmul(
@@ -71,25 +74,25 @@ def similar_book_to_game(word):
     print ("---")
     return out
 '''
+if False:
 
+    print ("---------------")
+    print ("book")
+    nearest_similarity_cosmul(word2vec_book,"man", "king", "queen")
 
-print ("---------------")
-print ("book")
-nearest_similarity_cosmul(word2vec_book,"man", "king", "queen")
+    nearest_similarity_cosmul(word2vec_book,"north","south", "west")
+    nearest_similarity_cosmul(word2vec_book,"west", "northwest", "northeast")
+    nearest_similarity_cosmul(word2vec_book,"go","west", "west")
 
-nearest_similarity_cosmul(word2vec_book,"north","south", "west")
-nearest_similarity_cosmul(word2vec_book,"west", "northwest", "northeast")
-nearest_similarity_cosmul(word2vec_book,"go","west", "west")
+    print()
 
-print()
+    print ('go','west',word2vec_book.wv.similarity("go","west"))
+    print ('going','west',word2vec_book.wv.similarity("going","west"))
+    print ('goes','west',word2vec_book.wv.similarity("goes","west"))
+    print ('went','west',word2vec_book.wv.similarity("went","west"))
+    print ('gone','west',word2vec_book.wv.similarity("gone","west"))
 
-print ('go','west',word2vec_book.wv.similarity("go","west"))
-print ('going','west',word2vec_book.wv.similarity("going","west"))
-print ('goes','west',word2vec_book.wv.similarity("goes","west"))
-print ('went','west',word2vec_book.wv.similarity("went","west"))
-print ('gone','west',word2vec_book.wv.similarity("gone","west"))
-
-print (word2vec_book.wv.doesnt_match("go goes gone went going".split()))
+    print (word2vec_book.wv.doesnt_match("go goes gone went going".split()))
 
 
 def graph_compare(word1, word2):
@@ -112,25 +115,47 @@ if False:
     graph_compare('northwest','western')
     #graph_compare("go","gone")
 
+def list_sum(positive=[], negative=[]):
+    sample = word2vec_book.wv[positive[0]]
+    tot = np.zeros_like(sample)
+
+    for i in positive:
+        sample = word2vec_book.wv[i]
+        tot = tot + sample
+
+    for i in negative:
+        sample = word2vec_book.wv[i]
+        tot = tot - sample
+    return tot
+
+
+
+
 if True:
 
-    odd_word="monadologia" #'inventory'
+    odd_word='' #None #'inventory' #"monadologia"
     ''' by chance saved_37500_600 gives some good output with the word -monadologia- '''
 
-    list_g = ['goes','gone','went','going','western','eastern','southern','northern',
-              'southerly','northerly','westerly','easterly']
-    list_h = ['go','north','south','west','east'] #,'northeast','southeast','southwest','northwest']
+    list_g = ['goes','gone','went','going','western','eastern','southern','northern'
+              ,'southerly','northerly','westerly','easterly']
+    list_h = ['go','go','go','go','north','south','west','east','north','south','west','east'] #,'northeast','southeast','southwest','northwest']
 
-    middle_value = word2vec_book.wv.most_similar(positive=[], negative=list_g, topn=4)
+    middle_value = word2vec_book.wv.most_similar(positive=list_h, negative=list_g, topn=4)
     if odd_word != None:
-        middle_value = [[odd_word]]
+        #middle_value = [[odd_word]]
+        middle_value = [[list_sum(positive=list_h, negative=list_g)]]
 
-    print ()
+    print ('====')
     print (middle_value)
     g.load_w2v()
     g.read_word_list()
-    g.pre_game(odd_word=middle_value[0][0],debug_msg=True,special_invert=False, invert_all=False)
+    g.pre_game(odd_word='', odd_vec=middle_value[0][0],debug_msg=True,special_invert=True, invert_all=False)
     #g.odd_word = word2vec_book.wv.vocab['monadologia']
     for i in list_g:
         g.resolve_word_closest(g.words_game, [i] ,odd_word=g.odd_word, debug_msg=True)
         pass
+
+    print ('-----')
+    x = list_sum(positive=list_h,negative=list_g)
+    word = word2vec_book.wv.most_similar(positive=[x],negative=[],topn=5)
+    g.pre_game(odd_word=word, debug_msg=True,special_invert=True,invert_all=False)

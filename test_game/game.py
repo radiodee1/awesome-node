@@ -2,7 +2,7 @@ from __future__ import print_function, division
 import textplayer.textPlayer as player
 import os
 import gensim.models.word2vec as w2v
-
+import numpy as np
 
 class Game:
 
@@ -54,15 +54,19 @@ class Game:
         #print (self.words_game)
         pass
 
-    def pre_game(self,odd_word=None, invert_all=True, debug_msg=False, special_invert=False):
+    def pre_game(self,odd_word=None,odd_vec=[], invert_all=True, debug_msg=False, special_invert=False):
         ''' randomly reverse one outlying word '''
-        if odd_word == None:
+        if  odd_word == None:
             self.odd_word = self.word2vec_book.wv.doesnt_match(self.words_game)
         else:
             self.odd_word = odd_word
 
+        if len(odd_vec) > 0:
+            self.odd_vec = odd_vec
+
         if invert_all:
-            self.odd_vec = self.word2vec_book.wv[self.odd_word]
+            if self.odd_vec == None:
+                self.odd_vec = self.word2vec_book.wv[self.odd_word]
             if debug_msg: print ("pre-game", self.odd_word)
             new_vec = self.odd_vec[:]
 
@@ -189,20 +193,40 @@ class Game:
             if not  (word in self.words_all):
                 num_best = -3
                 word_best = ""
+                vec_best = -10
                 #
                 for near in list_suggested:
                     ######
                     if use_ending: near = near + "zzz"
                     try:
+                        '''
                         num = self.word2vec_book.wv.similarity(word, near)
                         if odd_word != None:
+                            #num = 0
                             num = num + self.word2vec_book.wv.similarity(word,odd_word)
                             num = num + self.word2vec_book.wv.similarity(near,odd_word)
                         if debug_msg: print (word, near, odd_word, num)
                         if num > num_best and near != odd_word:
                             num_best = num
                             word_best = near
-                    except:
+                        '''
+                        if len(self.odd_vec) > 0:#!= None:
+                            #vec = np.zeros_like(self.odd_vec)
+                            #vec = self.odd_vec
+                            word_vec = self.list_sum(positive=[word],negative=[])
+                            near_vec = self.list_sum(positive=[near],negative=[])
+                            vec1 = self.distance(self.odd_vec, word_vec)
+                            vec2 = self.distance(self.odd_vec, near_vec)
+                            vec3 = self.distance(near_vec, word_vec)
+                            vec = vec1 + vec2 + vec3
+                            a = vec
+                            b = vec_best
+                            if debug_msg: print(word, near, odd_word, a)
+
+                            if vec_best  <= -10 or a < b:
+                                vec_best = vec
+                                word_best = near
+                    except NameError:
                         pass
                     ######
                     pass
@@ -213,6 +237,24 @@ class Game:
         if debug_msg: print (list_out)
         return list_out
 
+    def distance(self, v1, v2):
+        return np.sqrt(np.sum((v1 - v2) ** 2))
+
+    def list_sum(self, positive=[], negative=[]):
+        if len(positive) > 0:
+            sample = self.word2vec_book.wv[positive[0]]
+        else:
+            sample = self.word2vec_book.wv[negative[0]]
+        tot = np.zeros_like(sample)
+
+        for i in positive:
+            sample = self.word2vec_book.wv[i]
+            tot = tot + sample
+
+        for i in negative:
+            sample = self.word2vec_book.wv[i]
+            tot = tot - sample
+        return tot
 
     '''
     def most_similar(self, word):

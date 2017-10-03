@@ -154,7 +154,7 @@ def assemble_corpus(glob_txt, stem_words=False, sentence_label="", pos_tag=False
 
 ####################################################
 game_glob1 = "data/zork1-output.txt" ## actual commands processed
-game_glob2 = "data/*.txt" ## not for good game corpus
+game_glob2 = "data/z*.txt" ## not for good game corpus
 game_glob3 = "data/wiki*.txt"
 game_glob4 = "data/zork1-e*.txt"
 
