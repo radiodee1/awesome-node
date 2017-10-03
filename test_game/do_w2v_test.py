@@ -113,11 +113,16 @@ if False:
     #graph_compare("go","gone")
 
 if True:
+
+    odd_word="inventory"
+
     list_g = ['goes','gone','went','going','western','eastern','southern','northern',
               'southerly','northerly','westerly','easterly']
-    list_h = ['go','north','south','west','east']
+    list_h = ['go','north','south','west','east'] #,'northeast','southeast','southwest','northwest']
 
-    middle_value = word2vec_book.wv.most_similar(positive=list_g, negative=list_h, topn=4)
+    middle_value = word2vec_book.wv.most_similar(positive=[], negative=list_h, topn=4)
+    if odd_word != None:
+        middle_value = [[odd_word]]
 
     print ()
     print (middle_value)

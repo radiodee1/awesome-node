@@ -26,7 +26,7 @@
       <file leaf-file-name="game.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="518">
+            <state relative-caret-position="1377">
               <caret line="84" column="15" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
               <folding>
                 <element signature="e#0#47#0" expanded="true" />
@@ -78,8 +78,8 @@
       <file leaf-file-name="do_w2v_test.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/do_w2v_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="761">
-              <caret line="125" column="77" lean-forward="false" selection-start-line="125" selection-start-column="77" selection-end-line="125" selection-end-column="77" />
+            <state relative-caret-position="688">
+              <caret line="130" column="94" lean-forward="false" selection-start-line="130" selection-start-column="94" selection-end-line="130" selection-end-column="94" />
               <folding>
                 <element signature="e#19#83#0" expanded="true" />
               </folding>
@@ -160,8 +160,8 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/do_w2v_plot_csv_show.py" />
         <option value="$PROJECT_DIR$/game.py" />
-        <option value="$PROJECT_DIR$/do_w2v_test.py" />
         <option value="$PROJECT_DIR$/do_w2v_plot_csv_save.py" />
+        <option value="$PROJECT_DIR$/do_w2v_test.py" />
       </list>
     </option>
   </component>
@@ -613,7 +613,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="518">
+        <state relative-caret-position="1377">
           <caret line="84" column="15" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
           <folding>
             <element signature="e#0#47#0" expanded="true" />
@@ -631,8 +631,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/do_w2v_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="761">
-          <caret line="125" column="77" lean-forward="false" selection-start-line="125" selection-start-column="77" selection-end-line="125" selection-end-column="77" />
+        <state relative-caret-position="688">
+          <caret line="130" column="94" lean-forward="false" selection-start-line="130" selection-start-column="94" selection-end-line="130" selection-end-column="94" />
           <folding>
             <element signature="e#19#83#0" expanded="true" />
           </folding>
