@@ -61,11 +61,11 @@ class Game:
         else:
             self.odd_word = odd_word
 
-        self.odd_vec = self.word2vec_book.wv[self.odd_word]
-        if debug_msg: print ("pre-game", self.odd_word)
-        new_vec = self.odd_vec[:]
-
         if invert_all:
+            self.odd_vec = self.word2vec_book.wv[self.odd_word]
+            if debug_msg: print ("pre-game", self.odd_word)
+            new_vec = self.odd_vec[:]
+
             magnitude = 0
             position = 0
             for i in range(len(self.odd_vec)):
@@ -82,12 +82,12 @@ class Game:
             if debug_msg: print ("do invert")
             #self.odd_vec = self.odd_vec * -1
 
-        middle_value = self.word2vec_book.wv.most_similar(positive=[new_vec], negative=[], topn=4)
-        if debug_msg: print (middle_value)
-        position = 0
-        while middle_value[position][0] == odd_word:
-            position += 1
-        self.odd_word = middle_value[position][0]
+            middle_value = self.word2vec_book.wv.most_similar(positive=[new_vec], negative=[], topn=4)
+            if debug_msg: print (middle_value)
+            position = 0
+            while middle_value[position][0] == odd_word:
+                position += 1
+            self.odd_word = middle_value[position][0]
 
         if debug_msg: print (self.odd_word)
 
