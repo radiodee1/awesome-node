@@ -133,24 +133,31 @@ def list_sum(positive=[], negative=[]):
 
 if True:
 
-    odd_word='' #None #'inventory' #"monadologia"
+    odd_word='inventory' #"monadologia"
     ''' by chance saved_37500_600 gives some good output with the word -monadologia- '''
 
     list_g = ['goes','gone','went','going','western','eastern','southern','northern'
               ,'southerly','northerly','westerly','easterly']
     list_h = ['go','go','go','go','north','south','west','east','north','south','west','east'] #,'northeast','southeast','southwest','northwest']
 
-    middle_value = word2vec_book.wv.most_similar(positive=list_h, negative=list_g, topn=4)
-    if odd_word != None:
-        #middle_value = [[odd_word]]
-        middle_value = [[list_sum(positive=list_h, negative=list_g)]]
+    #middle_value = word2vec_book.wv.most_similar(positive=list_h, negative=list_g, topn=4)
+
+    middle_value_string = [[odd_word]]
+    middle_value_vec = [[list_sum(positive=list_h, negative=list_g)]]
+    middle_value_vec = [[list_sum(positive=['inventory'])]]
 
     print ('====')
-    print (middle_value)
+    print (middle_value_string, len(middle_value_string[0][0]))
     g.load_w2v()
     g.read_word_list()
-    g.pre_game(odd_word='', odd_vec=middle_value[0][0],debug_msg=True,special_invert=True, invert_all=False)
-    #g.odd_word = word2vec_book.wv.vocab['monadologia']
+
+    if False:
+        ''' string input '''
+        g.pre_game(odd_word=middle_value_string[0][0], odd_vec=[],debug_msg=True,special_invert=True, invert_all=True)
+    else:
+        ''' vector input '''
+        g.pre_game(odd_word=[], odd_vec=middle_value_vec[0][0], debug_msg=True, special_invert=False, invert_all=False)
+
     for i in list_g:
         g.resolve_word_closest(g.words_game, [i] ,odd_word=g.odd_word, debug_msg=True)
         pass

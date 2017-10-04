@@ -29,7 +29,7 @@ class Game:
         self.words_correct = []
         self.bool_show_lists = False
         self.odd_word = None
-        self.odd_vec = None
+        self.odd_vec = []
 
     def run(self):
         self.game  = player.TextPlayer("zork1.z5")
@@ -65,22 +65,22 @@ class Game:
             self.odd_vec = odd_vec
 
         if invert_all:
-            if self.odd_vec == None:
-                self.odd_vec = self.word2vec_book.wv[self.odd_word]
+            if self.odd_word != None or len(self.odd_word) != 0:
+                new_vec = self.word2vec_book.wv[self.odd_word][:]
             if debug_msg: print ("pre-game", self.odd_word)
-            new_vec = self.odd_vec[:]
+            #new_vec = self.odd_vec[:]
 
             magnitude = 0
             position = 0
-            for i in range(len(self.odd_vec)):
-                if debug_msg and i < 5: print (self.odd_vec[i])
-                if abs(self.odd_vec[i]) > magnitude:
-                    magnitude = abs(self.odd_vec[i])
+            for i in range(len(new_vec)):
+                if debug_msg and i < 5: print (new_vec[i])
+                if abs(new_vec[i]) > magnitude:
+                    magnitude = abs(new_vec[i])
                     position = i
-            for i in range(len(self.odd_vec)):
+            for i in range(len(new_vec)):
                 if i != position or not special_invert:
                     pass
-                    new_vec[i] = self.odd_vec[i] * -1
+                    new_vec[i] = new_vec[i] * -1
                     if debug_msg and i < 5: print ("--->", new_vec[i])
 
             if debug_msg: print ("do invert")
@@ -199,17 +199,18 @@ class Game:
                     ######
                     if use_ending: near = near + "zzz"
                     try:
-                        '''
-                        num = self.word2vec_book.wv.similarity(word, near)
-                        if odd_word != None:
-                            #num = 0
-                            num = num + self.word2vec_book.wv.similarity(word,odd_word)
-                            num = num + self.word2vec_book.wv.similarity(near,odd_word)
-                        if debug_msg: print (word, near, odd_word, num)
-                        if num > num_best and near != odd_word:
-                            num_best = num
-                            word_best = near
-                        '''
+                        if len(self.odd_vec) == 0:
+
+                            num = self.word2vec_book.wv.similarity(word, near)
+                            if odd_word != None:
+                                #num = 0
+                                num = num + self.word2vec_book.wv.similarity(word,odd_word)
+                                num = num + self.word2vec_book.wv.similarity(near,odd_word)
+                            if debug_msg: print (word, near, odd_word, num)
+                            if num > num_best and near != odd_word:
+                                num_best = num
+                                word_best = near
+                        ############
                         if len(self.odd_vec) > 0:#!= None:
                             #vec = np.zeros_like(self.odd_vec)
                             #vec = self.odd_vec
@@ -221,7 +222,7 @@ class Game:
                             vec = vec1 + vec2 + vec3
                             a = vec
                             b = vec_best
-                            if debug_msg: print(word, near, odd_word, a)
+                            if debug_msg: print(word, near, word_best, a)
 
                             if vec_best  <= -10 or a < b:
                                 vec_best = vec
