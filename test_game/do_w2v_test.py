@@ -138,24 +138,27 @@ if True:
 
     list_g = ['goes','gone','went','going','western','eastern','southern','northern'
               ,'southerly','northerly','westerly','easterly']
-    list_h = ['go','go','go','go','north','south','west','east','north','south','west','east'] #,'northeast','southeast','southwest','northwest']
+    list_h = ['go','go','go','go','north','south','west','east','north','south','west','east']
+    #list_h = ['go','north','south','west','east','northeast','southeast','southwest','northwest']
+
 
     #middle_value = word2vec_book.wv.most_similar(positive=list_h, negative=list_g, topn=4)
 
     middle_value_string = [[odd_word]]
     middle_value_vec = [[list_sum(positive=list_h, negative=list_g)]]
-    middle_value_vec = [[list_sum(positive=['inventory'])]]
+    #middle_value_vec = [[list_sum(positive=['inventory'])]]
 
     print ('====')
-    print (middle_value_string, len(middle_value_string[0][0]))
     g.load_w2v()
     g.read_word_list()
 
     if False:
         ''' string input '''
+        print(middle_value_string, len(middle_value_string[0][0]))
         g.pre_game(odd_word=middle_value_string[0][0], odd_vec=[],debug_msg=True,special_invert=True, invert_all=True)
     else:
         ''' vector input '''
+        print (middle_value_vec, len(middle_value_vec[0][0]))
         g.pre_game(odd_word=[], odd_vec=middle_value_vec[0][0], debug_msg=True, special_invert=False, invert_all=False)
 
     for i in list_g:

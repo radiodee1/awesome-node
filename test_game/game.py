@@ -65,8 +65,10 @@ class Game:
             self.odd_vec = odd_vec
 
         if invert_all:
-            if self.odd_word != None or len(self.odd_word) != 0:
+            if self.odd_word != None and len(self.odd_word) != 0:
                 new_vec = self.word2vec_book.wv[self.odd_word][:]
+            else:
+                new_vec = odd_vec
             if debug_msg: print ("pre-game", self.odd_word)
             #new_vec = self.odd_vec[:]
 
@@ -193,7 +195,7 @@ class Game:
             if not  (word in self.words_all):
                 num_best = -3
                 word_best = ""
-                vec_best = -10
+                vec_best = 100
                 #
                 for near in list_suggested:
                     ######
@@ -221,10 +223,10 @@ class Game:
                             vec3 = self.distance(near_vec, word_vec)
                             vec = vec1 + vec2 + vec3
                             a = vec
-                            b = vec_best
+                            #b = vec_best
                             if debug_msg: print(word, near, word_best, a)
 
-                            if vec_best  <= -10 or a < b:
+                            if  vec < vec_best:
                                 vec_best = vec
                                 word_best = near
                     except NameError:
