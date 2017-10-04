@@ -139,9 +139,9 @@ if True:
     list_g = ['goes','gone','went','going','western','eastern','southern','northern'
               ,'southerly','northerly','westerly','easterly']
     list_h = ['go','go','go','go','north','south','west','east','north','south','west','east']
-    #list_h = ['go','north','south','west','east','northeast','southeast','southwest','northwest']
+    #list_h = ['go','north','south','west','east'] #,'northeast','southeast','southwest','northwest']
 
-
+    list_i = ['go','go','go','go','west','east','south','north','south','north','west','east']
     #middle_value = word2vec_book.wv.most_similar(positive=list_h, negative=list_g, topn=4)
 
     print ('====')
@@ -153,6 +153,9 @@ if True:
     #middle_value_vec = [[g.list_sum(negative=['inventory'])]]
     #middle_value_vec = [[g.list_sum(positive=['monadologia'])]]
 
+    correct = 0
+    total = len(list_i)
+
     if False:
         ''' string input '''
         print(middle_value_string, len(middle_value_string[0][0]))
@@ -162,11 +165,14 @@ if True:
         print (middle_value_vec, len(middle_value_vec[0][0]))
         g.pre_game(odd_word=[], odd_vec=middle_value_vec[0][0], debug_msg=True, special_invert=False, invert_all=False)
 
-    for i in list_g:
-        g.resolve_word_closest(g.words_game, [i] ,odd_word=g.odd_word, debug_msg=True)
+    for z in range(len(list_g)):
+        i = list_g[z]
+        j = g.resolve_word_closest(g.words_game, [i] ,odd_word=g.odd_word, debug_msg=True)[0]
+        if j == list_i[z]: correct += 1
         pass
 
     print ('-----')
+    print (correct, "/", total, "or:", correct / total)
     #x = list_sum(positive=list_h,negative=list_g)
     word = word2vec_book.wv.most_similar(positive=[middle_value_vec[0][0]],negative=[],topn=5)
     print (word)
