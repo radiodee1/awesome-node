@@ -3,6 +3,7 @@ import textplayer.textPlayer as player
 import os
 import gensim.models.word2vec as w2v
 import numpy as np
+import scipy.spatial as spatial
 
 class Game:
 
@@ -213,18 +214,16 @@ class Game:
                                 num_best = num
                                 word_best = near
                         ############
-                        if len(self.odd_vec) > 0:#!= None:
-                            #vec = np.zeros_like(self.odd_vec)
-                            #vec = self.odd_vec
+                        if len(self.odd_vec) > 0:
+
                             word_vec = self.list_sum(positive=[word],negative=[])
                             near_vec = self.list_sum(positive=[near],negative=[])
                             vec1 = self.distance(self.odd_vec, word_vec)
                             vec2 = self.distance(self.odd_vec, near_vec)
                             vec3 = self.distance(near_vec, word_vec)
-                            vec = vec1 + vec2 + vec3
-                            a = vec
-                            #b = vec_best
-                            if debug_msg: print(word, near, word_best, a)
+                            vec = ( vec1 + vec2 + vec3)
+
+                            if debug_msg: print(word, near, word_best, vec, '|', vec1,vec2,vec3)
 
                             if  vec < vec_best:
                                 vec_best = vec
@@ -241,7 +240,8 @@ class Game:
         return list_out
 
     def distance(self, v1, v2):
-        return np.sqrt(np.sum((v1 - v2) ** 2))
+        #return np.sqrt(np.sum((v1 - v2) ** 2))
+        return spatial.distance.euclidean(v1,v2)
 
     def list_sum(self, positive=[], negative=[]):
         if len(positive) > 0:
@@ -252,11 +252,11 @@ class Game:
 
         for i in positive:
             sample = self.word2vec_book.wv[i]
-            tot = tot + sample
+            tot = np.add(tot , sample)
 
         for i in negative:
             sample = self.word2vec_book.wv[i]
-            tot = tot - sample
+            tot = np.subtract(tot ,  sample)
         return tot
 
     '''

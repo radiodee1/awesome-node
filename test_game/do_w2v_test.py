@@ -144,13 +144,14 @@ if True:
 
     #middle_value = word2vec_book.wv.most_similar(positive=list_h, negative=list_g, topn=4)
 
-    middle_value_string = [[odd_word]]
-    middle_value_vec = [[list_sum(positive=list_h, negative=list_g)]]
-    #middle_value_vec = [[list_sum(positive=['inventory'])]]
-
     print ('====')
     g.load_w2v()
     g.read_word_list()
+
+    middle_value_string = [[odd_word]]
+    middle_value_vec = [[list_sum(positive=list_h, negative=list_g)]]
+    #middle_value_vec = [[g.list_sum(negative=['inventory'])]]
+    #middle_value_vec = [[g.list_sum(positive=['monadologia'])]]
 
     if False:
         ''' string input '''
@@ -166,6 +167,6 @@ if True:
         pass
 
     print ('-----')
-    x = list_sum(positive=list_h,negative=list_g)
-    word = word2vec_book.wv.most_similar(positive=[x],negative=[],topn=5)
-    g.pre_game(odd_word=word, debug_msg=True,special_invert=True,invert_all=False)
+    #x = list_sum(positive=list_h,negative=list_g)
+    word = word2vec_book.wv.most_similar(positive=[middle_value_vec[0][0]],negative=[],topn=5)
+    print (word)
