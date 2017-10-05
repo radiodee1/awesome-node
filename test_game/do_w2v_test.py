@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import game
 
-g = game.Game()
 
 
 word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
@@ -49,31 +48,7 @@ def nearest_similarity(model, start1, end1, end2):
 
     return start2
 
-'''
-def similar_book_to_game(word):
-    print ("--"+word+"--")
-    out = '' #vec = word2vec_book.wv[word]
-    w = [(word,0)]
-    w.extend( word2vec_book.wv.most_similar(word, topn=30))
-    #w.append((word, 0))
-    print (len(w), w)
-    for i in w:
-        print ( "--"+ i[0])
-        try:
-            vec = word2vec_game.most_similar(i[0])
-            out = vec
-            if len(vec) > 1:
-                print (">>", i[0])
-                break
-            pass
-        except:
-            pass
 
-    for i in out:
-        print (i[0])
-    print ("---")
-    return out
-'''
 if False:
 
     print ("---------------")
@@ -130,49 +105,65 @@ def list_sum(positive=[], negative=[]):
 
 
 
-
-if True:
+def check_odd_vector(g, odd_vec=[], debug_msg=False):
 
     odd_word='inventory' #"monadologia"
     ''' by chance saved_37500_600 gives some good output with the word -monadologia- '''
 
     list_g = ['goes','gone','went','going','western','eastern','southern','northern'
               ,'southerly','northerly','westerly','easterly']
+    ''' list of possible inputs to try '''
+
     list_h = ['go','go','go','go','north','south','west','east','north','south','west','east']
+    ''' list of words to subtract from possible inputs - no particular order '''
+
     #list_h = ['go','north','south','west','east'] #,'northeast','southeast','southwest','northwest']
 
     list_i = ['go','go','go','go','west','east','south','north','south','north','west','east']
-    #middle_value = word2vec_book.wv.most_similar(positive=list_h, negative=list_g, topn=4)
+    ''' correct outputs in order '''
 
-    print ('====')
-    g.load_w2v()
-    g.read_word_list()
+    choose_string_input = True
+
+    if debug_msg: print ('====')
 
     middle_value_string = [[odd_word]]
     middle_value_vec = [[list_sum(positive=list_h, negative=list_g)]]
     #middle_value_vec = [[g.list_sum(negative=['inventory'])]]
     #middle_value_vec = [[g.list_sum(positive=['monadologia'])]]
 
+    if len(odd_vec) > 0:
+        middle_value_vec = [[odd_vec]]
+        choose_string_input = False
+
     correct = 0
     total = len(list_i)
 
-    if False:
+    if choose_string_input:
         ''' string input '''
-        print(middle_value_string, len(middle_value_string[0][0]))
-        g.pre_game(odd_word=middle_value_string[0][0], odd_vec=[],debug_msg=True,special_invert=True, invert_all=True)
+        if debug_msg: print(middle_value_string, len(middle_value_string[0][0]))
+        g.pre_game(odd_word=middle_value_string[0][0], odd_vec=[],debug_msg=debug_msg,special_invert=True, invert_all=True)
     else:
         ''' vector input '''
-        print (middle_value_vec, len(middle_value_vec[0][0]))
-        g.pre_game(odd_word=[], odd_vec=middle_value_vec[0][0], debug_msg=True, special_invert=False, invert_all=False)
+        if debug_msg: print (middle_value_vec, len(middle_value_vec[0][0]))
+        g.pre_game(odd_word=[], odd_vec=middle_value_vec[0][0], debug_msg=debug_msg, special_invert=False, invert_all=False)
 
     for z in range(len(list_g)):
         i = list_g[z]
-        j = g.resolve_word_closest(g.words_game, [i] ,odd_word=g.odd_word, debug_msg=True)[0]
+        j = g.resolve_word_closest(g.words_game, [i] ,odd_word=g.odd_word, debug_msg=debug_msg)[0]
         if j == list_i[z]: correct += 1
         pass
 
-    print ('-----')
+    if debug_msg: print ('-----')
     print (correct, "/", total, "or:", correct / total)
-    #x = list_sum(positive=list_h,negative=list_g)
-    word = word2vec_book.wv.most_similar(positive=[middle_value_vec[0][0]],negative=[],topn=5)
-    print (word)
+    
+    if debug_msg: word = word2vec_book.wv.most_similar(positive=[middle_value_vec[0][0]],negative=[],topn=5)
+    if debug_msg: print (word)
+
+    return correct / total
+
+#############################
+g = game.Game()
+g.load_w2v()
+g.read_word_list()
+
+check_odd_vector(g)
