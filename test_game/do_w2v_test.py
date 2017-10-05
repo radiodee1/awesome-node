@@ -5,6 +5,8 @@ import os
 import gensim.models.word2vec as w2v
 import matplotlib.pyplot as plt
 import numpy as np
+import math
+
 import game
 
 
@@ -122,7 +124,7 @@ def check_odd_vector(g, odd_vec=[], debug_msg=False):
     list_i = ['go','go','go','go','west','east','south','north','south','north','west','east']
     ''' correct outputs in order '''
 
-    choose_string_input = True
+    choose_string_input = False
 
     if debug_msg: print ('====')
 
@@ -155,7 +157,7 @@ def check_odd_vector(g, odd_vec=[], debug_msg=False):
 
     if debug_msg: print ('-----')
     print (correct, "/", total, "or:", correct / total)
-    
+
     if debug_msg: word = word2vec_book.wv.most_similar(positive=[middle_value_vec[0][0]],negative=[],topn=5)
     if debug_msg: print (word)
 
@@ -167,3 +169,40 @@ g.load_w2v()
 g.read_word_list()
 
 check_odd_vector(g)
+
+if True:
+    feature_mag = 4.5
+    ''' feature magnitude '''
+
+    var_len = len(word2vec_book.wv['west'])
+    patch = 50
+    binary_len = int(var_len / patch)
+    print (binary_len)
+
+    bin_string = ''
+    for i in range(binary_len):
+        bin_string = bin_string + '1'
+    bin_tot = int(bin_string,2)
+    print (bin_tot)
+    for i in range(bin_tot):
+        ''' make vector here. '''
+        vec_out = []
+        for j in range(binary_len):
+            xxx = 1 << j
+            zzz = (i & xxx) >> j
+
+            if zzz == 0:
+                for k in range(patch):
+                    vec_out.append(- feature_mag)
+            else:
+                for k in range(patch):
+                    vec_out.append(+ feature_mag)
+        ''' try out vector in game. '''
+        vec_out = np.array(vec_out)
+        if i < 10: print (vec_out)
+        print (i, bin_tot)
+        out = check_odd_vector(g,odd_vec=vec_out)
+        if out > 0:
+            exit()
+        ''' save vector if it works. '''
+        pass
