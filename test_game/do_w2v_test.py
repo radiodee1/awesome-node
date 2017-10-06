@@ -178,6 +178,7 @@ if True:
     var_len = len(word2vec_book.wv['west'])
     patch = 25
     binary_len = int(var_len / patch)
+    saved_score = 0
     print (binary_len)
 
     bin_string = ''
@@ -198,12 +199,19 @@ if True:
             else:
                 for k in range(patch):
                     vec_out.append(+ feature_mag)
+        ''' try saved vector '''
+        if i == 0:
+            if os.path.isfile(os.path.join("trained","word2vec_book_vec.npy")):
+                vec_out = np.load(os.path.join("trained","word2vec_book_vec.npy"))
         ''' try out vector in game. '''
         #vec_out = np.array(vec_out)
         if i < 10: print (vec_out)
-        print (i, bin_tot)
+        print (i, bin_tot, saved_score, saved_score * 12)
         out = check_odd_vector(g,odd_vec=vec_out, debug_msg=False)
+        ''' save vector if it works. '''
+        if out > saved_score:
+            saved_score = out
+            np.save(os.path.join("trained","word2vec_book_vec"), vec_out)
         if out > 0.5:
             exit()
-        ''' save vector if it works. '''
         pass

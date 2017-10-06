@@ -41,6 +41,8 @@ class Game:
     def load_w2v(self):
         self.word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
         self.word2vec_book = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
+        if os.path.isfile(os.path.join("trained","word2vec_book_vec.npy")):
+            self.odd_vec = np.load(os.path.join("trained","word2vec_book_vec.npy"))
 
     def read_word_list(self):
         self.words_all = self.words_game[:]
