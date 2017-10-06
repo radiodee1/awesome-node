@@ -202,8 +202,8 @@ if True:
         #vec_out = np.array(vec_out)
         if i < 10: print (vec_out)
         print (i, bin_tot)
-        out = check_odd_vector(g,odd_vec=vec_out, debug_msg=True)
-        if out > 0:
+        out = check_odd_vector(g,odd_vec=vec_out, debug_msg=False)
+        if out > 0.5:
             exit()
         ''' save vector if it works. '''
         pass
