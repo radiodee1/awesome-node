@@ -158,7 +158,8 @@ def check_odd_vector(g, odd_vec=[], debug_msg=False):
     if debug_msg: print ('-----')
     print (correct, "/", total, "or:", correct / total)
 
-    if debug_msg: word = word2vec_book.wv.most_similar(positive=[middle_value_vec[0][0]],negative=[],topn=5)
+    if debug_msg: vec = np.array(middle_value_vec[0][0])
+    if debug_msg: word = word2vec_book.wv.most_similar(positive=[vec],negative=[],topn=5)
     if debug_msg: print (word)
 
     return correct / total
@@ -175,7 +176,7 @@ if True:
     ''' feature magnitude '''
 
     var_len = len(word2vec_book.wv['west'])
-    patch = 50
+    patch = 25
     binary_len = int(var_len / patch)
     print (binary_len)
 
@@ -184,7 +185,7 @@ if True:
         bin_string = bin_string + '1'
     bin_tot = int(bin_string,2)
     print (bin_tot)
-    for i in range(bin_tot):
+    for i in xrange(bin_tot):
         ''' make vector here. '''
         vec_out = []
         for j in range(binary_len):
@@ -198,10 +199,10 @@ if True:
                 for k in range(patch):
                     vec_out.append(+ feature_mag)
         ''' try out vector in game. '''
-        vec_out = np.array(vec_out)
+        #vec_out = np.array(vec_out)
         if i < 10: print (vec_out)
         print (i, bin_tot)
-        out = check_odd_vector(g,odd_vec=vec_out)
+        out = check_odd_vector(g,odd_vec=vec_out, debug_msg=True)
         if out > 0:
             exit()
         ''' save vector if it works. '''

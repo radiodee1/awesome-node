@@ -196,7 +196,7 @@ class Game:
             if not  (word in self.words_all):
                 num_best = -3
                 word_best = ""
-                vec_best = 100
+                vec_best = 1000000
                 #
                 for near in list_suggested:
                     ######
