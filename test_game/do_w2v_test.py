@@ -169,14 +169,19 @@ g = game.Game()
 g.load_w2v()
 g.read_word_list()
 
-check_odd_vector(g)
+if False:
+    odd_vec = []
+    if os.path.isfile(os.path.join("trained", "word2vec_book_vec.npy")):
+        odd_vec = np.load(os.path.join("trained", "word2vec_book_vec.npy"))
+    check_odd_vector(g, odd_vec=odd_vec, debug_msg=True)
 
-if True:
-    feature_mag = 4.5
-    ''' feature magnitude '''
+
+
+def generate_perfect_vector(g, feature_mag=4.5, debug_msg=True):
+    ''' find vector that satisfies special requirements '''
 
     var_len = len(word2vec_book.wv['west'])
-    patch = 25
+    patch = 30
     binary_len = int(var_len / patch)
     saved_score = 0
     print (binary_len)
@@ -213,5 +218,9 @@ if True:
             saved_score = out
             np.save(os.path.join("trained","word2vec_book_vec"), vec_out)
         if out > 0.5:
-            exit()
+            #exit()
+            pass
         pass
+
+if True:
+    generate_perfect_vector(g)
