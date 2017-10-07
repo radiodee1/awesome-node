@@ -5,6 +5,7 @@ import os
 import gensim.models.word2vec as w2v
 import matplotlib.pyplot as plt
 import numpy as np
+import itertools
 import math
 
 import game
@@ -169,21 +170,23 @@ g = game.Game()
 g.load_w2v()
 g.read_word_list()
 
-if False:
+if True:
     odd_vec = []
     if os.path.isfile(os.path.join("trained", "word2vec_book_vec.npy")):
         odd_vec = np.load(os.path.join("trained", "word2vec_book_vec.npy"))
     check_odd_vector(g, odd_vec=odd_vec, debug_msg=True)
+    print (np.mean(np.abs(word2vec_book.wv['west'])),":mean of 'west'")
 
 
-
-def generate_perfect_vector(g, feature_mag=4.5, debug_msg=True):
+def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_num=0,debug_msg=True):
     ''' find vector that satisfies special requirements '''
 
-    var_len = len(word2vec_book.wv['west'])
-    patch = 30
+    #var_len = len(word2vec_book.wv['west'])
+    patch = patch_size
     binary_len = int(var_len / patch)
     saved_score = 0
+    if fill_num == 0 or fill_num >= patch:
+        fill_num = patch
     print (binary_len)
 
     bin_string = ''
@@ -191,7 +194,7 @@ def generate_perfect_vector(g, feature_mag=4.5, debug_msg=True):
         bin_string = bin_string + '1'
     bin_tot = int(bin_string,2)
     print (bin_tot)
-    for i in xrange(bin_tot):
+    for i in itertools.count(1): #xrange(bin_tot):
         ''' make vector here. '''
         vec_out = []
         for j in range(binary_len):
@@ -200,10 +203,16 @@ def generate_perfect_vector(g, feature_mag=4.5, debug_msg=True):
 
             if zzz == 0:
                 for k in range(patch):
-                    vec_out.append(- feature_mag)
+                    if k <= fill_num:
+                        vec_out.append(- feature_mag)
+                    else:
+                        vec_out.append(0.0)
             else:
                 for k in range(patch):
-                    vec_out.append(+ feature_mag)
+                    if k <= fill_num:
+                        vec_out.append(+ feature_mag)
+                    else:
+                        vec_out.append(0.0)
         ''' try saved vector '''
         if i == 0:
             if os.path.isfile(os.path.join("trained","word2vec_book_vec.npy")):
@@ -211,7 +220,7 @@ def generate_perfect_vector(g, feature_mag=4.5, debug_msg=True):
         ''' try out vector in game. '''
         #vec_out = np.array(vec_out)
         if i < 10: print (vec_out)
-        print (i, bin_tot, saved_score, saved_score * 12)
+        print (i, bin_tot, saved_score,'--', int((i / bin_tot) * 100), '% completed --', int(saved_score * 12),'correct')
         out = check_odd_vector(g,odd_vec=vec_out, debug_msg=False)
         ''' save vector if it works. '''
         if out > saved_score:
@@ -220,7 +229,10 @@ def generate_perfect_vector(g, feature_mag=4.5, debug_msg=True):
         if out > 0.5:
             #exit()
             pass
+        if i >= bin_tot:
+            print ("exit")
+            break
         pass
 
 if True:
-    generate_perfect_vector(g)
+    generate_perfect_vector(g, feature_mag=0.5, patch_size=1, fill_num=0,var_len=600)
