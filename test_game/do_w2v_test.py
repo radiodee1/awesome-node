@@ -220,7 +220,7 @@ def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_nu
         ''' try out vector in game. '''
         #vec_out = np.array(vec_out)
         if i < 10: print (vec_out)
-        print (i, bin_tot, saved_score,'--', int((i / bin_tot) * 100), '% completed --', int(saved_score * 12),'correct')
+        print (i, bin_tot,patch, saved_score,'--', int((i / bin_tot) * 100), '% completed --', int(saved_score * 12),'correct')
         out = check_odd_vector(g,odd_vec=vec_out, debug_msg=False)
         ''' save vector if it works. '''
         if out > saved_score:
