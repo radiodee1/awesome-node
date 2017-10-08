@@ -32,8 +32,8 @@ if False:
         all_word_vectors_vocab.append(i)
 
 if True:
-    list_g = ['goes','gone','went','going','western','eastern','southern','northern']
-              #,'southerly','northerly','westerly','easterly']
+    list_g = ['goes','gone','went','going','western','eastern','southern','northern'#]
+              ,'southerly','northerly','westerly','easterly']
 
     list_v = ['go','west','east','north','south']
 

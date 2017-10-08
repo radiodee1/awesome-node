@@ -137,10 +137,10 @@ class Game:
         if True:
             for word in input:
                 self.resolve_word(word,debug_msg=False)
-                #self.resolve_word(i[1])
+
             for word in self.words_last:
                 self.resolve_word(word, debug_msg=False)
-            #print (input, self.words_last)
+
 
             self.words_correct = self.resolve_word_closest(self.words_game, input, debug_msg=True, use_ending=False, odd_word=self.odd_word)
 
@@ -199,16 +199,18 @@ class Game:
                 num_best = -3
                 word_best = ""
                 vec_best = 1000000
+
                 #
                 for near in list_suggested:
                     ######
                     if use_ending: near = near + "zzz"
                     try:
+                        ############
                         if len(self.odd_vec) == 0:
 
                             num = self.word2vec_book.wv.similarity(word, near)
                             if odd_word != None:
-                                #num = 0
+
                                 num = num + self.word2vec_book.wv.similarity(word,odd_word)
                                 num = num + self.word2vec_book.wv.similarity(near,odd_word)
                             if debug_msg: print (word, near, odd_word, num)
@@ -220,16 +222,15 @@ class Game:
 
                             word_vec = self.list_sum(positive=[word],negative=[])
                             near_vec = self.list_sum(positive=[near],negative=[])
-                            vec1 = self.distance(self.odd_vec, word_vec)
-                            vec2 = self.distance(self.odd_vec, near_vec)
-                            vec3 = self.distance(near_vec, word_vec)
-                            vec = ( vec1 + vec2 + vec3)
 
-                            if debug_msg: print(word, near, word_best, vec, '|', vec1,vec2,vec3)
+                            vec = self.distance(near_vec, word_vec - self.odd_vec)
 
-                            if  vec < vec_best:
+                            if debug_msg: print(word, near, word_best, vec)
+
+                            if vec < vec_best:
                                 vec_best = vec
                                 word_best = near
+
                     except NameError:
                         pass
                     ######
@@ -261,34 +262,7 @@ class Game:
             tot = np.subtract(tot ,  sample)
         return tot
 
-    '''
-    def most_similar(self, word):
-        results = []
-        try:
-            results = self.word2vec_game.most_similar(word)
-            pass
-        except:
-            pass
-        self.print_list(results, heading="list-"+word)
-
-        self.resolve_word(word)
-
-    def nearest_similarity(self, model, start1, end1, end2):
-        start2 = ""
-        try:
-            similarities = model.most_similar_cosmul(
-                positive=[end2.lower(), start1.lower()],
-                negative=[end1.lower()],
-                topn=10
-            )
-            self.print_list(similarities, heading= similarities[0][0] +"-(book)??")
-            start2 = similarities[0][0]
-            print("{start1} is related to {end1}, as {start2} is related to {end2} in books".format(**locals()))
-        except:
-            print ("not similar enough?")
-            pass
-        return start2
-    '''
+    
 
 
     def print_list(self, list, heading="list", to_screen=True, add_to_global=False):

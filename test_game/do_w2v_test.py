@@ -110,7 +110,7 @@ def list_sum(positive=[], negative=[]):
 
 def check_odd_vector(g, odd_vec=[], debug_msg=False):
 
-    odd_word='inventory' #"monadologia"
+    odd_word=None#'inventory' #"monadologia"
     ''' by chance saved_37500_600 gives some good output with the word -monadologia- '''
 
     list_g = ['goes','gone','went','going','western','eastern','southern','northern'
@@ -143,8 +143,8 @@ def check_odd_vector(g, odd_vec=[], debug_msg=False):
 
     if choose_string_input:
         ''' string input '''
-        if debug_msg: print(middle_value_string, len(middle_value_string[0][0]))
-        g.pre_game(odd_word=middle_value_string[0][0], odd_vec=[],debug_msg=debug_msg,special_invert=True, invert_all=True)
+        if debug_msg: print(middle_value_string)#, len(middle_value_string[0][0]))
+        g.pre_game(odd_word=middle_value_string[0][0], odd_vec=[],debug_msg=debug_msg,special_invert=True, invert_all=False)
     else:
         ''' vector input '''
         if debug_msg: print (middle_value_vec, len(middle_value_vec[0][0]))
@@ -176,6 +176,9 @@ if True:
         odd_vec = np.load(os.path.join("trained", "word2vec_book_vec.npy"))
     check_odd_vector(g, odd_vec=odd_vec, debug_msg=True)
     print (np.mean(np.abs(word2vec_book.wv['west'])),":mean of 'west'")
+
+if False and len(odd_vec)> 0:
+    print (word2vec_book.wv.most_similar(positive=[odd_vec], topn=10))
 
 
 def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_num=0,debug_msg=True):
@@ -220,7 +223,7 @@ def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_nu
         ''' try out vector in game. '''
         #vec_out = np.array(vec_out)
         if i < 10: print (vec_out)
-        print (i, bin_tot,patch, saved_score,'--', int((i / bin_tot) * 100), '% completed --', int(saved_score * 12),'correct')
+        print (i, bin_tot,patch, saved_score,'--',str (int((i / bin_tot) * 100)) + '% complete --', int(saved_score * 12),'correct')
         out = check_odd_vector(g,odd_vec=vec_out, debug_msg=False)
         ''' save vector if it works. '''
         if out > saved_score:
@@ -235,4 +238,4 @@ def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_nu
         pass
 
 if True:
-    generate_perfect_vector(g, feature_mag=0.5, patch_size=30, fill_num=0,var_len=600)
+    generate_perfect_vector(g, feature_mag=0.5, patch_size=10, fill_num=0,var_len=300)
