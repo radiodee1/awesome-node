@@ -214,7 +214,7 @@ def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_nu
                     else:
                         vec_out.append(0.0)
         ''' try saved vector '''
-        if i == 0:
+        if i == 1:
             if os.path.isfile(os.path.join("trained","word2vec_book_vec.npy")):
                 vec_out = np.load(os.path.join("trained","word2vec_book_vec.npy"))
         ''' try out vector in game. '''
@@ -235,4 +235,4 @@ def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_nu
         pass
 
 if True:
-    generate_perfect_vector(g, feature_mag=0.5, patch_size=1, fill_num=0,var_len=600)
+    generate_perfect_vector(g, feature_mag=0.5, patch_size=30, fill_num=0,var_len=600)
