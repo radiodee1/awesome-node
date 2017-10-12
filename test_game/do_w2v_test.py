@@ -118,9 +118,9 @@ def check_odd_vector(g, odd_vec=[], debug_msg=False):
     ''' list of possible inputs to try '''
     list_g = ['goes','gone','went','going',
               'western','eastern','southern','northern'
-              ,'southerly','northerly','westerly','easterly'
-              ,'southeasterly','northeasterly','southwesterly','northwesterly'
-              ,'southeastern','northeastern','southwestern','northwestern']
+              ,'southerly','northerly','westerly','easterly']
+              #,'southeasterly','northeasterly','southwesterly','northwesterly'
+              #,'southeastern','northeastern','southwestern','northwestern']
 
     #list_h = ['go','go','go','go','north','south','west','east','north','south','west','east']
     #''' list of words to subtract from possible inputs - no particular order '''
@@ -128,9 +128,9 @@ def check_odd_vector(g, odd_vec=[], debug_msg=False):
     ''' correct outputs in order '''
     list_i = ['go','go','go','go',
               'west','east','south','north'
-              ,'south','north','west','east'
-              ,'southeast','northeast','southwest','northwest'
-              ,'southeast', 'northeast', 'southwest', 'northwest']
+              ,'south','north','west','east']
+              #,'southeast','northeast','southwest','northwest'
+              #,'southeast', 'northeast', 'southwest', 'northwest']
 
     choose_string_input = False
 
@@ -189,11 +189,11 @@ if False and len(odd_vec)> 0:
     print (g.word2vec_book.wv.most_similar(positive=[odd_vec], topn=10))
 
 
-def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_num=0,debug_msg=True):
+def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_num=0,debug_msg=True, tot_correct=12):
     ''' find vector that satisfies special requirements '''
 
     #var_len = len(word2vec_book.wv['west'])
-    num_of_correct = 20
+    num_of_correct = tot_correct #20
     patch = patch_size
     binary_len = int(var_len / patch)
     saved_score = 0
@@ -251,4 +251,4 @@ def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_nu
         pass
 
 if True:
-    generate_perfect_vector(g, feature_mag=0.5, patch_size=50, fill_num=0,var_len=900)
+    generate_perfect_vector(g, feature_mag=0.5, patch_size=50, fill_num=0,var_len=900,tot_correct=12)
