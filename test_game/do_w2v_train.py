@@ -21,6 +21,8 @@ from nltk.stem import *
 import gensim.models.word2vec as w2v
 
 
+model_generate_new = False
+
 
 #########################################
 
@@ -156,19 +158,23 @@ def assemble_corpus(glob_txt, stem_words=False, sentence_label="", pos_tag=False
 game_glob1 = "data/zork1-output.txt" ## actual commands processed
 game_glob2 = "data/z*.txt" ## not for good game corpus
 game_glob3 = "data/wiki*.txt"
-game_glob4 = "data/zork1-e*.txt"
+game_glob4 = "data/zork1-example.txt"
 
-if True:
+if False:
     sentences_game = assemble_corpus(game_glob1,    stem_words=False)
 
-if True:
+if False:
     sentences_zork = assemble_corpus(game_glob2, pos_tag=False)
 
-if True:
+if False:
     sentences_book = []
     sentences_book = assemble_corpus(game_glob3, pos_tag=False)
 
 if True:
+    sentences_book = []
+    sentences_book = assemble_corpus(game_glob4, pos_tag=False)
+
+if False:
     sentences_book.extend(sentences_zork)
     sentences_book.extend(test)
 
@@ -204,7 +210,7 @@ seed = 1
 epochs = 500
 
 ###################################################
-if False:
+if model_generate_new:
     word2vec_game = w2v.Word2Vec(
         sg=1,
         seed=seed,
@@ -214,6 +220,12 @@ if False:
         window=context_size,
         sample=downsampling
     )
+
+else:
+    print ("stage: load model")
+    word2vec_game = w2v.Word2Vec.load(os.path.join("trained","word2vec_game.w2v"))
+
+if False:
 
     word2vec_game.build_vocab(sentences_game)
 
@@ -233,7 +245,7 @@ if False:
 
 #exit()
 ############################################
-num_features =  600 #  900 is not good
+num_features =  900 #  900 is not good
 # Minimum word count threshold.
 min_word_count = 1 # 3
 
@@ -255,7 +267,7 @@ seed = 1
 
 epochs = 5
 
-if True:
+if model_generate_new:
     word2vec_book = w2v.Word2Vec(
         sg=1,
         seed=seed,
@@ -266,6 +278,11 @@ if True:
         sample=downsampling
     )
 
+else:
+    print ("stage: load model")
+    word2vec_book = w2v.Word2Vec.load(os.path.join("trained","word2vec_book.w2v"))
+
+if False:
     word2vec_book.build_vocab(sentences_book)
 
     print("stage: Word2Vec book vocabulary length:", len(word2vec_book.wv.vocab))

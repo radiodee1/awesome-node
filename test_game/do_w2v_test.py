@@ -11,9 +11,11 @@ import math
 import game
 
 
+load_book_and_game = False
 
-word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
-word2vec_book = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
+if load_book_and_game:
+    word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
+    word2vec_book = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
 
 if False:
     word2vec_book = w2v.KeyedVectors.load_word2vec_format(os.path.join('trained','saved_google','GoogleNews-vectors-negative300.bin'),
@@ -52,7 +54,7 @@ def nearest_similarity(model, start1, end1, end2):
     return start2
 
 
-if False:
+if load_book_and_game:
 
     print ("---------------")
     print ("book")
@@ -88,21 +90,21 @@ def graph_compare(word1, word2):
     plt.bar(y2,vec2)
     plt.show()
 
-if False:
+if load_book_and_game:
     #graph_compare('going','gone')
     graph_compare('northwest','western')
     #graph_compare("go","gone")
 
-def list_sum(positive=[], negative=[]):
-    sample = word2vec_book.wv[positive[0]]
+def list_sum(model, positive=[], negative=[]):
+    sample = model.wv[positive[0]]
     tot = np.zeros_like(sample)
 
     for i in positive:
-        sample = word2vec_book.wv[i]
+        sample = model.wv[i]
         tot = tot + sample
 
     for i in negative:
-        sample = word2vec_book.wv[i]
+        sample = model.wv[i]
         tot = tot - sample
     return tot
 
@@ -110,29 +112,35 @@ def list_sum(positive=[], negative=[]):
 
 def check_odd_vector(g, odd_vec=[], debug_msg=False):
 
-    odd_word=None#'inventory' #"monadologia"
     ''' by chance saved_37500_600 gives some good output with the word -monadologia- '''
+    odd_word=None#'inventory' #"monadologia"
 
-    list_g = ['goes','gone','went','going','western','eastern','southern','northern'
-              ,'southerly','northerly','westerly','easterly']
     ''' list of possible inputs to try '''
+    list_g = ['goes','gone','went','going',
+              'western','eastern','southern','northern'
+              ,'southerly','northerly','westerly','easterly'
+              ,'southeasterly','northeasterly','southwesterly','northwesterly'
+              ,'southeastern','northeastern','southwestern','northwestern']
 
-    list_h = ['go','go','go','go','north','south','west','east','north','south','west','east']
-    ''' list of words to subtract from possible inputs - no particular order '''
+    #list_h = ['go','go','go','go','north','south','west','east','north','south','west','east']
+    #''' list of words to subtract from possible inputs - no particular order '''
 
-    #list_h = ['go','north','south','west','east'] #,'northeast','southeast','southwest','northwest']
-
-    list_i = ['go','go','go','go','west','east','south','north','south','north','west','east']
     ''' correct outputs in order '''
+    list_i = ['go','go','go','go',
+              'west','east','south','north'
+              ,'south','north','west','east'
+              ,'southeast','northeast','southwest','northwest'
+              ,'southeast', 'northeast', 'southwest', 'northwest']
 
     choose_string_input = False
 
     if debug_msg: print ('====')
 
     middle_value_string = [[odd_word]]
-    middle_value_vec = [[list_sum(positive=list_h, negative=list_g)]]
-    #middle_value_vec = [[g.list_sum(negative=['inventory'])]]
-    #middle_value_vec = [[g.list_sum(positive=['monadologia'])]]
+
+    if True:
+        middle_value_vec = [[list_sum(g.word2vec_book,positive=list_i, negative=list_g)]]
+        pass
 
     if len(odd_vec) > 0:
         middle_value_vec = [[odd_vec]]
@@ -160,7 +168,7 @@ def check_odd_vector(g, odd_vec=[], debug_msg=False):
     print (correct, "/", total, "or:", correct / total)
 
     if debug_msg: vec = np.array(middle_value_vec[0][0])
-    if debug_msg: word = word2vec_book.wv.most_similar(positive=[vec],negative=[],topn=5)
+    if debug_msg: word = g.word2vec_book.wv.most_similar(positive=[vec],negative=[],topn=5)
     if debug_msg: print (word)
 
     return correct / total
@@ -175,16 +183,17 @@ if True:
     if os.path.isfile(os.path.join("trained", "word2vec_book_vec.npy")):
         odd_vec = np.load(os.path.join("trained", "word2vec_book_vec.npy"))
     check_odd_vector(g, odd_vec=odd_vec, debug_msg=True)
-    print (np.mean(np.abs(word2vec_book.wv['west'])),":mean of 'west'")
+    print (np.mean(np.abs(g.word2vec_book.wv['west'])),":mean of 'west'")
 
 if False and len(odd_vec)> 0:
-    print (word2vec_book.wv.most_similar(positive=[odd_vec], topn=10))
+    print (g.word2vec_book.wv.most_similar(positive=[odd_vec], topn=10))
 
 
 def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_num=0,debug_msg=True):
     ''' find vector that satisfies special requirements '''
 
     #var_len = len(word2vec_book.wv['west'])
+    num_of_correct = 20
     patch = patch_size
     binary_len = int(var_len / patch)
     saved_score = 0
@@ -222,8 +231,12 @@ def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_nu
                 vec_out = np.load(os.path.join("trained","word2vec_book_vec.npy"))
         ''' try out vector in game. '''
         #vec_out = np.array(vec_out)
-        if i < 10: print (vec_out)
-        print (i, bin_tot,patch, saved_score,'--',str (int((i / bin_tot) * 100)) + '% complete --', int(saved_score * 12),'correct')
+        if i < 10 and False: print (vec_out)
+
+        print (i, bin_tot,patch, saved_score,'--',
+               str (int((i / bin_tot) * 100)) + '% complete --', int(saved_score * num_of_correct),
+               'correct of',num_of_correct)
+
         out = check_odd_vector(g,odd_vec=vec_out, debug_msg=False)
         ''' save vector if it works. '''
         if out > saved_score:
@@ -238,4 +251,4 @@ def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_nu
         pass
 
 if True:
-    generate_perfect_vector(g, feature_mag=0.5, patch_size=10, fill_num=0,var_len=300)
+    generate_perfect_vector(g, feature_mag=0.5, patch_size=50, fill_num=0,var_len=900)

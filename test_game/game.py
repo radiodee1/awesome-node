@@ -223,7 +223,7 @@ class Game:
                             word_vec = self.list_sum(positive=[word],negative=[])
                             near_vec = self.list_sum(positive=[near],negative=[])
 
-                            vec = self.distance(near_vec, word_vec - self.odd_vec)
+                            vec = self.distance(near_vec, word_vec - self.odd_vec) ### - (subtraction)
 
                             if debug_msg: print(word, near, word_best, vec)
 
@@ -262,7 +262,7 @@ class Game:
             tot = np.subtract(tot ,  sample)
         return tot
 
-    
+
 
 
     def print_list(self, list, heading="list", to_screen=True, add_to_global=False):
