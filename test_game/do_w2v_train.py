@@ -21,7 +21,6 @@ from nltk.stem import *
 import gensim.models.word2vec as w2v
 
 
-model_generate_new = False
 
 
 #########################################
@@ -155,26 +154,28 @@ def assemble_corpus(glob_txt, stem_words=False, sentence_label="", pos_tag=False
     return sentences
 
 ####################################################
+model_generate_new = True
+
 game_glob1 = "data/zork1-output.txt" ## actual commands processed
 game_glob2 = "data/z*.txt" ## not for good game corpus
 game_glob3 = "data/wiki*.txt"
 game_glob4 = "data/zork1-example.txt"
 
-if False:
+if True:
     sentences_game = assemble_corpus(game_glob1,    stem_words=False)
 
-if False:
+if True:
     sentences_zork = assemble_corpus(game_glob2, pos_tag=False)
-
-if False:
-    sentences_book = []
-    sentences_book = assemble_corpus(game_glob3, pos_tag=False)
 
 if True:
     sentences_book = []
-    sentences_book = assemble_corpus(game_glob4, pos_tag=False)
+    sentences_book = assemble_corpus(game_glob3, pos_tag=False)
 
 if False:
+    sentences_book = []
+    sentences_book = assemble_corpus(game_glob4, pos_tag=False)
+
+if True:
     sentences_book.extend(sentences_zork)
     sentences_book.extend(test)
 
@@ -187,7 +188,7 @@ if False:
 #exit()
 ####################################################
 
-num_features =   100
+num_features =   300
 # Minimum word count threshold.
 min_word_count = 1
 
@@ -200,7 +201,7 @@ context_size = 7 # 7
 
 # Downsample setting for frequent words.
 #0 - 1e-5 is good for this
-downsampling =  0#1e-3
+downsampling =  1e-2
 
 # Seed for the RNG, to make the results reproducible.
 #random number generator
@@ -225,7 +226,7 @@ else:
     print ("stage: load model")
     word2vec_game = w2v.Word2Vec.load(os.path.join("trained","word2vec_game.w2v"))
 
-if False:
+if True:
 
     word2vec_game.build_vocab(sentences_game)
 
@@ -245,9 +246,9 @@ if False:
 
 #exit()
 ############################################
-num_features =  900 #  900 is not good
+num_features =  300 #  900 is not good
 # Minimum word count threshold.
-min_word_count = 1 # 3
+min_word_count = 2 # 3
 
 # Number of threads to run in parallel.
 #more workers, faster we train
@@ -258,7 +259,7 @@ context_size = 7 # 7
 
 # Downsample setting for frequent words.
 #0 - 1e-5 is good for this
-downsampling = 0 #1e-2
+downsampling = 1e-2
 
 # Seed for the RNG, to make the results reproducible.
 #random number generator
@@ -282,7 +283,7 @@ else:
     print ("stage: load model")
     word2vec_book = w2v.Word2Vec.load(os.path.join("trained","word2vec_book.w2v"))
 
-if False:
+if True:
     word2vec_book.build_vocab(sentences_book)
 
     print("stage: Word2Vec book vocabulary length:", len(word2vec_book.wv.vocab))

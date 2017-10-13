@@ -250,5 +250,5 @@ def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_nu
             break
         pass
 
-if True:
+if False:
     generate_perfect_vector(g, feature_mag=0.5, patch_size=50, fill_num=0,var_len=900,tot_correct=12)
