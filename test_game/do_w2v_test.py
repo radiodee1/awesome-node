@@ -11,7 +11,7 @@ import math
 import game
 
 
-load_book_and_game = False
+load_book_and_game = True
 
 if load_book_and_game:
     word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
@@ -37,7 +37,7 @@ def nearest_similarity_cosmul(model, start1, end1, end2):
 
     start2 = similarities[0][0]
     print("{start1} is related to {end1}, as {start2} is related to {end2}".format(**locals()))
-    print (similarities)
+    #print (similarities)
 
     return start2
 
@@ -49,7 +49,7 @@ def nearest_similarity(model, start1, end1, end2):
 
     start2 = similarities[0][0]
     print("{start1} is related to {end1}, as {start2} is related to {end2}".format(**locals()))
-    print (similarities)
+    #print (similarities)
 
     return start2
 
@@ -62,7 +62,8 @@ if load_book_and_game:
 
     nearest_similarity_cosmul(word2vec_book,"north","south", "west")
     nearest_similarity_cosmul(word2vec_book,"west", "northwest", "northeast")
-    nearest_similarity_cosmul(word2vec_book,"go","west", "west")
+    nearest_similarity_cosmul(word2vec_book,"northwest","northwestern", "northeastern")
+    nearest_similarity_cosmul(word2vec_book,"northwesterly","northwest", "northeast")
 
     print()
 
@@ -251,4 +252,4 @@ def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_nu
         pass
 
 if False:
-    generate_perfect_vector(g, feature_mag=0.5, patch_size=50, fill_num=0,var_len=900,tot_correct=12)
+    generate_perfect_vector(g, feature_mag=0.5, patch_size=10, fill_num=0,var_len=300,tot_correct=12)
