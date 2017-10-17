@@ -66,6 +66,7 @@ For example, several lines with analogies will print on the screen. They will sh
 The command above devides the vector into patches that are 20 features wide. Good results can be achieved with values of 10, 20, up to 50. This is the reason that a well trained network is desired, so that this function will suggest words better.  
 The patch size number must be the first argument on the command line after the script-name.
 * results from 'odd_vec': `./do_w2v_test.py -no-find` This prints lists to the terminal showing exactly which non game words are translated to which game words.
-* You can also use the `-load-special` flag. This must be used in combination with a downloaded pre-trained model saved in binary form. The one used in the script is from google. A download link on google drive is `https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit?usp=sharing`  
+* You can also use the `-load-special` flag. This must be used in combination with a downloaded pre-trained model saved in binary form. The one used in the script is from google. A download link on google drive is:   
+https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit?usp=sharing  
 This is a 3+ gig download. After downloading the model, run `mkdir -p trained/saved_google/` and put the `bin` file there. Then you should be able to use the `-load-special` flag when creating your 'odd_vec' and when running `-no-find` on your 'odd_vec'.  
 The `-load-special` flag must be after all other flags on the terminal command line.
