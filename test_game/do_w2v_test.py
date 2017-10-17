@@ -7,15 +7,40 @@ import matplotlib.pyplot as plt
 import numpy as np
 import itertools
 import math
+import sys
 
 import game
 
 
+option_flag = "-no-find"
+option_load = "-load-special"
+
 load_book_and_game = False
+find_perfect_num = False
+patch_size = 50
+load_special = False
+
+if len(sys.argv) > 1:
+    load_book_and_game = False
+    find_perfect_num = True
+    try:
+        patch_size = int(sys.argv[1])
+        if len(sys.argv) > 2 and str(sys.argv[2]) == option_load:
+            load_special = True
+        pass
+    except:
+
+        if len(sys.argv) > 1 and str(sys.argv[1]) == option_flag:
+            find_perfect_num = False
+        if len(sys.argv) > 2 and (str(sys.argv[1]) == option_load or str(sys.argv[2] == option_load)):
+            load_special = True
+else:
+    load_book_and_game = True
+
 
 if load_book_and_game:
     word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
-    if False:
+    if not load_special:
         word2vec_book = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
 
     else:
@@ -113,27 +138,16 @@ def list_sum(model, positive=[], negative=[]):
 
 
 
-def check_odd_vector(g, odd_vec=[], debug_msg=False):
+def check_odd_vector(g, odd_vec=[], debug_msg=False, list_try=[], list_correct=[]):
 
     ''' by chance saved_37500_600 gives some good output with the word -monadologia- '''
     odd_word=None#'inventory' #"monadologia"
 
     ''' list of possible inputs to try '''
-    list_g = ['goes','gone','went','going',
-              'western','eastern','southern','northern'
-              ,'southerly','northerly','westerly','easterly']
-              #,'southeasterly','northeasterly','southwesterly','northwesterly'
-              #,'southeastern','northeastern','southwestern','northwestern']
-
-    #list_h = ['go','go','go','go','north','south','west','east','north','south','west','east']
-    #''' list of words to subtract from possible inputs - no particular order '''
+    list_g = list_try
 
     ''' correct outputs in order '''
-    list_i = ['go','go','go','go',
-              'west','east','south','north'
-              ,'south','north','west','east']
-              #,'southeast','northeast','southwest','northwest'
-              #,'southeast', 'northeast', 'southwest', 'northwest']
+    list_i = list_correct
 
     choose_string_input = False
 
@@ -178,23 +192,38 @@ def check_odd_vector(g, odd_vec=[], debug_msg=False):
 
 #############################
 
+
 if not load_book_and_game:
+    ''' list of possible inputs to try '''
+    list_g = ['goes', 'gone', 'went', 'going',
+              'western', 'eastern', 'southern', 'northern'
+        , 'southerly', 'northerly', 'westerly', 'easterly'
+        , 'southeasterly', 'northeasterly', 'southwesterly', 'northwesterly'
+        , 'southeastern', 'northeastern', 'southwestern', 'northwestern']
+
+    ''' correct outputs in order '''
+    list_i = ['go', 'go', 'go', 'go',
+              'west', 'east', 'south', 'north'
+        , 'south', 'north', 'west', 'east'
+        , 'southeast', 'northeast', 'southwest', 'northwest'
+        , 'southeast', 'northeast', 'southwest', 'northwest']
+
     g = game.Game()
-    g.load_w2v()
+    g.load_w2v(load_special=load_special)
     g.read_word_list()
 
 if not load_book_and_game:
     odd_vec = []
     if os.path.isfile(os.path.join("trained", "word2vec_book_vec.npy")):
         odd_vec = np.load(os.path.join("trained", "word2vec_book_vec.npy"))
-    check_odd_vector(g, odd_vec=odd_vec, debug_msg=True)
+    check_odd_vector(g, odd_vec=odd_vec, debug_msg=True,list_try=list_g,list_correct=list_i)
     print (np.mean(np.abs(g.word2vec_book.wv['west'])),":mean of 'west'")
 
 if False and len(odd_vec)> 0:
     print (g.word2vec_book.wv.most_similar(positive=[odd_vec], topn=10))
 
 
-def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_num=0,debug_msg=True, tot_correct=12):
+def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_num=0,debug_msg=True,list_try=[],list_correct=[],tot_correct=12):
     ''' find vector that satisfies special requirements '''
 
     #var_len = len(word2vec_book.wv['west'])
@@ -242,7 +271,8 @@ def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_nu
                str (int((i / bin_tot) * 100)) + '% complete --', int(saved_score * num_of_correct),
                'correct of',num_of_correct)
 
-        out = check_odd_vector(g,odd_vec=vec_out, debug_msg=False)
+        out = check_odd_vector(g,odd_vec=vec_out, debug_msg=False,
+                               list_try=list_try[:tot_correct], list_correct=list_correct[:tot_correct])
         ''' save vector if it works. '''
         if out > saved_score:
             saved_score = out
@@ -255,5 +285,6 @@ def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_nu
             break
         pass
 
-if False and not load_book_and_game:
-    generate_perfect_vector(g, feature_mag=0.5, patch_size=10, fill_num=0,var_len=300,tot_correct=12)
+if find_perfect_num and not load_book_and_game:
+    generate_perfect_vector(g, feature_mag=0.5, patch_size=patch_size, fill_num=0,var_len=300,
+                            list_try=list_g, list_correct=list_i,tot_correct=20)

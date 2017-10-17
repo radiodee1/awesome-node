@@ -38,10 +38,12 @@ class Game:
         self.read_word_list()
         self.pre_game(odd_word=None,debug_msg=True, special_invert=True, invert_all=True)
 
-    def load_w2v(self):
+    def load_w2v(self,load_special=False):
         self.word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
-        #self.word2vec_book = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
-        self.word2vec_book = w2v.KeyedVectors.load_word2vec_format(os.path.join('trained','saved_google','GoogleNews-vectors-negative300.bin'),
+        if not load_special:
+            self.word2vec_book = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
+        else:
+            self.word2vec_book = w2v.KeyedVectors.load_word2vec_format(os.path.join('trained','saved_google','GoogleNews-vectors-negative300.bin'),
                                                   binary=True)
         if os.path.isfile(os.path.join("trained","word2vec_book_vec.npy")):
             self.odd_vec = np.load(os.path.join("trained","word2vec_book_vec.npy"))
