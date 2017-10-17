@@ -11,14 +11,15 @@ import math
 import game
 
 
-load_book_and_game = True
+load_book_and_game = False
 
 if load_book_and_game:
     word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
-    word2vec_book = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
+    if False:
+        word2vec_book = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
 
-if False:
-    word2vec_book = w2v.KeyedVectors.load_word2vec_format(os.path.join('trained','saved_google','GoogleNews-vectors-negative300.bin'),
+    else:
+        word2vec_book = w2v.KeyedVectors.load_word2vec_format(os.path.join('trained','saved_google','GoogleNews-vectors-negative300.bin'),
                                                   binary=True)
 
 if False:
