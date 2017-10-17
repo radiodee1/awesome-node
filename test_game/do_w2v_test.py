@@ -63,7 +63,8 @@ if load_book_and_game:
     nearest_similarity_cosmul(word2vec_book,"north","south", "west")
     nearest_similarity_cosmul(word2vec_book,"west", "northwest", "northeast")
     nearest_similarity_cosmul(word2vec_book,"northwest","northwestern", "northeastern")
-    nearest_similarity_cosmul(word2vec_book,"northwesterly","northwest", "northeast")
+    nearest_similarity_cosmul(word2vec_book,"northwesterly","southwesterly", "northeasterly")
+    nearest_similarity_cosmul(word2vec_book,'northwestern','southwestern','northeastern')
 
     print()
 
@@ -175,11 +176,13 @@ def check_odd_vector(g, odd_vec=[], debug_msg=False):
     return correct / total
 
 #############################
-g = game.Game()
-g.load_w2v()
-g.read_word_list()
 
-if True:
+if not load_book_and_game:
+    g = game.Game()
+    g.load_w2v()
+    g.read_word_list()
+
+if not load_book_and_game:
     odd_vec = []
     if os.path.isfile(os.path.join("trained", "word2vec_book_vec.npy")):
         odd_vec = np.load(os.path.join("trained", "word2vec_book_vec.npy"))
@@ -251,5 +254,5 @@ def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_nu
             break
         pass
 
-if False:
+if False and not load_book_and_game:
     generate_perfect_vector(g, feature_mag=0.5, patch_size=10, fill_num=0,var_len=300,tot_correct=12)
