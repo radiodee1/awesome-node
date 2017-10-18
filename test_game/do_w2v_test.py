@@ -19,12 +19,14 @@ load_book_and_game = False
 find_perfect_num = False
 patch_size = 50
 load_special = False
+vocab_num = 12
 
 if len(sys.argv) > 1:
     load_book_and_game = False
-    find_perfect_num = True
+
     try:
         patch_size = int(sys.argv[1])
+        find_perfect_num = True
         if len(sys.argv) > 2 and str(sys.argv[2]) == option_load:
             load_special = True
         pass
@@ -32,8 +34,9 @@ if len(sys.argv) > 1:
 
         if len(sys.argv) > 1 and str(sys.argv[1]) == option_flag:
             find_perfect_num = False
-        if len(sys.argv) > 2 and (str(sys.argv[1]) == option_load or str(sys.argv[2] == option_load)):
+        if len(sys.argv) > 1 and (str(sys.argv[1]) == option_load or str(sys.argv[2] == option_load)):
             load_special = True
+    vocab_num = int(raw_input('Num of values in vocab list? [12,20] '))
 else:
     load_book_and_game = True
 
@@ -90,7 +93,10 @@ if load_book_and_game:
     nearest_similarity_cosmul(word2vec_book,"west", "northwest", "northeast")
     nearest_similarity_cosmul(word2vec_book,"northwest","northwestern", "northeastern")
     nearest_similarity_cosmul(word2vec_book,"northwesterly","southwesterly", "northeasterly")
-    nearest_similarity_cosmul(word2vec_book,'northwestern','southwestern','northeastern')
+    nearest_similarity_cosmul(word2vec_book,'northwestern','southwestern','southeastern')
+    print ()
+    nearest_similarity_cosmul(word2vec_book,'northerly','north','south')
+    nearest_similarity_cosmul(word2vec_book, 'west','western','eastern')
 
     print()
 
@@ -118,7 +124,7 @@ def graph_compare(word1, word2):
     plt.bar(y2,vec2)
     plt.show()
 
-if load_book_and_game:
+if load_book_and_game and False:
     #graph_compare('going','gone')
     graph_compare('northwest','western')
     #graph_compare("go","gone")
@@ -172,7 +178,8 @@ def check_odd_vector(g, odd_vec=[], debug_msg=False, list_try=[], list_correct=[
         g.pre_game(odd_word=middle_value_string[0][0], odd_vec=[],debug_msg=debug_msg,special_invert=True, invert_all=False)
     else:
         ''' vector input '''
-        if debug_msg: print (middle_value_vec, len(middle_value_vec[0][0]))
+        #if debug_msg: print (middle_value_vec, len(middle_value_vec[0][0]))
+        if debug_msg: print ('vector input')
         g.pre_game(odd_word=[], odd_vec=middle_value_vec[0][0], debug_msg=debug_msg, special_invert=False, invert_all=False)
 
     for z in range(len(list_g)):
@@ -216,7 +223,7 @@ if not load_book_and_game:
     odd_vec = []
     if os.path.isfile(os.path.join("trained", "word2vec_book_vec.npy")):
         odd_vec = np.load(os.path.join("trained", "word2vec_book_vec.npy"))
-    check_odd_vector(g, odd_vec=odd_vec, debug_msg=True,list_try=list_g,list_correct=list_i)
+    check_odd_vector(g, odd_vec=odd_vec, debug_msg=True,list_try=list_g[:vocab_num],list_correct=list_i[:vocab_num])
     print (np.mean(np.abs(g.word2vec_book.wv['west'])),":mean of 'west'")
 
 if False and len(odd_vec)> 0:
@@ -229,7 +236,7 @@ def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_nu
     #var_len = len(word2vec_book.wv['west'])
     num_of_correct = tot_correct #20
     patch = patch_size
-    binary_len = int(var_len / patch)
+    binary_len = int(math.ceil(var_len / patch))
     saved_score = 0
     if fill_num == 0 or fill_num >= patch:
         fill_num = patch
@@ -271,6 +278,8 @@ def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_nu
                str (int((i / bin_tot) * 100)) + '% complete --', int(saved_score * num_of_correct),
                'correct of',num_of_correct)
 
+        if len(vec_out) > var_len: vec_out = vec_out[:var_len]
+
         out = check_odd_vector(g,odd_vec=vec_out, debug_msg=False,
                                list_try=list_try[:tot_correct], list_correct=list_correct[:tot_correct])
         ''' save vector if it works. '''
@@ -287,4 +296,4 @@ def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_nu
 
 if find_perfect_num and not load_book_and_game:
     generate_perfect_vector(g, feature_mag=0.5, patch_size=patch_size, fill_num=0,var_len=300,
-                            list_try=list_g, list_correct=list_i,tot_correct=20)
+                            list_try=list_g, list_correct=list_i,tot_correct=vocab_num) ## 20
