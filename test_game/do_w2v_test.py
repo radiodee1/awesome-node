@@ -36,7 +36,8 @@ if len(sys.argv) > 1:
             find_perfect_num = False
         if len(sys.argv) > 1 and (str(sys.argv[1]) == option_load or str(sys.argv[2] == option_load)):
             load_special = True
-    vocab_num = int(raw_input('Num of values in vocab list? [12,20] '))
+            if len(sys.argv) == 2: load_book_and_game = True
+    if not load_book_and_game: vocab_num = int(raw_input('Num of values in vocab list? [12,20] '))
 else:
     load_book_and_game = True
 
@@ -48,7 +49,10 @@ if load_book_and_game:
 
     else:
         word2vec_book = w2v.KeyedVectors.load_word2vec_format(os.path.join('trained','saved_google','GoogleNews-vectors-negative300.bin'),
-                                                  binary=True)
+                                      binary=True)
+    if os.path.isfile(os.path.join('trained','word2vec_book_vec.npy')):
+        odd_vec = np.load(os.path.join('trained','word2vec_book_vec.npy'))
+        print (odd_vec)
 
 if False:
     print ("\ngo")
@@ -86,27 +90,41 @@ def nearest_similarity(model, start1, end1, end2):
 if load_book_and_game:
 
     print ("---------------")
-    print ("book")
+    print ()
     nearest_similarity_cosmul(word2vec_book,"man", "king", "queen")
-
+    print ()
     nearest_similarity_cosmul(word2vec_book,"north","south", "west")
+
+    print ('\nsometimes non-opposites work')
+    nearest_similarity_cosmul(word2vec_book, 'north','west', 'south')
+    print ()
     nearest_similarity_cosmul(word2vec_book,"west", "northwest", "northeast")
     nearest_similarity_cosmul(word2vec_book,"northwest","northwestern", "northeastern")
     nearest_similarity_cosmul(word2vec_book,"northwesterly","southwesterly", "northeasterly")
     nearest_similarity_cosmul(word2vec_book,'northwestern','southwestern','southeastern')
-    print ()
+    print ('\nopposite directions')
     nearest_similarity_cosmul(word2vec_book,'northerly','north','south')
     nearest_similarity_cosmul(word2vec_book, 'west','western','eastern')
+    print ('\nly ending - opposite directions')
+    nearest_similarity_cosmul(word2vec_book, 'northerly','north','south')
+    nearest_similarity_cosmul(word2vec_book, 'southerly','south','north')
+    nearest_similarity_cosmul(word2vec_book, 'easterly','east', 'west')
+    print ('\nly more obscure')
+    nearest_similarity_cosmul(word2vec_book, 'westerly','west','east')
+    print('\nern ending - opposite directions')
+    nearest_similarity_cosmul(word2vec_book, 'northern','north','south')
+    nearest_similarity_cosmul(word2vec_book, 'western','west','east')
+    print ('\nern ending - not opposites')
+    nearest_similarity_cosmul(word2vec_book, 'northern','north', 'east')
 
-    print()
-
+if False:
     print ('go','west',word2vec_book.wv.similarity("go","west"))
     print ('going','west',word2vec_book.wv.similarity("going","west"))
     print ('goes','west',word2vec_book.wv.similarity("goes","west"))
     print ('went','west',word2vec_book.wv.similarity("went","west"))
     print ('gone','west',word2vec_book.wv.similarity("gone","west"))
 
-    print (word2vec_book.wv.doesnt_match("go goes gone went going".split()))
+    #print (word2vec_book.wv.doesnt_match("go goes gone went going".split()))
 
 
 def graph_compare(word1, word2):
@@ -247,32 +265,42 @@ def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_nu
         bin_string = bin_string + '1'
     bin_tot = int(bin_string,2)
     print (bin_tot)
-    for i in itertools.count(1): #xrange(bin_tot):
+    for i in itertools.count(start=0,step=1): #xrange(bin_tot):
         ''' make vector here. '''
         vec_out = []
         for j in range(binary_len):
             xxx = 1 << j
             zzz = (i & xxx) >> j
 
-            if zzz == 0:
-                for k in range(patch):
-                    if k <= fill_num:
-                        vec_out.append(- feature_mag)
-                    else:
-                        vec_out.append(0.0)
+            if i > xxx -1:
+                if zzz == 0:
+                    for k in range(patch):
+                        if k <= fill_num:
+                            #vec_out.append(- feature_mag)
+                            vec_out.insert(0, -feature_mag)
+                        else:
+                            #vec_out.append(0.0)
+                            vec_out.insert(0, 0.0)
+                else:
+                    for k in range(patch):
+                        if k <= fill_num:
+                            #vec_out.append(+ feature_mag)
+                            vec_out.insert(0, feature_mag)
+                        else:
+                            #vec_out.append(0.0)
+                            vec_out.insert(0, 0.0)
             else:
                 for k in range(patch):
-                    if k <= fill_num:
-                        vec_out.append(+ feature_mag)
-                    else:
-                        vec_out.append(0.0)
+                    vec_out.append(0.0)
+                    #vec_out.insert(0, 0.0)
+
         ''' try saved vector '''
         if i == 1:
             if os.path.isfile(os.path.join("trained","word2vec_book_vec.npy")):
                 vec_out = np.load(os.path.join("trained","word2vec_book_vec.npy"))
         ''' try out vector in game. '''
         #vec_out = np.array(vec_out)
-        if i < 10 and False: print (vec_out)
+        if i < 10 and False: print (vec_out, len(vec_out))
 
         print (i, bin_tot,patch, saved_score,'--',
                str (int((i / bin_tot) * 100)) + '% complete --', int(saved_score * num_of_correct),
@@ -289,7 +317,7 @@ def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_nu
         if out > 0.5:
             #exit()
             pass
-        if i >= bin_tot:
+        if i >= bin_tot: # or i == 11:
             print ("exit")
             break
         pass
