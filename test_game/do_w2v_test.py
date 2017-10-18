@@ -48,8 +48,9 @@ if load_book_and_game:
         word2vec_book = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
 
     else:
-        word2vec_book = w2v.KeyedVectors.load_word2vec_format(os.path.join('trained','saved_google','GoogleNews-vectors-negative300.bin'),
-                                      binary=True)
+        #word2vec_book = w2v.KeyedVectors.load_word2vec_format(os.path.join('trained','saved_google','GoogleNews-vectors-negative300.bin'), binary=True)
+        word2vec_book = w2v.KeyedVectors.load_word2vec_format(os.path.join('trained','saved_freebase','freebase-vectors-skipgram1000-en.bin'), binary=True)
+
     if os.path.isfile(os.path.join('trained','word2vec_book_vec.npy')):
         odd_vec = np.load(os.path.join('trained','word2vec_book_vec.npy'))
         print (odd_vec)
@@ -63,10 +64,17 @@ if False:
     print ()
 
 def nearest_similarity_cosmul(model, start1, end1, end2):
-    similarities = model.most_similar_cosmul(
-        positive=[end2, start1],
-        negative=[end1], topn=20
-    )
+    if not load_special:
+        similarities = model.most_similar_cosmul(
+            positive=[end2, start1],
+            negative=[end1], topn=20
+        )
+
+    if load_special:
+        similarities = model.most_similar_cosmul(
+            positive=[ '/en/'+end2 , '/en/'+start1],
+            negative=[ '/en/'+end1], topn=5
+        )
 
     start2 = similarities[0][0]
     print("{start1} is related to {end1}, as {start2} is related to {end2}".format(**locals()))
@@ -89,6 +97,7 @@ def nearest_similarity(model, start1, end1, end2):
 
 if load_book_and_game:
 
+    #print (list(word2vec_book.vocab))
     print ("---------------")
     print ()
     nearest_similarity_cosmul(word2vec_book,"man", "king", "queen")
