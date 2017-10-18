@@ -64,13 +64,13 @@ if False:
     print ()
 
 def nearest_similarity_cosmul(model, start1, end1, end2):
-    if not load_special:
+    if not load_special or True:
         similarities = model.most_similar_cosmul(
             positive=[end2, start1],
             negative=[end1], topn=20
         )
 
-    if load_special:
+    if load_special and False:
         similarities = model.most_similar_cosmul(
             positive=[ '/en/'+end2 , '/en/'+start1],
             negative=[ '/en/'+end1], topn=5
