@@ -24,3 +24,5 @@ echo "frotz" >> .gitignore
 echo "" >> .gitignore
 git rm -r --cached textplayer
 git rm -r --cached frotz
+
+echo "done"
