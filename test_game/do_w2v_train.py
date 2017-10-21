@@ -161,6 +161,7 @@ game_glob2 = "data/z*.txt" ## not for good game corpus
 game_glob3 = "data/wiki*.txt"
 game_glob4 = "data/zork1-example.txt"
 
+sentences_book = []
 if True:
     sentences_game = assemble_corpus(game_glob1,    stem_words=False)
 
@@ -168,11 +169,11 @@ if True:
     sentences_zork = assemble_corpus(game_glob2, pos_tag=False)
 
 if True:
-    sentences_book = []
+    #sentences_book = []
     sentences_book = assemble_corpus(game_glob3, pos_tag=False)
 
 if False:
-    sentences_book = []
+    #sentences_book = []
     sentences_book = assemble_corpus(game_glob4, pos_tag=False)
 
 if True:
@@ -211,7 +212,7 @@ seed = 1
 epochs = 500
 
 ###################################################
-if model_generate_new:
+if model_generate_new and True:
     word2vec_game = w2v.Word2Vec(
         sg=1,
         seed=seed,
@@ -226,7 +227,7 @@ else:
     print ("stage: load model")
     word2vec_game = w2v.Word2Vec.load(os.path.join("trained","word2vec_game.w2v"))
 
-if True:
+if False:
 
     word2vec_game.build_vocab(sentences_game)
 
@@ -282,8 +283,10 @@ if model_generate_new:
 else:
     print ("stage: load model")
     word2vec_book = w2v.Word2Vec.load(os.path.join("trained","word2vec_book.w2v"))
+    #word2vec_book = w2v.KeyedVectors.load_word2vec_format(os.path.join("trained",'saved_google',"GoogleNews-vectors-negative300.bin"),binary=True)
 
-if True:
+
+if False:
     word2vec_book.build_vocab(sentences_book)
 
     print("stage: Word2Vec book vocabulary length:", len(word2vec_book.wv.vocab))
