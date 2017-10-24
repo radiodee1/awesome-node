@@ -12,12 +12,14 @@ class AI_w2v:
         self.word2vec_book = None
         self.odd_vec = []
 
+    ## convenience methods
     def set_w2v(self, w2v=None):
         self.word2vec_book = w2v
 
     def set_odd_vec(self, odd_vec=[]):
         self.odd_vec = odd_vec
 
+    ## crucial methods
     def resolve_word_closest(self, list_suggested, list_command, odd_word=None , debug_msg=False, use_ending=False):
         list_out = []
         #
@@ -70,8 +72,8 @@ class AI_w2v:
         if debug_msg: print (list_out)
         return list_out
 
+    ### private methods
     def _distance(self, v1, v2):
-        #return np.sqrt(np.sum((v1 - v2) ** 2))
         return spatial.distance.euclidean(v1,v2)
 
     def _list_sum(self, positive=[], negative=[]):
@@ -281,81 +283,6 @@ class Game(object, AI_w2v):
         if self.bool_show_lists: print ("done resolve")
         pass
 
-    '''
-    def resolve_word_closest(self, list_suggested, list_command, odd_word=None , debug_msg=False, use_ending=False):
-        list_out = []
-        #
-        #
-        for word in list_command:
-            if not  (word in self.words_all):
-                num_best = -3
-                word_best = ""
-                vec_best = 1000000
-
-                #
-                for near in list_suggested:
-                    ######
-                    if use_ending: near = near + "zzz"
-                    try:
-                        ############
-                        if len(self.odd_vec) == 0:
-
-                            num = self.word2vec_book.wv.similarity(word, near)
-                            if odd_word != None:
-
-                                num = num + self.word2vec_book.wv.similarity(word,odd_word)
-                                num = num + self.word2vec_book.wv.similarity(near,odd_word)
-                            if debug_msg: print (word, near, odd_word, num)
-                            if num > num_best and near != odd_word:
-                                num_best = num
-                                word_best = near
-                        ############
-                        if len(self.odd_vec) > 0:
-
-                            word_vec = self.list_sum(positive=[word],negative=[])
-                            near_vec = self.list_sum(positive=[near],negative=[])
-
-                            vec = self.distance(near_vec, word_vec - self.odd_vec) ### - (subtraction)
-
-                            if debug_msg: print(word, near, word_best, vec)
-
-                            if vec < vec_best:
-                                vec_best = vec
-                                word_best = near
-
-                    except NameError:
-                        pass
-                    ######
-                    pass
-                list_out.append(word_best)
-                pass
-
-            pass
-        if debug_msg: print (list_out)
-        return list_out
-
-    def distance(self, v1, v2):
-        #return np.sqrt(np.sum((v1 - v2) ** 2))
-        return spatial.distance.euclidean(v1,v2)
-
-    def list_sum(self, positive=[], negative=[]):
-        if len(positive) > 0:
-            sample = self.word2vec_book.wv[positive[0]]
-        else:
-            sample = self.word2vec_book.wv[negative[0]]
-        tot = np.zeros_like(sample)
-
-        for i in positive:
-            sample = self.word2vec_book.wv[i]
-            tot = np.add(tot , sample)
-
-        for i in negative:
-            sample = self.word2vec_book.wv[i]
-            tot = np.subtract(tot ,  sample)
-        return tot
-
-
-    '''
 
     def print_list(self, list, heading="list", to_screen=True, add_to_global=False):
         results = list
