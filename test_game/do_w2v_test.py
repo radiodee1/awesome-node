@@ -15,7 +15,7 @@ import game
 option_flag = "-no-find"
 option_load = "-load-special"
 
-load_book_and_game = False
+load_book_and_game = False ### False
 find_perfect_num = False
 patch_size = 50
 load_special = False
@@ -48,8 +48,8 @@ if load_book_and_game:
         word2vec_book = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
 
     else:
-        #word2vec_book = w2v.KeyedVectors.load_word2vec_format(os.path.join('trained','saved_google','GoogleNews-vectors-negative300.bin'), binary=True)
-        word2vec_book = w2v.KeyedVectors.load_word2vec_format(os.path.join('trained','saved_freebase','freebase-vectors-skipgram1000-en.bin'), binary=True)
+        word2vec_book = w2v.KeyedVectors.load_word2vec_format(os.path.join('trained','saved_google','GoogleNews-vectors-negative300.bin'), binary=True)
+        #word2vec_book = w2v.KeyedVectors.load_word2vec_format(os.path.join('trained','saved_freebase','freebase-vectors-skipgram1000-en.bin'), binary=True)
 
     if os.path.isfile(os.path.join('trained','word2vec_book_vec.npy')):
         odd_vec = np.load(os.path.join('trained','word2vec_book_vec.npy'))
@@ -259,6 +259,8 @@ if False and len(odd_vec)> 0:
 
 def generate_perfect_vector(g, feature_mag=4.5,patch_size=50,var_len=600,fill_num=0,debug_msg=True,list_try=[],list_correct=[],tot_correct=12):
     ''' find vector that satisfies special requirements '''
+
+    if patch_size == 0 or tot_correct == 0: exit()
 
     #var_len = len(word2vec_book.wv['west'])
     num_of_correct = tot_correct #20
