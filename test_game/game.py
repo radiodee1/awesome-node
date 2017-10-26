@@ -69,7 +69,9 @@ class AI_w2v:
                 pass
 
             pass
-        if debug_msg: print (list_out)
+        if debug_msg:
+            print (list_out)
+            #print (self.odd_vec)
         return list_out
 
     ### private methods
@@ -103,7 +105,7 @@ class Game(object, AI_w2v):
 
         self.game = None
         self.words_last = []
-        self.gameplay_flag = True
+        #self.gameplay_flag = True
         self.words_quit = ['q','quit','exit','save']
                             # 'save' was added so that frotz would not do that
 
@@ -113,7 +115,7 @@ class Game(object, AI_w2v):
                            'get','take','drop','up','u','down','d','open','close',
                            'go','inventory','i','walk']
         self.words_all = []
-        self.words_suggested = []
+        #self.words_suggested = []
         self.words_input = []
 
         self.words_correct = []
@@ -123,19 +125,22 @@ class Game(object, AI_w2v):
 
     def run(self):
         self.game  = player.TextPlayer("zork1.z5")
-        self.load_w2v()
+        self.load_w2v(load_special=True)
         self.read_word_list()
-        self.pre_game(odd_word=None,debug_msg=True, special_invert=True, invert_all=True)
+
 
     def load_w2v(self,load_special=False):
         self.word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
         if not load_special:
             self.word2vec_book = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
         else:
+            #print ("google w2v")
             self.word2vec_book = w2v.KeyedVectors.load_word2vec_format(os.path.join('trained','saved_google','GoogleNews-vectors-negative300.bin'),
                                                   binary=True)
         if os.path.isfile(os.path.join("trained","word2vec_book_vec.npy")):
+            #print ("odd vec")
             self.odd_vec = np.load(os.path.join("trained","word2vec_book_vec.npy"))
+            #print (self.odd_vec)
 
     def read_word_list(self):
         self.words_all = self.words_game[:]
@@ -150,70 +155,30 @@ class Game(object, AI_w2v):
         #print (self.words_game)
         pass
 
-    def pre_game(self,odd_word=None,odd_vec=[], invert_all=True, debug_msg=False, special_invert=False):
-        ''' randomly reverse one outlying word '''
-        if  odd_word == None:
-            self.odd_word = self.word2vec_book.wv.doesnt_match(self.words_game)
-        else:
-            self.odd_word = odd_word
-
-        if len(odd_vec) > 0:
-            self.odd_vec = odd_vec
-
-        if invert_all:
-            if self.odd_word != None and len(self.odd_word) != 0:
-                new_vec = self.word2vec_book.wv[self.odd_word][:]
-            else:
-                new_vec = odd_vec
-            if debug_msg: print ("pre-game", self.odd_word)
-            #new_vec = self.odd_vec[:]
-
-            magnitude = 0
-            position = 0
-            for i in range(len(new_vec)):
-                if debug_msg and i < 5: print (new_vec[i])
-                if abs(new_vec[i]) > magnitude:
-                    magnitude = abs(new_vec[i])
-                    position = i
-            for i in range(len(new_vec)):
-                if i != position or not special_invert:
-                    pass
-                    new_vec[i] = new_vec[i] * -1
-                    if debug_msg and i < 5: print ("--->", new_vec[i])
-
-            if debug_msg: print ("do invert")
-            #self.odd_vec = self.odd_vec * -1
-
-            middle_value = self.word2vec_book.wv.most_similar(positive=[new_vec], negative=[], topn=4)
-            if debug_msg: print (middle_value)
-            position = 0
-            while middle_value[position][0] == odd_word:
-                position += 1
-            self.odd_word = middle_value[position][0]
-
-        if debug_msg: print (self.odd_word)
 
     def play_loop(self):
         start_info = self.game.run()
         print(start_info)
 
         command_in = ''
-        self.gameplay_flag = True
+        #self.gameplay_flag = True
 
         while command_in not in self.words_quit:
 
             if len(command_in.split()) > 0  and not  all( word in self.words_all for word in command_in.split() ):
-                self.gameplay_flag = True #False
-                self.words_suggested = []
+                #self.gameplay_flag = True
+                #self.words_suggested = []
                 self.parse_input(command_in.split())
                 self.words_input = command_in.split()
                 self.print_list_suggested()
 
-            else : self.gameplay_flag = True
+            #else : self.gameplay_flag = True
+            if len(self.words_last) > 0:
+                command_in = self.words_correct
 
-            if self.gameplay_flag and len(command_in) > 0:
+            if  len(command_in) > 0:
                 command_output = self.game.execute_command(command_in)
-                #self.words_last = command_in.split()
+                ##
                 print(command_output)
 
             command_in = raw_input("> ")
@@ -228,96 +193,21 @@ class Game(object, AI_w2v):
     def parse_input(self, input):
 
         if True:
-            for word in input:
-                self.resolve_word(word,debug_msg=False)
-
-            for word in self.words_last:
-                self.resolve_word(word, debug_msg=False)
-
             self.set_odd_vec(self.odd_vec)
-            self.words_correct = self.resolve_word_closest(self.words_game, input, debug_msg=True, use_ending=False, odd_word=self.odd_word)
+            self.words_correct = self.resolve_word_closest(self.words_game, input, debug_msg=False, use_ending=False)
 
-            self.words_last = input
-
-
+            #self.words_last = input
         pass
 
-    def resolve_word(self, word, debug_msg=False):
-        if self.bool_show_lists or debug_msg: print ("try resolve")
-        results = []
-        w = [(word,0)]
-        try:
-            if debug_msg:
-                print (self.word2vec_book)
-                print (self.word2vec_game)
-            w.extend( self.word2vec_book.wv.most_similar(word, topn=20))
-            #if len(w) > 0 : results.append(w[0][0])
-            if debug_msg: print(w )
-            for i in w:
-                if i[0] in self.words_game:
-                    if not i in results:
-                        results.append(i)
-                    if debug_msg: print (i[0], "first-pass")
-                pass
-
-            for i in w:
-                #print("--" + i[0])
-                #if i[0] in self.words_input: continue
-                try:
-                    vec = self.word2vec_game.wv.most_similar(i[0])
-                    results.extend(vec)
-                    if len(vec) > 1:
-                        results.append(i)
-                        if debug_msg: print (results)
-                        break
-                    pass
-                except:
-                    pass
-
-
-            #vec = self.word2vec_book.wv[word]
-            #results = self.word2vec_game.wv.similar_by_vector(vec, topn=10)
-        except : #ZeroDivisionError:
-            pass
-        self.print_list(results,heading="resolve-"+ word, add_to_global=True, to_screen=self.bool_show_lists)
-        if self.bool_show_lists: print ("done resolve")
-        pass
-
-
-    def print_list(self, list, heading="list", to_screen=True, add_to_global=False):
-        results = list
-        if to_screen:
-            if (len(results) > 0) :print ("--" + heading +"--")
-            else: print ("--none--")
-        for i in results:
-            if to_screen:
-                if i[0] in self.words_game:
-                    print (" --> ", end="")
-                else: print (" xxx ", end="")
-                print (i[0])
-            if i[0] in self.words_all and add_to_global and i[0] not in self.words_suggested:
-                #if not i[0] in self.words_input and not i[0] in self.words_correct:
-                self.words_suggested.append(i[0])
-            ### add to list??
 
     def print_list_suggested(self):
 
-        results = []
-        for i in self.words_suggested:
-            if i in self.words_input or i in self.words_correct: continue
-            results.append(i)
-
-        if len(results) == 0 : return
-        print ("--suggested--")
         if len(self.words_correct) > 0 and len(self.words_correct[0]) > 0 :
-            print ("try: '"+ self.words_correct[0]+ "', or:" )
-        for i in range(len(results)):
-            if i < len(results) - 1:
-                print (results[i], " , ", end="")
-            else: print (results[i])
-        print ("-------------")
-
-
+            zz = raw_input ("try: '"+ self.words_correct[0]+ "' [Y/n]:" )
+            if zz.strip() == 'n' or zz.strip() == 'N':
+                self.words_correct = []
+            else:
+                print (self.words_correct)
 
 
 def main():

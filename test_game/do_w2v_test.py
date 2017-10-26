@@ -41,6 +41,10 @@ if len(sys.argv) > 1:
 else:
     load_book_and_game = True
 
+print ('''
+        usage: do_w2v_test.py 0 -load-special 
+               do_w2v_test.py 20 -load-special
+    ''')
 
 if load_book_and_game:
     word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
@@ -202,12 +206,12 @@ def check_odd_vector(g, odd_vec=[], debug_msg=False, list_try=[], list_correct=[
     if choose_string_input:
         ''' string input '''
         if debug_msg: print(middle_value_string)#, len(middle_value_string[0][0]))
-        g.pre_game(odd_word=middle_value_string[0][0], odd_vec=[],debug_msg=debug_msg,special_invert=True, invert_all=False)
+        #g.pre_game(odd_word=middle_value_string[0][0], odd_vec=[],debug_msg=debug_msg,special_invert=True, invert_all=False)
     else:
         ''' vector input '''
         #if debug_msg: print (middle_value_vec, len(middle_value_vec[0][0]))
         if debug_msg: print ('vector input')
-        g.pre_game(odd_word=[], odd_vec=middle_value_vec[0][0], debug_msg=debug_msg, special_invert=False, invert_all=False)
+        #g.pre_game(odd_word=[], odd_vec=middle_value_vec[0][0], debug_msg=debug_msg, special_invert=False, invert_all=False)
 
     for z in range(len(list_g)):
         i = list_g[z]
