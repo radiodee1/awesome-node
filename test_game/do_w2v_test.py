@@ -136,7 +136,7 @@ if load_book_and_game:
     logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
     word2vec_book.wv.accuracy("data/questions-words.txt")
-    
+    ## good values 77.1 % with GoogleNews model
 
 if False:
     print ('go','west',word2vec_book.wv.similarity("go","west"))
