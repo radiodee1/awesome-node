@@ -207,7 +207,8 @@ class Game(object, AI_w2v):
             if zz.strip() == 'n' or zz.strip() == 'N':
                 self.words_correct = []
             else:
-                print (self.words_correct)
+                pass
+                #print (self.words_correct)
 
 
 def main():
