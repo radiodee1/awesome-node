@@ -1,7 +1,6 @@
 from __future__ import absolute_import, division, print_function
 import os
 import gensim.models.word2vec as w2v
-import matplotlib.pyplot as plt
 import numpy as np
 import itertools
 import math
@@ -15,7 +14,10 @@ class OddVector:
     def __init__(self):
         self.list_basic_wrong = []
         self.list_basic_right = []
+        self.list_shift_wrong = []
+        self.list_shift_right = []
         self.odd_vec = []
+        self.start_list_len = 12
         pass
 
     def run(self):
@@ -67,7 +69,28 @@ class OddVector:
             , 'southeast', 'northeast', 'southwest', 'northwest'
             , 'southeast', 'northeast', 'southwest', 'northwest']
 
+        self.list_basic_wrong = self.list_basic_wrong[:self.start_list_len]
+        self.list_basic_right = self.list_basic_right[:self.start_list_len]
 
+    def set_extra_list(self, list_right, list_wrong, combine=True, limit=20):
+
+        if len(list_right) == 1 and len(list_wrong) > 1:
+            y = list_right[0]
+            list_right = []
+            for x in list_wrong:
+                list_right.append(y)
+
+        if len(list_right) == len(list_wrong) and len(list_right) > 0 :
+            if len(self.list_shift_right) > limit:
+                self.list_shift_right.extend(list_right)
+                self.list_shift_wrong.extend(list_wrong)
+
+                self.list_shift_right = self.list_shift_right[- limit:]
+                self.list_shift_wrong = self.list_shift_wrong[- limit:]
+            if combine:
+                self.list_basic_right.extend(self.list_shift_right)
+                self.list_basic_wrong.extend(self.list_shift_wrong)
+        pass
 
     def load_vec(self, name=""):
         odd_vec = []

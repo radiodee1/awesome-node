@@ -3,6 +3,7 @@
 from __future__ import absolute_import, division, print_function
 import os
 import gensim.models.word2vec as w2v
+import logging
 import matplotlib.pyplot as plt
 import numpy as np
 import itertools
@@ -130,6 +131,12 @@ if load_book_and_game:
     nearest_similarity_cosmul(word2vec_book, 'western','west','east')
     print ('\nern ending - not opposites')
     nearest_similarity_cosmul(word2vec_book, 'northern','north', 'east')
+
+    print ()
+    logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
+
+    word2vec_book.wv.accuracy("data/questions-words.txt")
+    
 
 if False:
     print ('go','west',word2vec_book.wv.similarity("go","west"))

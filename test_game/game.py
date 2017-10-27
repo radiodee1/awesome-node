@@ -6,7 +6,7 @@ import numpy as np
 import scipy.spatial as spatial
 
 
-class AI_w2v:
+class MeasureVec:
     def __init__(self):
         self.words_all = []
         self.word2vec_book = None
@@ -95,10 +95,10 @@ class AI_w2v:
         return tot
 
 
-class Game(object, AI_w2v):
+class Game(object, MeasureVec):
 
     def __init__(self):
-        AI_w2v.__init__(self)
+        MeasureVec.__init__(self)
         self.name = ""
         self.word2vec_game = None
         self.word2vec_book = None
