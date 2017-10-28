@@ -168,6 +168,10 @@ if load_book_and_game and False:
     graph_compare('northwest','western')
     #graph_compare("go","gone")
 
+
+#exit()
+
+########################################################################
 def list_sum(model, positive=[], negative=[]):
     sample = model.wv[positive[0]]
     tot = np.zeros_like(sample)

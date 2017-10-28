@@ -126,6 +126,7 @@ class Game(object, MeasureVec):
     def run(self):
         self.game  = player.TextPlayer("zork1.z5")
         self.load_w2v(load_special=True)
+        self.load_odd_vec()
         self.read_word_list()
 
 
@@ -137,10 +138,15 @@ class Game(object, MeasureVec):
             #print ("google w2v")
             self.word2vec_book = w2v.KeyedVectors.load_word2vec_format(os.path.join('trained','saved_google','GoogleNews-vectors-negative300.bin'),
                                                   binary=True)
-        if os.path.isfile(os.path.join("trained","word2vec_book_vec.npy")):
+
+    def load_odd_vec(self):
+        name = 'word2vec_book_vec.npy.txt'
+        if os.path.isfile(os.path.join("trained",name)):
             #print ("odd vec")
-            self.odd_vec = np.load(os.path.join("trained","word2vec_book_vec.npy"))
+            self.odd_vec = np.loadtxt(os.path.join("trained",name), delimiter=',')
             #print (self.odd_vec)
+
+
 
     def read_word_list(self):
         self.words_all = self.words_game[:]

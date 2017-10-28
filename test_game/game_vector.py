@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from __future__ import absolute_import, division, print_function
 import os
 import gensim.models.word2vec as w2v
@@ -9,22 +11,27 @@ import sys
 import game
 
 
-class OddVector:
+class OddVector( ):
 
     def __init__(self):
+        self.mv = game.MeasureVec()
+        self.mv.__init__()
+
         self.list_basic_wrong = []
         self.list_basic_right = []
         self.list_shift_wrong = []
         self.list_shift_right = []
         self.odd_vec = []
         self.start_list_len = 12
+        self.g = None
         pass
 
-    def run(self):
+    def game_setup(self):
         load_special = True
-        g = game.Game()
-        g.load_w2v(load_special=load_special)
-        g.read_word_list()
+        self.g = game.Game()
+        self.g.load_w2v(load_special=load_special)
+        self.g.read_word_list()
+        self.mv.set_w2v(w2v=self.g.word2vec_book)
 
     def check_odd_vector(self, game, odd_vec=[], debug_msg=False, list_try=[], list_correct=[]):
 
@@ -36,14 +43,14 @@ class OddVector:
         list_i = list_correct
 
         if len(odd_vec) > 0:
-            g.set_odd_vec(odd_vec)
+            self.mv.set_odd_vec(odd_vec)
 
         correct = 0
         total = len(list_i)
 
         for z in range(len(list_g)):
             i = list_g[z]
-            j = g.resolve_word_closest(g.words_game, [i] ,odd_word=g.odd_word, debug_msg=debug_msg)[0]
+            j = self.mv.resolve_word_closest(g.words_game, [i] , debug_msg=debug_msg)[0]
             if j == list_i[z]: correct += 1
             pass
 
@@ -95,17 +102,21 @@ class OddVector:
     def load_vec(self, name=""):
         odd_vec = []
         if len(name) == 0:
-            name = "word2vec_book_vec.npy"
+            name = "word2vec_book_vec.npy.txt"
         if os.path.isfile(os.path.join("trained", name)):
-            odd_vec = np.load(os.path.join("trained", name))
+            odd_vec = np.loadtxt(os.path.join("trained", name))
+            #print (odd_vec)
+
         return odd_vec
 
     def save_vec(self, name="", odd_vec=[]):
         if len(name) == 0:
-            name = "word2vec_book_vec.npy"
-        np.save(os.path.join("trained", name), odd_vec)
+            name = "word2vec_book_vec.npy.txt"
 
-    def generate_perfect_vector(self, game, feature_mag=4.5,patch_size=50,var_len=600,fill_num=0,debug_msg=True,list_try=[],list_correct=[],tot_correct=12):
+        if os.path.isdir('trained'):
+            np.savetxt(os.path.join('trained',name), odd_vec)
+
+    def generate_perfect_vector(self, game, feature_mag=4.5,patch_size=50,var_len=300,fill_num=0,debug_msg=True,list_try=[],list_correct=[],tot_correct=12,multi_thread=False):
         ''' find vector that satisfies special requirements '''
 
         if patch_size == 0 or tot_correct == 0: exit()
@@ -155,32 +166,57 @@ class OddVector:
                         #vec_out.insert(0, 0.0)
 
             ''' try saved vector '''
-            if i == 1:
-                self.load_vec()
-                #if os.path.isfile(os.path.join("trained","word2vec_book_vec.npy")):
-                #    vec_out = np.load(os.path.join("trained","word2vec_book_vec.npy"))
+            if i == 0:
+                vec_out = self.load_vec()
+
+                #print (vec_out)
+                #exit()
             ''' try out vector in game. '''
             #vec_out = np.array(vec_out)
-            if i < 10 and False: print (vec_out, len(vec_out))
+            if (i < 10 and debug_msg) or False: print (vec_out, len(vec_out))
 
-            if debug_msg:
+            if debug_msg or True:
                 print (i, bin_tot,patch, saved_score,'--',
                    str (int((i / bin_tot) * 100)) + '% complete --', int(saved_score * num_of_correct),
                    'correct of',num_of_correct)
 
             if len(vec_out) > var_len: vec_out = vec_out[:var_len]
 
-            out = self.check_odd_vector(g,odd_vec=vec_out, debug_msg=False,
-                                   list_try=list_try[:tot_correct], list_correct=list_correct[:tot_correct])
+            out = self.check_odd_vector(g,odd_vec=vec_out, debug_msg=debug_msg,
+                                   list_try=list_try[:tot_correct],
+                                   list_correct=list_correct[:tot_correct])
+
             ''' save vector if it works. '''
-            if out > saved_score:
+            if i == 0: saved_score = out
+
+            if out > saved_score and i > 1:
                 saved_score = out
                 self.save_vec(odd_vec=vec_out)
-                #np.save(os.path.join("trained","word2vec_book_vec"), vec_out)
-            if out > 0.5:
+                print (vec_out,"----")
+            if out > 0.9 and multi_thread:
                 #exit()
+                break
                 pass
             if i >= bin_tot: # or i == 11:
                 if debug_msg: print ("exit")
                 break
             pass
+
+class VectorOnce(object, OddVector):
+    def __init__(self):
+        OddVector.__init__(self)
+        print ("VectorOnce: ctrl-c to stop")
+        self.start_list_len = 12
+        self.game_setup()
+        self.set_starting_list()
+        self.generate_perfect_vector(self.g,patch_size=15,debug_msg=False,list_try=self.list_basic_wrong,
+                                     list_correct=self.list_basic_right,tot_correct=self.start_list_len,
+                                     multi_thread=False)
+
+def main():
+    VectorOnce()
+
+
+
+if __name__ == "__main__":
+    main()
