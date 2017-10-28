@@ -145,7 +145,8 @@ class Game(object, MeasureVec):
             #print ("odd vec")
             self.odd_vec = np.loadtxt(os.path.join("trained",name), delimiter=',')
             #print (self.odd_vec)
-
+        else:
+            self.odd_vec = np.zeros(300)
 
 
     def read_word_list(self):
@@ -221,6 +222,7 @@ def main():
     print("zork 1")
     g = Game()
     g.run()
+
     g.play_loop()
     g.play_stop()
 

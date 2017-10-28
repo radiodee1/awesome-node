@@ -6,6 +6,7 @@ import gensim.models.word2vec as w2v
 import numpy as np
 import itertools
 import math
+import signal
 import sys
 
 import game
@@ -24,6 +25,9 @@ class OddVector( ):
         self.odd_vec = []
         self.start_list_len = 12
         self.g = None
+
+        ''' test if a vector of all zeros works best of all '''
+        self.test_zeros = False
         pass
 
     def game_setup(self):
@@ -103,18 +107,21 @@ class OddVector( ):
         odd_vec = []
         if len(name) == 0:
             name = "word2vec_book_vec.npy.txt"
-        if os.path.isfile(os.path.join("trained", name)):
+        if os.path.isfile(os.path.join("trained", name)) and not self.test_zeros:
             odd_vec = np.loadtxt(os.path.join("trained", name))
             #print (odd_vec)
-
+        else:
+            odd_vec = np.zeros(300)
+        self.odd_vec = odd_vec
         return odd_vec
 
     def save_vec(self, name="", odd_vec=[]):
         if len(name) == 0:
             name = "word2vec_book_vec.npy.txt"
 
-        if os.path.isdir('trained'):
+        if os.path.isdir('trained') and not self.test_zeros:
             np.savetxt(os.path.join('trained',name), odd_vec)
+            self.odd_vec = odd_vec
 
     def generate_perfect_vector(self, game, feature_mag=4.5,patch_size=50,var_len=300,fill_num=0,debug_msg=True,list_try=[],list_correct=[],tot_correct=12,multi_thread=False):
         ''' find vector that satisfies special requirements '''
@@ -182,6 +189,7 @@ class OddVector( ):
 
             if len(vec_out) > var_len: vec_out = vec_out[:var_len]
 
+            if self.test_zeros: debug_msg = True
             out = self.check_odd_vector(g,odd_vec=vec_out, debug_msg=debug_msg,
                                    list_try=list_try[:tot_correct],
                                    list_correct=list_correct[:tot_correct])
@@ -197,7 +205,7 @@ class OddVector( ):
                 #exit()
                 break
                 pass
-            if i >= bin_tot: # or i == 11:
+            if i >= bin_tot or self.test_zeros: # or i == 11:
                 if debug_msg: print ("exit")
                 break
             pass
@@ -206,12 +214,26 @@ class VectorOnce(object, OddVector):
     def __init__(self):
         OddVector.__init__(self)
         print ("VectorOnce: ctrl-c to stop")
+
+        def closing_print(self):
+            print ("---------")
+            out = self.check_odd_vector(self.g, odd_vec=self.odd_vec, debug_msg=True,
+                                        list_try=self.list_basic_wrong,
+                                        list_correct=self.list_basic_right)
+            print (out)
+
         self.start_list_len = 12
         self.game_setup()
         self.set_starting_list()
-        self.generate_perfect_vector(self.g,patch_size=15,debug_msg=False,list_try=self.list_basic_wrong,
-                                     list_correct=self.list_basic_right,tot_correct=self.start_list_len,
-                                     multi_thread=False)
+
+        try:
+            self.generate_perfect_vector(self.g,patch_size=10,debug_msg=False,list_try=self.list_basic_wrong,
+                                         list_correct=self.list_basic_right,tot_correct=self.start_list_len,
+                                         multi_thread=False)
+        except KeyboardInterrupt:
+            pass
+        finally:
+            closing_print(self)
 
 def main():
     VectorOnce()
