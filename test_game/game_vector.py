@@ -6,7 +6,8 @@ import gensim.models.word2vec as w2v
 import numpy as np
 import itertools
 import math
-import signal
+import threading
+import Queue
 import sys
 
 import game
@@ -25,6 +26,8 @@ class OddVector( ):
         self.odd_vec = []
         self.start_list_len = 12
         self.g = None
+        self.q = Queue.Queue()
+        self.q_size = self.q.qsize()
 
         ''' test if a vector of all zeros works best of all '''
         self.test_zeros = False
@@ -36,6 +39,16 @@ class OddVector( ):
         self.g.load_w2v(load_special=load_special)
         self.g.read_word_list()
         self.mv.set_w2v(w2v=self.g.word2vec_book)
+
+    def multi_run(self):
+        print ("thread", self.q.qsize())
+        z = self.q.get()
+        self.q_size = self.q.qsize()
+
+        if z.message == Info.NEW_VALUES_1:
+            print (z.list_wrong)
+        else:
+            print ("stop")
 
     def check_odd_vector(self, game, odd_vec=[], debug_msg=False, list_try=[], list_correct=[]):
 
@@ -226,11 +239,63 @@ class VectorOnce(object, OddVector):
         except KeyboardInterrupt:
             pass
         finally:
-            print("---------")
+            print("\n---------")
             out = self.check_odd_vector(self.g, odd_vec=self.odd_vec, debug_msg=True,
                                         list_try=self.list_basic_wrong,
                                         list_correct=self.list_basic_right)
             print(out)
+
+class Info:
+    NEW_VALUES_1 = 1
+    STOP_2 = 2
+    QUIT_3 = 3
+    def __init__(self):
+
+        self.message = 0
+        self.list_right = []
+        self.list_wrong = []
+
+class VectorThread( game.Game):
+    def __init__(self):
+        game.Game.__init__(self)
+
+        print ("VectorThread:")
+
+        self.multithreading = True
+        self.vec = OddVector()
+
+        t = threading.Thread(target=self.vec.multi_run)
+        t.daemon = True
+
+        self.enqueue(list_wrong=['western'], list_right=['west'])
+
+        t.start()
+
+        self.run()
+        self.play_loop()
+        self.play_stop()
+
+        i = Info()
+        i.message = Info.QUIT_3
+        self.vec.q.put(i)
+
+
+    def enqueue(self, list_wrong=[], list_right=[]):
+        if len(list_right) == 1 and len(list_wrong) > 1:
+            y = list_right[0]
+            list_right = []
+            for x in list_wrong:
+                list_right.append(y)
+        i = Info()
+        i.message = Info.STOP_2
+        #self.vec.q.put(i)
+        i = Info()
+        i.message = Info.NEW_VALUES_1
+        i.list_wrong = list_wrong
+        i.list_right = list_right
+        self.vec.q.put(i)
+
+
 
 def main():
     VectorOnce()

@@ -122,6 +122,7 @@ class Game(object, MeasureVec):
         self.bool_show_lists = False
         self.odd_word = None
         self.odd_vec = []
+        self.multithreading = False
 
     def run(self):
         self.game  = player.TextPlayer("zork1.z5")
@@ -202,8 +203,6 @@ class Game(object, MeasureVec):
         if True:
             self.set_odd_vec(self.odd_vec)
             self.words_correct = self.resolve_word_closest(self.words_game, input, debug_msg=False, use_ending=False)
-
-            #self.words_last = input
         pass
 
 
