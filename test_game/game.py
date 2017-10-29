@@ -216,6 +216,9 @@ class Game(object, MeasureVec):
                 pass
                 #print (self.words_correct)
 
+    def enqueue(self, list_wrong=[], list_right=[]):
+        ''' not used here -- see threaded version for more '''
+        pass
 
 def main():
     print("zork 1")

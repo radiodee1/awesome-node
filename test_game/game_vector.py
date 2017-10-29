@@ -249,6 +249,7 @@ class Info:
     NEW_VALUES_1 = 1
     STOP_2 = 2
     QUIT_3 = 3
+    CHECK_SHOW_4 = 4
     def __init__(self):
 
         self.message = 0
