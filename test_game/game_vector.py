@@ -215,13 +215,6 @@ class VectorOnce(object, OddVector):
         OddVector.__init__(self)
         print ("VectorOnce: ctrl-c to stop")
 
-        def closing_print(self):
-            print ("---------")
-            out = self.check_odd_vector(self.g, odd_vec=self.odd_vec, debug_msg=True,
-                                        list_try=self.list_basic_wrong,
-                                        list_correct=self.list_basic_right)
-            print (out)
-
         self.start_list_len = 12
         self.game_setup()
         self.set_starting_list()
@@ -233,7 +226,11 @@ class VectorOnce(object, OddVector):
         except KeyboardInterrupt:
             pass
         finally:
-            closing_print(self)
+            print("---------")
+            out = self.check_odd_vector(self.g, odd_vec=self.odd_vec, debug_msg=True,
+                                        list_try=self.list_basic_wrong,
+                                        list_correct=self.list_basic_right)
+            print(out)
 
 def main():
     VectorOnce()
