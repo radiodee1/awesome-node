@@ -33,28 +33,61 @@ class OddVector( ):
         self.test_zeros = False
         pass
 
-    def game_setup(self):
+    def game_setup(self, g = None):
         load_special = True
-        self.g = game.Game()
+        if g is None:
+            self.g = game.Game()
+        else:
+            self.g = g
         self.g.load_w2v(load_special=load_special)
         self.g.read_word_list()
         self.mv.set_w2v(w2v=self.g.word2vec_book)
 
     def multi_run(self):
         print ("thread", self.q.qsize())
+        list_last_right = []
+        list_last_wrong = []
         z = self.q.get()
         self.q_size = self.q.qsize()
         run_once = False
         while z.message != Info.QUIT_3 and not run_once:
-            run_once = True
-            ''' process z - generate perfect vector '''
+            run_once = False
 
-            ''' get new z '''
-            z = self.q.get()
-            self.q_size = self.q.qsize()
+            while self.q.qsize() > 0:
+                ##############
 
-            pass
+                ''' process z - generate perfect vector '''
+                if z.message == Info.NEW_VALUES_1:
 
+                    self.set_starting_list()
+                    self.set_extra_list(list_right=z.list_right,list_wrong=z.list_wrong,combine=True)
+                    self.generate_perfect_vector(self.g, patch_size=10, debug_msg=False,
+                                                 list_try=self.list_basic_wrong,
+                                                 list_correct=self.list_basic_right,
+                                                 tot_correct=len(self.list_basic_right),
+                                                 multi_thread=True)
+                    list_last_right = self.list_basic_right
+                    list_last_wrong = self.list_basic_wrong
+                if z.message == Info.STOP_2:
+                    pass
+                if z.message == Info.QUIT_3:
+                    break
+                    pass
+
+                if z.message == Info.CHECK_SHOW_4:
+
+                    out = self.check_odd_vector(self.g, odd_vec=self.odd_vec, debug_msg=True,
+                                                list_try=list_last_wrong,
+                                                list_correct=list_last_right)
+                    print(out)
+                    print(self.odd_vec)
+
+                ''' get new z '''
+                z = self.q.get()
+                self.q_size = self.q.qsize()
+
+                pass
+                ###############
         if z.message == Info.NEW_VALUES_1:
             print (z.list_wrong)
         else:
@@ -205,7 +238,7 @@ class OddVector( ):
             #vec_out = np.array(vec_out)
             if (i < 10 and debug_msg) or False: print (vec_out, len(vec_out))
 
-            if debug_msg or True:
+            if not multi_thread and True:
                 print (i, bin_tot,patch, saved_score,'--',
                    str (int((i / bin_tot) * 100)) + '% complete --', int(saved_score * num_of_correct),
                    'correct of',num_of_correct)
@@ -224,8 +257,9 @@ class OddVector( ):
                 saved_score = out
                 self.save_vec(odd_vec=vec_out)
                 print (vec_out,"----")
-            if out > 0.9 and multi_thread:
+            if multi_thread and (out > 0.9 or self.q_size != self.q.qsize() ):
                 #exit()
+                print ("new %", out,"len",out * num_of_correct,'/', num_of_correct)
                 break
                 pass
             if i >= bin_tot or self.test_zeros: # or i == 11:
@@ -256,12 +290,13 @@ class VectorOnce(object, OddVector):
             print(out)
 
 class Info:
+
     NEW_VALUES_1 = 1
     STOP_2 = 2
     QUIT_3 = 3
     CHECK_SHOW_4 = 4
-    def __init__(self):
 
+    def __init__(self):
         self.message = 0
         self.list_right = []
         self.list_wrong = []
@@ -271,18 +306,22 @@ class VectorThread( game.Game):
         game.Game.__init__(self)
 
         print ("VectorThread:")
+        self.start_list_len = 12
+
+        self.run()
 
         self.multithreading = True
         self.vec = OddVector()
+        self.vec.game_setup(g=self)
 
         t = threading.Thread(target=self.vec.multi_run)
         t.daemon = True
 
-        self.enqueue(list_wrong=['western'], list_right=['west'])
+        #self.enqueue(list_wrong=['western'], list_right=['west'])
 
         t.start()
 
-        self.run()
+        #self.run()
         self.play_loop()
         self.play_stop()
 
@@ -291,20 +330,27 @@ class VectorThread( game.Game):
         self.vec.q.put(i)
 
 
-    def enqueue(self, list_wrong=[], list_right=[]):
+    def enqueue(self, list_wrong=[], list_right=[] ,check=False):
         if len(list_right) == 1 and len(list_wrong) > 1:
             y = list_right[0]
             list_right = []
             for x in list_wrong:
                 list_right.append(y)
+
         i = Info()
         i.message = Info.STOP_2
-        #self.vec.q.put(i)
-        i = Info()
-        i.message = Info.NEW_VALUES_1
-        i.list_wrong = list_wrong
-        i.list_right = list_right
         self.vec.q.put(i)
+
+        if not check:
+            i = Info()
+            i.message = Info.NEW_VALUES_1
+            i.list_wrong = list_wrong
+            i.list_right = list_right
+            self.vec.q.put(i)
+        if check:
+            i = Info()
+            i.message = Info.CHECK_SHOW_4
+            self.vec.q.put(i)
 
 
 

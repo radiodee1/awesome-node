@@ -203,6 +203,11 @@ class Game(object, MeasureVec):
         for w in input:
             if w not in self.words_game: compare_to_vec = True
 
+        if input[0] == 'check':
+            self.enqueue(list_wrong=[], list_right=[], check=True)
+            self.words_correct = []
+            return
+
         if compare_to_vec:
             self.set_odd_vec(self.odd_vec)
             self.words_correct = self.resolve_word_closest(self.words_game, input, debug_msg=False, use_ending=False)
@@ -212,6 +217,7 @@ class Game(object, MeasureVec):
     def print_list_suggested(self):
 
         if len(self.words_correct) > 0 and len(self.words_correct[0]) > 0 :
+
             zz = raw_input ("try: '"+ self.words_correct[0]+ "' [Y/n]:" )
             if zz.strip() == 'n' or zz.strip() == 'N':
                 self.words_thread_input.extend(self.words_correct)
@@ -224,7 +230,7 @@ class Game(object, MeasureVec):
                 pass
                 #print (self.words_correct)
 
-    def enqueue(self, list_wrong=[], list_right=[]):
+    def enqueue(self, list_wrong=[], list_right=[], check=False):
         ''' not used here -- see threaded version for more '''
         print ("not used 'enqueue'")
         pass
