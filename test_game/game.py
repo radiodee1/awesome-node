@@ -115,14 +115,16 @@ class Game(object, MeasureVec):
                            'get','take','drop','up','u','down','d','open','close',
                            'go','inventory','i','walk']
         self.words_all = []
-        #self.words_suggested = []
-        self.words_input = []
+        self.words_thread_input = []
 
         self.words_correct = []
         self.bool_show_lists = False
         self.odd_word = None
         self.odd_vec = []
+
+        ''' multithreading options '''
         self.multithreading = False
+        self.vec = None
 
     def run(self):
         self.game  = player.TextPlayer("zork1.z5")
@@ -169,24 +171,21 @@ class Game(object, MeasureVec):
         print(start_info)
 
         command_in = ''
-        #self.gameplay_flag = True
 
         while command_in not in self.words_quit:
 
             if len(command_in.split()) > 0  and not  all( word in self.words_all for word in command_in.split() ):
-                #self.gameplay_flag = True
-                #self.words_suggested = []
+
+                #self.words_input = command_in.split()
+
                 self.parse_input(command_in.split())
-                self.words_input = command_in.split()
                 self.print_list_suggested()
 
-            #else : self.gameplay_flag = True
             if len(self.words_last) > 0:
                 command_in = self.words_correct
 
-            if  len(command_in) > 0:
+            if len(command_in) > 0:
                 command_output = self.game.execute_command(command_in)
-                ##
                 print(command_output)
 
             command_in = raw_input("> ")
@@ -200,7 +199,11 @@ class Game(object, MeasureVec):
 
     def parse_input(self, input):
 
-        if True:
+        compare_to_vec = False
+        for w in input:
+            if w not in self.words_game: compare_to_vec = True
+
+        if compare_to_vec:
             self.set_odd_vec(self.odd_vec)
             self.words_correct = self.resolve_word_closest(self.words_game, input, debug_msg=False, use_ending=False)
         pass
@@ -211,13 +214,19 @@ class Game(object, MeasureVec):
         if len(self.words_correct) > 0 and len(self.words_correct[0]) > 0 :
             zz = raw_input ("try: '"+ self.words_correct[0]+ "' [Y/n]:" )
             if zz.strip() == 'n' or zz.strip() == 'N':
+                self.words_thread_input.extend(self.words_correct)
                 self.words_correct = []
             else:
+                if len(self.words_thread_input) > 1:
+                    self.enqueue(list_wrong=self.words_thread_input[:-1], list_right=self.words_thread_input[-1])
+                    print (self.words_thread_input)
+                    self.words_thread_input = []
                 pass
                 #print (self.words_correct)
 
     def enqueue(self, list_wrong=[], list_right=[]):
         ''' not used here -- see threaded version for more '''
+        print ("not used 'enqueue'")
         pass
 
 def main():

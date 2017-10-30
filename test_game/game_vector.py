@@ -44,6 +44,16 @@ class OddVector( ):
         print ("thread", self.q.qsize())
         z = self.q.get()
         self.q_size = self.q.qsize()
+        run_once = False
+        while z.message != Info.QUIT_3 and not run_once:
+            run_once = True
+            ''' process z - generate perfect vector '''
+
+            ''' get new z '''
+            z = self.q.get()
+            self.q_size = self.q.qsize()
+
+            pass
 
         if z.message == Info.NEW_VALUES_1:
             print (z.list_wrong)

@@ -34,8 +34,8 @@
       <file leaf-file-name="game.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="554">
-              <caret line="219" column="59" lean-forward="false" selection-start-line="219" selection-start-column="59" selection-end-line="219" selection-end-column="59" />
+            <state relative-caret-position="634">
+              <caret line="222" column="12" lean-forward="false" selection-start-line="222" selection-start-column="12" selection-end-line="222" selection-end-column="12" />
               <folding>
                 <element signature="e#0#47#0" expanded="true" />
               </folding>
@@ -56,8 +56,8 @@
       <file leaf-file-name="game_vector.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game_vector.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="358">
-              <caret line="275" column="24" lean-forward="true" selection-start-line="275" selection-start-column="24" selection-end-line="275" selection-end-column="24" />
+            <state relative-caret-position="43">
+              <caret line="272" column="0" lean-forward="false" selection-start-line="272" selection-start-column="0" selection-end-line="272" selection-end-column="0" />
               <folding>
                 <element signature="e#19#83#0" expanded="true" />
               </folding>
@@ -96,6 +96,7 @@
       <find>saved_score</find>
       <find>game_setup</find>
       <find>check_odd_vector</find>
+      <find>words_input</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -550,8 +551,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="554">
-          <caret line="219" column="59" lean-forward="false" selection-start-line="219" selection-start-column="59" selection-end-line="219" selection-end-column="59" />
+        <state relative-caret-position="634">
+          <caret line="222" column="12" lean-forward="false" selection-start-line="222" selection-start-column="12" selection-end-line="222" selection-end-column="12" />
           <folding>
             <element signature="e#0#47#0" expanded="true" />
           </folding>
@@ -560,8 +561,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/game_vector.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="275" column="24" lean-forward="true" selection-start-line="275" selection-start-column="24" selection-end-line="275" selection-end-column="24" />
+        <state relative-caret-position="43">
+          <caret line="272" column="0" lean-forward="false" selection-start-line="272" selection-start-column="0" selection-end-line="272" selection-end-column="0" />
           <folding>
             <element signature="e#19#83#0" expanded="true" />
           </folding>
