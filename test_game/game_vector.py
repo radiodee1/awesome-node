@@ -9,6 +9,7 @@ import math
 import threading
 import Queue
 import sys
+import time
 
 import game
 
@@ -52,14 +53,15 @@ class OddVector( ):
         run_once = False
         while z.message != Info.QUIT_3 and not run_once:
             run_once = False
+            time.sleep(1)
 
             while self.q.qsize() > 0:
                 ##############
+                self.set_starting_list()
 
                 ''' process z - generate perfect vector '''
                 if z.message == Info.NEW_VALUES_1:
-
-                    self.set_starting_list()
+                    print ("start generate")
                     self.set_extra_list(list_right=z.list_right,list_wrong=z.list_wrong,combine=True)
                     self.generate_perfect_vector(self.g, patch_size=10, debug_msg=False,
                                                  list_try=self.list_basic_wrong,
@@ -88,10 +90,10 @@ class OddVector( ):
 
                 pass
                 ###############
-        if z.message == Info.NEW_VALUES_1:
-            print (z.list_wrong)
-        else:
-            print ("stop")
+        #if z.message == Info.NEW_VALUES_1:
+        print (self.list_basic_wrong)
+        #else:
+        print ("stop")
 
     def check_odd_vector(self, game, odd_vec=[], debug_msg=False, list_try=[], list_correct=[]):
 
@@ -113,6 +115,10 @@ class OddVector( ):
             j = self.mv.resolve_word_closest(g.words_game, [i] , debug_msg=debug_msg)[0]
             if j == list_i[z]: correct += 1
             pass
+
+        if total == 0:
+            if debug_msg: print ("zero list")
+            return 0
 
         if debug_msg: print (correct, "/", total, "or:", correct / total)
 

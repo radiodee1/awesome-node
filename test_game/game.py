@@ -221,7 +221,8 @@ class Game(object, MeasureVec):
             zz = raw_input ("try: '"+ self.words_correct[0]+ "' [Y/n]:" )
             if zz.strip() == 'n' or zz.strip() == 'N':
                 self.words_thread_input.extend(self.words_correct)
-                self.words_correct = []
+                print (self.words_thread_input)
+                #self.words_correct = []
             else:
                 if len(self.words_thread_input) > 1:
                     self.enqueue(list_wrong=self.words_thread_input[:-1], list_right=self.words_thread_input[-1])
@@ -229,6 +230,7 @@ class Game(object, MeasureVec):
                     self.words_thread_input = []
                 pass
                 #print (self.words_correct)
+            self.words_correct = []
 
     def enqueue(self, list_wrong=[], list_right=[], check=False):
         ''' not used here -- see threaded version for more '''
