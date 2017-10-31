@@ -9,7 +9,7 @@ import math
 import threading
 import Queue
 import sys
-import time
+from datetime import datetime
 
 import game
 
@@ -65,14 +65,20 @@ class OddVector( ):
                 ''' process z - generate perfect vector '''
                 if z.message == Info.NEW_VALUES_1:
                     print ("start generate")
+                    start_time = datetime.now()
                     self.set_extra_list(list_right=z.list_right,list_wrong=z.list_wrong,combine=True)
                     self.generate_perfect_vector(self.g, patch_size=10, debug_msg=False,
                                                  list_try=self.list_basic_wrong,
                                                  list_correct=self.list_basic_right,
                                                  tot_correct=len(self.list_basic_right),
                                                  multi_thread=True)
+                    end_time = datetime.now() - start_time
+                    print('Time elpased (hh:mm:ss.ms) {}'.format(end_time))
+
                     list_last_right = self.list_basic_right
                     list_last_wrong = self.list_basic_wrong
+
+                    print (list_last_right, list_last_wrong)
                 if z.message == Info.STOP_2:
                     pass
                 if z.message == Info.QUIT_3:
@@ -151,7 +157,10 @@ class OddVector( ):
         self.list_basic_wrong = self.list_basic_wrong[:self.start_list_len]
         self.list_basic_right = self.list_basic_right[:self.start_list_len]
 
-    def set_extra_list(self, list_right, list_wrong, combine=True, limit=20):
+    def set_extra_list(self, list_right=[], list_wrong=[], combine=True, limit=20):
+
+        if len(list_right) > 0 and len(list_right) > 1:
+            list_right = [list_right[-1]] ## last
 
         if len(list_right) == 1 and len(list_wrong) > 1:
             y = list_right[0]
@@ -160,7 +169,7 @@ class OddVector( ):
                 list_right.append(y)
 
         if len(list_right) == len(list_wrong) and len(list_right) > 0 :
-            if len(self.list_shift_right) > limit:
+            if len(self.list_shift_right) > limit or True:
                 self.list_shift_right.extend(list_right)
                 self.list_shift_wrong.extend(list_wrong)
 
@@ -343,6 +352,13 @@ class VectorThread( game.Game):
 
 
     def enqueue(self, list_wrong=[], list_right=[] ,check=False):
+
+        if isinstance(list_right,str): list_right=[list_right]
+        if isinstance(list_wrong,str): list_wrong=[list_wrong]
+
+        if len(list_right) > 1:
+            list_right = [list_right[-1]]
+
         if len(list_right) == 1 and len(list_wrong) > 1:
             y = list_right[0]
             list_right = []
@@ -360,6 +376,7 @@ class VectorThread( game.Game):
             i.list_wrong = list_wrong
             i.list_right = list_right
             print (i.list_wrong, "wrong")
+            print (i.list_right, "right")
             self.vec.q.put(i)
         if check:
             i = Info()

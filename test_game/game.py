@@ -182,8 +182,10 @@ class Game(object, MeasureVec):
                 self.parse_input(command_in.split())
                 self.print_list_suggested()
 
-            if len(self.words_last) > 0:
+            if len(self.words_correct) > 0:
+                self.words_correct = " ".join(self.words_correct)
                 command_in = self.words_correct
+                self.words_correct = []
 
             if len(command_in) > 0:
                 command_output = self.game.execute_command(command_in)
@@ -194,13 +196,13 @@ class Game(object, MeasureVec):
             if self.bool_show_lists: print(command_in.split())
 
     def play_stop(self):
-        if self.game.get_score() != None:
+        if self.game.get_score() is not None:
             score, possible_score = self.game.get_score()
         self.game.quit()
 
     def parse_input(self, input):
 
-        if len(input) == 0: return 
+        if len(input) == 0: return
 
         self.words_raw_input = input
 
@@ -224,7 +226,7 @@ class Game(object, MeasureVec):
             ### hacky - what if words_raw_input == 2 ###
             print (self.words_raw_input, "raw")
             self.words_thread_input.extend(self.words_raw_input)
-            self.enqueue(list_wrong=self.words_thread_input[:-1], list_right=self.words_thread_input[-1])
+            self.enqueue(list_wrong=self.words_thread_input[:-1], list_right=[self.words_thread_input[-1]])
             print ("enqueue")
             pass
 
@@ -237,15 +239,15 @@ class Game(object, MeasureVec):
             if zz.strip() == 'n' or zz.strip() == 'N':
                 self.words_thread_input.extend(self.words_raw_input)
                 print (self.words_thread_input)
-                #self.words_correct = []
+                self.words_correct = []
             else:
                 if len(self.words_thread_input) > 1:
-                    self.enqueue(list_wrong=self.words_thread_input[:-1], list_right=self.words_thread_input[-1])
+                    self.enqueue(list_wrong=self.words_thread_input[:-1], list_right=[self.words_thread_input[-1]])
                     print (self.words_thread_input)
                     self.words_thread_input = []
                 pass
-                #print (self.words_correct)
-            self.words_correct = []
+                print (self.words_correct)
+            #self.words_correct = []
 
     def enqueue(self, list_wrong=[], list_right=[], check=False):
         ''' not used here -- see threaded version for more '''
