@@ -227,13 +227,13 @@ else:
     print ("stage: load model")
     word2vec_game = w2v.Word2Vec.load(os.path.join("trained","word2vec_game.w2v"))
 
-if False:
+if True:
 
     word2vec_game.build_vocab(sentences_game)
 
     print("stage: Word2Vec game vocabulary length:", len(word2vec_game.wv.vocab))
 
-if False:
+if True:
     print ("stage: train")
 
     word2vec_game.train(sentences_game,
@@ -267,7 +267,7 @@ downsampling = 1e-2
 #deterministic, good for debugging
 seed = 1
 
-epochs = 5
+epochs = 1
 
 if model_generate_new:
     word2vec_book = w2v.Word2Vec(
@@ -286,7 +286,7 @@ else:
     #word2vec_book = w2v.KeyedVectors.load_word2vec_format(os.path.join("trained",'saved_google',"GoogleNews-vectors-negative300.bin"),binary=True)
 
 
-if False:
+if True:
     word2vec_book.build_vocab(sentences_book)
 
     print("stage: Word2Vec book vocabulary length:", len(word2vec_book.wv.vocab))
