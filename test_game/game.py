@@ -118,6 +118,7 @@ class Game(object, MeasureVec):
         self.words_thread_input = []
 
         self.words_correct = []
+        self.words_raw_input = []
         self.bool_show_lists = False
         self.odd_word = None
         self.odd_vec = []
@@ -174,7 +175,7 @@ class Game(object, MeasureVec):
 
         while command_in not in self.words_quit:
 
-            if len(command_in.split()) > 0  and not  all( word in self.words_all for word in command_in.split() ):
+            if self.multithreading or len(command_in.split()) > 0  and not  all( word in self.words_all for word in command_in.split() ):
 
                 #self.words_input = command_in.split()
 
@@ -199,28 +200,42 @@ class Game(object, MeasureVec):
 
     def parse_input(self, input):
 
+        if len(input) == 0: return 
+
+        self.words_raw_input = input
+
         compare_to_vec = False
         for w in input:
-            if w not in self.words_game: compare_to_vec = True
+            if w not in self.words_game:
+                compare_to_vec = True
+                print ("not in list:",w)
 
         if input[0] == 'check':
             self.enqueue(list_wrong=[], list_right=[], check=True)
             self.words_correct = []
+            print ("enqueue check")
             return
 
         if compare_to_vec:
             self.set_odd_vec(self.odd_vec)
             self.words_correct = self.resolve_word_closest(self.words_game, input, debug_msg=False, use_ending=False)
-        pass
+
+        elif len(self.words_raw_input) > 0:
+            ### hacky - what if words_raw_input == 2 ###
+            print (self.words_raw_input, "raw")
+            self.words_thread_input.extend(self.words_raw_input)
+            self.enqueue(list_wrong=self.words_thread_input[:-1], list_right=self.words_thread_input[-1])
+            print ("enqueue")
+            pass
 
 
     def print_list_suggested(self):
 
         if len(self.words_correct) > 0 and len(self.words_correct[0]) > 0 :
 
-            zz = raw_input ("try: '"+ self.words_correct[0]+ "' [Y/n]:" )
+            zz = raw_input ("try: '"+ " ".join(self.words_correct) + "' [Y/n]:" )
             if zz.strip() == 'n' or zz.strip() == 'N':
-                self.words_thread_input.extend(self.words_correct)
+                self.words_thread_input.extend(self.words_raw_input)
                 print (self.words_thread_input)
                 #self.words_correct = []
             else:

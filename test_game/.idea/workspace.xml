@@ -34,8 +34,8 @@
       <file leaf-file-name="game.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="536">
-              <caret line="223" column="46" lean-forward="false" selection-start-line="223" selection-start-column="46" selection-end-line="223" selection-end-column="46" />
+            <state relative-caret-position="360">
+              <caret line="202" column="35" lean-forward="true" selection-start-line="202" selection-start-column="35" selection-end-line="202" selection-end-column="35" />
               <folding>
                 <element signature="e#0#47#0" expanded="true" />
               </folding>
@@ -56,8 +56,8 @@
       <file leaf-file-name="game_vector.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game_vector.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="63" column="42" lean-forward="false" selection-start-line="63" selection-start-column="42" selection-end-line="63" selection-end-column="42" />
+            <state relative-caret-position="-90">
+              <caret line="321" column="34" lean-forward="false" selection-start-line="321" selection-start-column="34" selection-end-line="321" selection-end-column="34" />
               <folding>
                 <element signature="e#19#83#0" expanded="true" />
               </folding>
@@ -84,7 +84,6 @@
       <find>find_perfect_num</find>
       <find>load_book_and_game</find>
       <find>resolve_word_closest</find>
-      <find>words_correct</find>
       <find>game</find>
       <find>parse_input</find>
       <find>print_list_suggested</find>
@@ -103,6 +102,8 @@
       <find>CHECK_SHOW_4</find>
       <find>QUIT_3</find>
       <find>check_odd_vector</find>
+      <find>words_correct</find>
+      <find>STOP_2</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -126,8 +127,8 @@
         <option value="$PROJECT_DIR$/do_w2v_train.py" />
         <option value="$PROJECT_DIR$/do_w2v_test.py" />
         <option value="$PROJECT_DIR$/launch_threaded.sh" />
-        <option value="$PROJECT_DIR$/game.py" />
         <option value="$PROJECT_DIR$/game_vector.py" />
+        <option value="$PROJECT_DIR$/game.py" />
       </list>
     </option>
   </component>
@@ -184,8 +185,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -557,8 +558,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/game_vector.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="63" column="42" lean-forward="false" selection-start-line="63" selection-start-column="42" selection-end-line="63" selection-end-column="42" />
+        <state relative-caret-position="-90">
+          <caret line="321" column="34" lean-forward="false" selection-start-line="321" selection-start-column="34" selection-end-line="321" selection-end-column="34" />
           <folding>
             <element signature="e#19#83#0" expanded="true" />
           </folding>
@@ -567,8 +568,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="536">
-          <caret line="223" column="46" lean-forward="false" selection-start-line="223" selection-start-column="46" selection-end-line="223" selection-end-column="46" />
+        <state relative-caret-position="360">
+          <caret line="202" column="35" lean-forward="true" selection-start-line="202" selection-start-column="35" selection-end-line="202" selection-end-column="35" />
           <folding>
             <element signature="e#0#47#0" expanded="true" />
           </folding>

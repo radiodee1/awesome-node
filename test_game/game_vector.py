@@ -48,14 +48,17 @@ class OddVector( ):
         print ("thread", self.q.qsize())
         list_last_right = []
         list_last_wrong = []
-        z = self.q.get()
-        self.q_size = self.q.qsize()
-        run_once = False
-        while z.message != Info.QUIT_3 and not run_once:
-            run_once = False
-            time.sleep(1)
+        z = None
 
-            while self.q.qsize() > 0:
+        run_once = False
+        while True and not run_once:
+            run_once = True
+            #time.sleep(1)
+
+            z = self.q.get()
+            self.q_size = self.q.qsize()
+
+            while self.q.qsize() > 0 or z is not None:
                 ##############
                 self.set_starting_list()
 
@@ -86,10 +89,13 @@ class OddVector( ):
 
                 ''' get new z '''
                 z = self.q.get()
+
                 self.q_size = self.q.qsize()
 
                 pass
                 ###############
+            #if (z is not None) and z.message == Info.QUIT_3: break
+
         #if z.message == Info.NEW_VALUES_1:
         print (self.list_basic_wrong)
         #else:
@@ -313,7 +319,7 @@ class VectorThread( game.Game):
 
         print ("VectorThread:")
         self.start_list_len = 12
-
+        self.multithreading = True
         self.run()
 
         self.multithreading = True
@@ -345,6 +351,7 @@ class VectorThread( game.Game):
 
         i = Info()
         i.message = Info.STOP_2
+        print ("stop")
         self.vec.q.put(i)
 
         if not check:
@@ -352,10 +359,12 @@ class VectorThread( game.Game):
             i.message = Info.NEW_VALUES_1
             i.list_wrong = list_wrong
             i.list_right = list_right
+            print (i.list_wrong, "wrong")
             self.vec.q.put(i)
         if check:
             i = Info()
             i.message = Info.CHECK_SHOW_4
+            print ("check")
             self.vec.q.put(i)
 
 
