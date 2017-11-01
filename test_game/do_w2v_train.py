@@ -12,7 +12,7 @@ import multiprocessing
 import os
 
 import pprint
-
+import io
 import re
 
 import nltk
@@ -93,8 +93,10 @@ def assemble_corpus(glob_txt, stem_words=False, sentence_label="", pos_tag=False
     corpus_raw = u""
     for book_filename in book_filenames:
         print("stage: Reading '{0}'...".format(book_filename))
-        with codecs.open(book_filename, "r", "utf-8") as book_file:
-            corpus_raw += book_file.read()
+        with io.open(book_filename, "r", encoding="utf-8") as book_file: ## codecs.open
+            for line in book_file:
+                corpus_raw += line
+            #corpus_raw += book_file.read()
         print("stage: Corpus is now {0} characters long".format(len(corpus_raw)))
         print()
 
@@ -145,7 +147,7 @@ def assemble_corpus(glob_txt, stem_words=False, sentence_label="", pos_tag=False
                 sent = [stemmer.stem(word) for word in sent]
                 sentences.append(sent)
 
-    if print_sentences: print(sentences[-1:])
+    if print_sentences: print(sentences[-2:])
     #print(sentence_to_wordlist(raw_sentences[0], pos_tag=pos_tag))
 
     token_count = sum([len(sentence) for sentence in sentences])
@@ -166,7 +168,7 @@ if True:
     sentences_game = assemble_corpus(game_glob1,    stem_words=False)
 
 if True:
-    sentences_zork = assemble_corpus(game_glob2, pos_tag=False)
+    sentences_zork = assemble_corpus(game_glob2, pos_tag=False,print_sentences=False)
 
 if True:
     #sentences_book = []
