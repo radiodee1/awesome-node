@@ -90,17 +90,21 @@ def assemble_corpus(glob_txt, stem_words=False, sentence_label="", pos_tag=False
 
     print ("stage: start")
 
-    corpus_raw = u""
+    corpus_raw = [u""]
     for book_filename in book_filenames:
         print("stage: Reading '{0}'...".format(book_filename))
         with io.open(book_filename, "r", encoding="utf-8") as book_file: ## codecs.open
             for line in book_file:
-                corpus_raw += line
+                #corpus_raw += line
+                corpus_raw.append(line)
             #corpus_raw += book_file.read()
         print("stage: Corpus is now {0} characters long".format(len(corpus_raw)))
         print()
 
-    pre_sent = sent_tokenize(corpus_raw)
+    if isinstance(corpus_raw, list):
+        pre_sent = corpus_raw
+    else:
+        pre_sent = sent_tokenize(corpus_raw)
 
     corpus_raw = u""
 
@@ -128,6 +132,10 @@ def assemble_corpus(glob_txt, stem_words=False, sentence_label="", pos_tag=False
     ###########################
 
     if pos_tag: print ("stage: pos tagging")
+    else:
+        pass
+        #if print_sentences: print (raw_sentences[-10:])
+        #return raw_sentences
 
     sentences = []
     for raw_sentence in raw_sentences:
@@ -147,7 +155,7 @@ def assemble_corpus(glob_txt, stem_words=False, sentence_label="", pos_tag=False
                 sent = [stemmer.stem(word) for word in sent]
                 sentences.append(sent)
 
-    if print_sentences: print(sentences[-2:])
+    if print_sentences: print(sentences[-20:])
     #print(sentence_to_wordlist(raw_sentences[0], pos_tag=pos_tag))
 
     token_count = sum([len(sentence) for sentence in sentences])
@@ -168,9 +176,9 @@ if True:
     sentences_game = assemble_corpus(game_glob1,    stem_words=False)
 
 if True:
-    sentences_zork = assemble_corpus(game_glob2, pos_tag=False,print_sentences=False)
+    sentences_zork = assemble_corpus(game_glob2, pos_tag=False,print_sentences=True)
 
-if True:
+if False:
     #sentences_book = []
     sentences_book = assemble_corpus(game_glob3, pos_tag=False)
 
@@ -178,7 +186,7 @@ if False:
     #sentences_book = []
     sentences_book = assemble_corpus(game_glob4, pos_tag=False)
 
-if True:
+if False:
     sentences_book.extend(sentences_zork)
     sentences_book.extend(test)
 
