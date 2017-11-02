@@ -11,13 +11,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="do_w2v_train.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="do_w2v_train.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/do_w2v_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
+            <state relative-caret-position="-2502">
               <caret line="137" column="9" lean-forward="false" selection-start-line="137" selection-start-column="9" selection-end-line="137" selection-end-column="9" />
               <folding>
                 <element signature="e#19#83#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="do_w2v_train_wiki.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/do_w2v_train_wiki.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="540">
+              <caret line="30" column="71" lean-forward="false" selection-start-line="30" selection-start-column="71" selection-end-line="30" selection-end-column="71" />
+              <folding>
+                <element signature="e#106#143#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -154,6 +166,7 @@
         <option value="$PROJECT_DIR$/launch_vector_generate.sh" />
         <option value="$PROJECT_DIR$/do_w2v_corpus_wiki.py" />
         <option value="$PROJECT_DIR$/do_w2v_train.py" />
+        <option value="$PROJECT_DIR$/do_w2v_train_wiki.py" />
       </list>
     </option>
   </component>
@@ -280,13 +293,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/launch_game.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="9" lean-forward="false" selection-start-line="0" selection-start-column="9" selection-end-line="0" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/textplayer/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -606,10 +612,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/do_w2v_train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
+        <state relative-caret-position="-2502">
           <caret line="137" column="9" lean-forward="false" selection-start-line="137" selection-start-column="9" selection-end-line="137" selection-end-column="9" />
           <folding>
             <element signature="e#19#83#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/do_w2v_train_wiki.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="30" column="71" lean-forward="false" selection-start-line="30" selection-start-column="71" selection-end-line="30" selection-end-column="71" />
+          <folding>
+            <element signature="e#106#143#0" expanded="true" />
           </folding>
         </state>
       </provider>
