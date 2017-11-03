@@ -79,11 +79,17 @@ class MeasureVec:
         return spatial.distance.euclidean(v1,v2)
 
     def _list_sum(self, positive=[], negative=[]):
-        if len(positive) > 0:
-            sample = self.word2vec_book.wv[positive[0]]
-        else:
-            sample = self.word2vec_book.wv[negative[0]]
-        tot = np.zeros_like(sample)
+        ######
+        try:
+            if len(positive) > 0:
+                sample = self.word2vec_book.wv[positive[0]]
+            else:
+                sample = self.word2vec_book.wv[negative[0]]
+            tot = np.zeros_like(sample)
+        except:
+            tot = np.zeros(300)
+        ######
+        #tot = np.zeros_like(sample)
 
         for i in positive:
             sample = self.word2vec_book.wv[i]

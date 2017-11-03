@@ -173,7 +173,7 @@ game_glob4 = "data/zork1-example.txt"
 
 sentences_book = []
 if True:
-    sentences_game = assemble_corpus(game_glob1,    stem_words=False)
+    sentences_game = assemble_corpus(game_glob1, stem_words=False)
 
 if True:
     sentences_zork = assemble_corpus(game_glob2, pos_tag=False,print_sentences=True)
@@ -182,7 +182,7 @@ if False:
     #sentences_book = []
     sentences_book = assemble_corpus(game_glob3, pos_tag=False)
 
-if False:
+if True:
     #sentences_book = []
     sentences_book = assemble_corpus(game_glob4, pos_tag=False)
 
@@ -279,7 +279,7 @@ seed = 1
 
 epochs = 1
 
-if model_generate_new:
+if model_generate_new and False:
     word2vec_book = w2v.Word2Vec(
         sg=1,
         seed=seed,
@@ -290,13 +290,13 @@ if model_generate_new:
         sample=downsampling
     )
 
-else:
+elif True:
     print ("stage: load model")
     word2vec_book = w2v.Word2Vec.load(os.path.join("trained","word2vec_book.w2v"))
     #word2vec_book = w2v.KeyedVectors.load_word2vec_format(os.path.join("trained",'saved_google',"GoogleNews-vectors-negative300.bin"),binary=True)
 
 
-if True:
+if False:
     word2vec_book.build_vocab(sentences_book)
 
     print("stage: Word2Vec book vocabulary length:", len(word2vec_book.wv.vocab))

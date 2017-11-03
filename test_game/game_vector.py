@@ -35,7 +35,7 @@ class OddVector( ):
         pass
 
     def game_setup(self, g = None):
-        load_special = True
+        load_special = False
         if g is None:
             self.g = game.Game()
         else:
@@ -200,7 +200,11 @@ class OddVector( ):
             np.savetxt(os.path.join('trained',name), odd_vec)
             self.odd_vec = odd_vec
 
-    def generate_perfect_vector(self, game, feature_mag=4.5,patch_size=50,var_len=300,fill_num=0,debug_msg=True,list_try=[],list_correct=[],tot_correct=12,multi_thread=False):
+    def generate_perfect_vector(self, game, feature_mag=4.5,patch_size=50,var_len=300,
+                                fill_num=0,debug_msg=True,
+                                list_try=[],
+                                list_correct=[],
+                                tot_correct=12,multi_thread=False):
         ''' find vector that satisfies special requirements '''
 
         if patch_size == 0 or tot_correct == 0: exit()

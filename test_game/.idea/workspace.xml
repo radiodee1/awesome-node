@@ -14,8 +14,8 @@
       <file leaf-file-name="do_w2v_train.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/do_w2v_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="137" column="9" lean-forward="false" selection-start-line="137" selection-start-column="9" selection-end-line="137" selection-end-column="9" />
+            <state relative-caret-position="464">
+              <caret line="298" column="8" lean-forward="false" selection-start-line="298" selection-start-column="8" selection-end-line="298" selection-end-column="8" />
               <folding>
                 <element signature="e#19#83#0" expanded="true" />
               </folding>
@@ -26,14 +26,14 @@
       <file leaf-file-name="do_w2v_test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/do_w2v_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="464">
+            <state relative-caret-position="2268">
               <caret line="136" column="7" lean-forward="false" selection-start-line="136" selection-start-column="7" selection-end-line="136" selection-end-column="7" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="do_w2v_train_wiki.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="do_w2v_train_wiki.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/do_w2v_train_wiki.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="540">
@@ -58,8 +58,8 @@
       <file leaf-file-name="game.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4302">
-              <caret line="244" column="114" lean-forward="false" selection-start-line="244" selection-start-column="114" selection-end-line="244" selection-end-column="114" />
+            <state relative-caret-position="72">
+              <caret line="91" column="9" lean-forward="false" selection-start-line="91" selection-start-column="9" selection-end-line="91" selection-end-column="9" />
               <folding>
                 <element signature="e#0#47#0" expanded="true" />
               </folding>
@@ -80,8 +80,8 @@
       <file leaf-file-name="game_vector.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game_vector.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2880">
-              <caret line="171" column="57" lean-forward="false" selection-start-line="171" selection-start-column="57" selection-end-line="171" selection-end-column="57" />
+            <state relative-caret-position="3492">
+              <caret line="206" column="32" lean-forward="false" selection-start-line="206" selection-start-column="32" selection-end-line="206" selection-end-column="32" />
               <folding>
                 <element signature="e#19#83#0" expanded="true" />
               </folding>
@@ -99,11 +99,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="do_w2v_corpus_wiki.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="do_w2v_corpus_wiki.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/do_w2v_corpus_wiki.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="792">
-              <caret line="51" column="36" lean-forward="false" selection-start-line="51" selection-start-column="36" selection-end-line="51" selection-end-column="36" />
+            <state relative-caret-position="644">
+              <caret line="51" column="33" lean-forward="false" selection-start-line="51" selection-start-column="33" selection-end-line="51" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -120,8 +120,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>most_similar</find>
-      <find>similar_book_to_game</find>
       <find>game_glob4</find>
       <find>find_perfect_num</find>
       <find>load_book_and_game</find>
@@ -150,6 +148,8 @@
       <find>set_extra_list</find>
       <find>list_shift_right</find>
       <find>print_sentences</find>
+      <find>set_starting_list</find>
+      <find>generate_perfect_vector</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -170,19 +170,19 @@
         <option value="$PROJECT_DIR$/data/zork1-example.txt" />
         <option value="$PROJECT_DIR$/readme.md" />
         <option value="$PROJECT_DIR$/launch_threaded.sh" />
-        <option value="$PROJECT_DIR$/game.py" />
-        <option value="$PROJECT_DIR$/game_vector.py" />
         <option value="$PROJECT_DIR$/launch_vector_generate.sh" />
-        <option value="$PROJECT_DIR$/do_w2v_corpus_wiki.py" />
-        <option value="$PROJECT_DIR$/do_w2v_train.py" />
         <option value="$PROJECT_DIR$/do_w2v_test.py" />
         <option value="$PROJECT_DIR$/do_w2v_train_wiki.py" />
+        <option value="$PROJECT_DIR$/do_w2v_corpus_wiki.py" />
+        <option value="$PROJECT_DIR$/game_vector.py" />
+        <option value="$PROJECT_DIR$/do_w2v_train.py" />
+        <option value="$PROJECT_DIR$/game.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="492" />
-    <option name="y" value="75" />
+    <option name="x" value="494" />
+    <option name="y" value="74" />
     <option name="width" value="1400" />
     <option name="height" value="1000" />
   </component>
@@ -201,8 +201,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -235,6 +233,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -272,7 +272,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="492" y="75" width="1400" height="1000" extended-state="0" />
+    <frame x="494" y="74" width="1400" height="1000" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -577,55 +577,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4302">
-          <caret line="244" column="114" lean-forward="false" selection-start-line="244" selection-start-column="114" selection-end-line="244" selection-end-column="114" />
-          <folding>
-            <element signature="e#0#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game_vector.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2880">
-          <caret line="171" column="57" lean-forward="false" selection-start-line="171" selection-start-column="57" selection-end-line="171" selection-end-column="57" />
-          <folding>
-            <element signature="e#19#83#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/launch_vector_generate.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="2" lean-forward="false" selection-start-line="0" selection-start-column="2" selection-end-line="0" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/do_w2v_corpus_wiki.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="792">
-          <caret line="51" column="36" lean-forward="false" selection-start-line="51" selection-start-column="36" selection-end-line="51" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/do_w2v_train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="137" column="9" lean-forward="false" selection-start-line="137" selection-start-column="9" selection-end-line="137" selection-end-column="9" />
-          <folding>
-            <element signature="e#19#83#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/do_w2v_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
+        <state relative-caret-position="2268">
           <caret line="136" column="7" lean-forward="false" selection-start-line="136" selection-start-column="7" selection-end-line="136" selection-end-column="7" />
           <folding />
         </state>
@@ -638,6 +592,52 @@
           <folding>
             <element signature="e#106#143#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/launch_vector_generate.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="2" lean-forward="false" selection-start-line="0" selection-start-column="2" selection-end-line="0" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game_vector.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3492">
+          <caret line="206" column="32" lean-forward="false" selection-start-line="206" selection-start-column="32" selection-end-line="206" selection-end-column="32" />
+          <folding>
+            <element signature="e#19#83#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/do_w2v_train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="464">
+          <caret line="298" column="8" lean-forward="false" selection-start-line="298" selection-start-column="8" selection-end-line="298" selection-end-column="8" />
+          <folding>
+            <element signature="e#19#83#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="91" column="9" lean-forward="false" selection-start-line="91" selection-start-column="9" selection-end-line="91" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#47#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/do_w2v_corpus_wiki.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="644">
+          <caret line="51" column="33" lean-forward="false" selection-start-line="51" selection-start-column="33" selection-end-line="51" selection-end-column="33" />
+          <folding />
         </state>
       </provider>
     </entry>
