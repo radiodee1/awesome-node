@@ -28,8 +28,8 @@ if __name__ == '__main__':
         #sys.exit(1)
     inp = sys.argv[1]
 
-    model = Word2Vec(LineSentence(inp), size=300, window=7, min_count=5,
+    model = Word2Vec(LineSentence(inp), size=300, window=7, min_count=2,
                      workers=multiprocessing.cpu_count())
 
-    model.save(os.path.join("trained","word2vec_book.wv"))
-    model.wv.save_word2vec_format(os.path.join("trained","word2vec_book.wv.vec"), binary=False)
+    model.save(os.path.join("trained","word2vec_book.w2v"))
+    model.wv.save_word2vec_format(os.path.join("trained","word2vec_book.w2v.vec"), binary=False)

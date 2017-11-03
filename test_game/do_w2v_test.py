@@ -134,7 +134,7 @@ if load_book_and_game:
 
     print ()
 
-if False:
+if True:
     logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
     word2vec_book.wv.accuracy("data/questions-words.txt")
