@@ -32,4 +32,4 @@ if __name__ == '__main__':
                      workers=multiprocessing.cpu_count())
 
     model.save(os.path.join("trained","word2vec_book.w2v"))
-    model.wv.save_word2vec_format(os.path.join("trained","word2vec_book.w2v.vec"), binary=False)
+    #model.wv.save_word2vec_format(os.path.join("trained","word2vec_book.w2v.vec"), binary=False)
