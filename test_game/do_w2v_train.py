@@ -172,17 +172,17 @@ game_glob3 = "data/wiki*.txt"
 game_glob4 = "data/zork1-example.txt"
 
 sentences_book = []
-if True:
+if False:
     sentences_game = assemble_corpus(game_glob1, stem_words=False)
 
-if True:
+if False:
     sentences_zork = assemble_corpus(game_glob2, pos_tag=False,print_sentences=True)
 
 if False:
     #sentences_book = []
     sentences_book = assemble_corpus(game_glob3, pos_tag=False)
 
-if True:
+if False:
     #sentences_book = []
     sentences_book = assemble_corpus(game_glob4, pos_tag=False)
 
@@ -193,8 +193,22 @@ if False:
 #print (sentences_book)
 
 if False:
-    print ("o text")
-    print (assemble_corpus("data/zork1-o*.txt", pos_tag=False))
+    #print ("-----------------")
+
+    for sentences in sentences_book:
+        xx = sentences
+        yy = 0
+        for i in range(len(xx)):
+            yy += 1
+            print (xx[i] , end="")
+            if yy % 1000 == 0:
+                print (". ")
+                yy = 0
+            elif not i == len(xx) - 1:
+                print (" ", end="")
+        print (". ")
+
+
     exit()
 #exit()
 ####################################################
