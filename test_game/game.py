@@ -61,7 +61,12 @@ class MeasureVec:
                                 vec_best = vec
                                 word_best = near
 
-                    except NameError:
+
+                        pass
+                    except KeyboardInterrupt:
+                        raise KeyboardInterrupt()
+                        pass
+                    except:
                         pass
                     ######
                     pass

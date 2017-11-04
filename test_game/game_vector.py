@@ -25,7 +25,7 @@ class OddVector( ):
         self.list_shift_wrong = []
         self.list_shift_right = []
         self.odd_vec = []
-        self.start_list_len = 12
+        self.start_list_len = 23 #12
         self.g = None
         self.q = Queue.Queue()
         self.q_size = self.q.qsize()
@@ -145,14 +145,16 @@ class OddVector( ):
                   'western', 'eastern', 'southern', 'northern'
             , 'southerly', 'northerly', 'westerly', 'easterly'
             , 'southeasterly', 'northeasterly', 'southwesterly', 'northwesterly'
-            , 'southeastern', 'northeastern', 'southwestern', 'northwestern']
+            , 'southeastern', 'northeastern', 'southwestern', 'northwestern'
+            ,'looking','looks','looked']
 
         ''' correct outputs in order '''
         self.list_basic_right = ['go', 'go', 'go', 'go',
                   'west', 'east', 'south', 'north'
             , 'south', 'north', 'west', 'east'
             , 'southeast', 'northeast', 'southwest', 'northwest'
-            , 'southeast', 'northeast', 'southwest', 'northwest']
+            , 'southeast', 'northeast', 'southwest', 'northwest'
+            ,'look','look','look']
 
         self.list_basic_wrong = self.list_basic_wrong[:self.start_list_len]
         self.list_basic_right = self.list_basic_right[:self.start_list_len]
@@ -204,7 +206,7 @@ class OddVector( ):
                                 fill_num=0,debug_msg=True,
                                 list_try=[],
                                 list_correct=[],
-                                tot_correct=12,multi_thread=False):
+                                tot_correct=12,multi_thread=False, pad_zeros=True):
         ''' find vector that satisfies special requirements '''
 
         if patch_size == 0 or tot_correct == 0: exit()
@@ -250,8 +252,10 @@ class OddVector( ):
                                 vec_out.insert(0, 0.0)
                 else:
                     for k in range(patch):
-                        vec_out.append(0.0)
-                        #vec_out.insert(0, 0.0)
+                        if pad_zeros:
+                            vec_out.append( 0.0) ## 0.0
+                        else:
+                            vec_out.append(- feature_mag)
 
             ''' try saved vector '''
             if i == 0:
@@ -297,12 +301,13 @@ class VectorOnce(object, OddVector):
         OddVector.__init__(self)
         print ("VectorOnce: ctrl-c to stop")
 
-        self.start_list_len = 12
+        self.start_list_len = 23 # 23?, 12
         self.game_setup()
         self.set_starting_list()
+        patch_size = 10
 
         try:
-            self.generate_perfect_vector(self.g,patch_size=10,debug_msg=False,list_try=self.list_basic_wrong,
+            self.generate_perfect_vector(self.g,patch_size=patch_size,debug_msg=False,list_try=self.list_basic_wrong,
                                          list_correct=self.list_basic_right,tot_correct=self.start_list_len,
                                          multi_thread=False)
         except KeyboardInterrupt:
