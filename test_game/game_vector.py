@@ -301,7 +301,7 @@ class VectorOnce(object, OddVector):
         OddVector.__init__(self)
         print ("VectorOnce: ctrl-c to stop")
 
-        self.start_list_len = 23 # 23?, 12
+        self.start_list_len = 12 # 23?, 12
         self.game_setup()
         self.set_starting_list()
         patch_size = 10
