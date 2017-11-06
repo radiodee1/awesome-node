@@ -24,7 +24,7 @@ if True:
     corpus_raw = [u""]
 
     for book_filename in book_filenames:
-        print("stage: Reading '{0}'...".format(book_filename))
+        #print("stage: Reading '{0}'...".format(book_filename))
         with io.open(book_filename, "r", encoding="utf-8") as book_file: ## codecs.open
             for line in book_file:
                 # corpus_raw += line
