@@ -43,9 +43,9 @@ else:
     load_book_and_game = True
 
 print ('''
-        usage: do_w2v_test.py 0 -load-special     (list words and translations)
-               do_w2v_test.py 20 -load-special    (generate odd_vec and save)
-               do_w2v_test.py -load-special       (show key analogies)
+        usage: 
+               do_w2v_test.py                     (show key analogies)
+               do_w2v_test.py -load-special       (show key analogies on google-news model)
     ''')
 
 if load_book_and_game:

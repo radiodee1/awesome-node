@@ -144,7 +144,7 @@ class OddVector( ):
         self.list_basic_wrong = ['goes', 'gone', 'went', 'going',
                   'western', 'eastern', 'southern', 'northern'
             , 'southward', 'northward', 'westward', 'eastward'
-            #, 'southeasterly', 'northeasterly', 'southwesterly', 'northwesterly' ## too obscure
+            , 'southeasterly', 'northeasterly', 'southwesterly', 'northwesterly' ## too obscure
             , 'southeastern', 'northeastern', 'southwestern', 'northwestern'
             ,'looking','looks','looked','opens','opens','opened','opening']
 
@@ -152,7 +152,7 @@ class OddVector( ):
         self.list_basic_right = ['go', 'go', 'go', 'go',
                   'west', 'east', 'south', 'north'
             , 'south', 'north', 'west', 'east'
-            #, 'southeast', 'northeast', 'southwest', 'northwest' ## too obscure
+            , 'southeast', 'northeast', 'southwest', 'northwest' ## too obscure
             , 'southeast', 'northeast', 'southwest', 'northwest'
             ,'look','look','look','open','open','open','open']
 
@@ -301,7 +301,7 @@ class VectorOnce(object, OddVector):
         OddVector.__init__(self)
         print ("VectorOnce: ctrl-c to stop")
 
-        self.start_list_len = 23 # 23?, 12
+        self.start_list_len = 27 # 23?, 12
         self.game_setup()
         self.set_starting_list()
         patch_size = 10
@@ -314,6 +314,9 @@ class VectorOnce(object, OddVector):
             pass
         finally:
             print("\n---------")
+            if False:
+                self.odd_vec = list(np.zeros(300))
+
             out = self.check_odd_vector(self.g, odd_vec=self.odd_vec, debug_msg=True,
                                         list_try=self.list_basic_wrong,
                                         list_correct=self.list_basic_right)

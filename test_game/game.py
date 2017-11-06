@@ -29,10 +29,12 @@ class MeasureVec:
                 num_best = -3
                 word_best = ""
                 vec_best = 1000000
-
                 #
                 for near in list_suggested:
                     ######
+                    word_print_near = "[" + near + "]"
+                    word_print_word = "[" + word + "]"
+                    word_print_bool = True
                     if use_ending: near = near + "zzz"
                     try:
                         ############
@@ -51,11 +53,17 @@ class MeasureVec:
                         if len(self.odd_vec) > 0:
 
                             word_vec = self._list_sum(positive=[word],negative=[])
+                            word_print_word = word
                             near_vec = self._list_sum(positive=[near],negative=[])
-
+                            word_print_near = near
+                            word_print_bool = False
                             vec = self._distance(near_vec, word_vec - self.odd_vec) ### - (subtraction)
 
-                            if debug_msg: print(word, near, word_best, vec)
+                            if debug_msg:
+                                if not word_print_bool and True:
+                                    print(word, near, word_best, vec)
+                                else:
+                                    print (word_print_word + " ---- " + word_print_near)
 
                             if vec < vec_best:
                                 vec_best = vec
@@ -67,6 +75,7 @@ class MeasureVec:
                         raise KeyboardInterrupt()
                         pass
                     except:
+                        if debug_msg: print(word_print_word + " ---- " + word_print_near)
                         pass
                     ######
                     pass
