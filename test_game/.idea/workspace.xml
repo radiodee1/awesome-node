@@ -45,13 +45,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="game_vector.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="game_vector.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game_vector.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
+            <state relative-caret-position="5490">
               <caret line="316" column="20" lean-forward="false" selection-start-line="316" selection-start-column="20" selection-end-line="316" selection-end-column="20" />
               <folding>
                 <element signature="e#19#83#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="do_w2v_try_learn.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/do_w2v_try_learn.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="490">
+              <caret line="80" column="26" lean-forward="true" selection-start-line="80" selection-start-column="26" selection-end-line="80" selection-end-column="26" />
+              <folding>
+                <element signature="e#19#50#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -100,7 +112,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>game_glob4</find>
       <find>find_perfect_num</find>
       <find>load_book_and_game</find>
       <find>resolve_word_closest</find>
@@ -130,6 +141,7 @@
       <find>set_starting_list</find>
       <find>generate_perfect_vector</find>
       <find>start_list_len</find>
+      <find>y</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -159,6 +171,7 @@
         <option value="$PROJECT_DIR$/game.py" />
         <option value="$PROJECT_DIR$/do_w2v_corpus_wiki_mod.py" />
         <option value="$PROJECT_DIR$/game_vector.py" />
+        <option value="$PROJECT_DIR$/do_w2v_try_learn.py" />
       </list>
     </option>
   </component>
@@ -184,7 +197,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -217,6 +229,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -285,13 +298,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/do_test_textplayer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="19" column="8" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="19" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/do_w2v_test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
@@ -607,10 +613,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/game_vector.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
+        <state relative-caret-position="5490">
           <caret line="316" column="20" lean-forward="false" selection-start-line="316" selection-start-column="20" selection-end-line="316" selection-end-column="20" />
           <folding>
             <element signature="e#19#83#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/do_w2v_try_learn.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="490">
+          <caret line="80" column="26" lean-forward="true" selection-start-line="80" selection-start-column="26" selection-end-line="80" selection-end-column="26" />
+          <folding>
+            <element signature="e#19#50#0" expanded="true" />
           </folding>
         </state>
       </provider>
