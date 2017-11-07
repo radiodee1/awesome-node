@@ -1,9 +1,11 @@
 #!/usr/bin/python
 
-import matplotlib.pyplot as plt
+from __future__ import absolute_import, division, print_function
+
+import os
 import numpy as np
 
-import matplotlib
+import game
 
 class LearnerModel:
     def __init__(self):
@@ -19,8 +21,83 @@ class LearnerModel:
         self.epsilon = 0.01  # learning rate for gradient descent
         self.reg_lambda = 0.01  # regularization strength
 
-        print (self.X)
-        print (self.y)
+        self.W1 = None
+
+        self.start_list_len = 27
+        self.epochs = 20
+        #print (self.X)
+        #print (self.y)
+
+    def check_odd_vector(self, game, odd_vec=[], debug_msg=False, list_try=[], list_correct=[]):
+
+        g = game
+        ''' list of possible inputs to try '''
+        list_g = list_try
+
+        ''' correct outputs in order '''
+        list_i = list_correct
+
+        if len(odd_vec) > 0:
+            self.mv.set_odd_vec(odd_vec)
+
+        correct = 0
+        total = len(list_i)
+
+        for z in range(len(list_g)):
+            i = list_g[z]
+            j = self.mv.resolve_word_closest(g.words_game, [i] , debug_msg=debug_msg)[0]
+            if j == list_i[z]: correct += 1
+            pass
+
+        if total == 0:
+            if debug_msg: print ("zero list")
+            return 0
+
+        if debug_msg: print (correct, "/", total, "or:", correct / total)
+
+        return correct / total
+
+    #############################
+
+
+    def set_starting_list(self):
+        ''' list of possible inputs to try '''
+        self.list_basic_wrong = ['goes', 'gone', 'went', 'going',
+                  'western', 'eastern', 'southern', 'northern'
+            , 'southward', 'northward', 'westward', 'eastward'
+            , 'southeasterly', 'northeasterly', 'southwesterly', 'northwesterly' ## too obscure
+            , 'southeastern', 'northeastern', 'southwestern', 'northwestern'
+            ,'looking','looks','looked','opens','opens','opened','opening']
+
+        ''' correct outputs in order '''
+        self.list_basic_right = ['go', 'go', 'go', 'go',
+                  'west', 'east', 'south', 'north'
+            , 'south', 'north', 'west', 'east'
+            , 'southeast', 'northeast', 'southwest', 'northwest' ## too obscure
+            , 'southeast', 'northeast', 'southwest', 'northwest'
+            ,'look','look','look','open','open','open','open']
+
+        self.list_basic_wrong = self.list_basic_wrong[:self.start_list_len]
+        self.list_basic_right = self.list_basic_right[:self.start_list_len]
+
+    def load_vec(self, name=""):
+        odd_vec = []
+        if len(name) == 0:
+            name = "word2vec_book_vec.npy.txt"
+        if os.path.isfile(os.path.join("trained", name)) and not self.test_zeros:
+            odd_vec = np.loadtxt(os.path.join("trained", name))
+            #print (odd_vec)
+        else:
+            odd_vec = np.zeros(300)
+        self.odd_vec = odd_vec
+        return odd_vec
+
+    def save_vec(self, name="", odd_vec=[]):
+        if len(name) == 0:
+            name = "word2vec_book_vec.npy.txt"
+
+        if os.path.isdir('trained') and not self.test_zeros:
+            np.savetxt(os.path.join('trained',name), odd_vec)
 
     # Helper function to evaluate the total loss on the dataset
     def calculate_loss(self, model):
@@ -55,13 +132,15 @@ class LearnerModel:
     # - nn_hdim: Number of nodes in the hidden layer
     # - num_passes: Number of passes through the training data for gradient descent
     # - print_loss: If True, print the loss every 1000 iterations
-    def build_model(self, num_features=300, num_passes=20000, print_loss=False):
+    def build_model(self, num_features=300, num_passes=1, print_loss=False):
         # Initialize the parameters to random values. We need to learn these.
         np.random.seed(0)
         W1 = np.random.randn(self.nn_input_dim, num_features) / np.sqrt(self.nn_input_dim)
         b1 = np.zeros((1, num_features))
         #b1 = np.zeros( num_features)
 
+        if not self.W1 is None:
+            W1 = self.W1
 
         # This is what we return at the end
         model = {}
@@ -91,6 +170,7 @@ class LearnerModel:
 
             # Assign new parameters to the model
             model = {'W1': W1, 'b1': b1}
+            self.W1 = W1
 
             # Optionally print the loss.
             # This is expensive because it uses the whole dataset, so we don't want to do it too often.
@@ -99,12 +179,40 @@ class LearnerModel:
 
         return model
 
+    def generate_perfect_vector(self, game):
+        for i in range(self.epochs):
+            for j in range(self.start_list_len):
+                score = self.check_odd_vector(game, odd_vec=self.W1,debug_msg=True
+                                             ,list_try=[self.list_basic_wrong[j]]
+                                             ,list_correct=[self.list_basic_right[j]])
+                if score == 1.0:
+                    print (score)
+                    self.y = np.array([score])
+                else:
+                    self.y = np.array([0])
+
+                self.X = np.array([[1]])
+                self.num_examples = 1
+                model = l.build_model(print_loss=True)
+            pass
+
+        pass
+
 
 if __name__ == "__main__":
+    game = game.Game()
+
+
     l = LearnerModel()
 
-    l.X = np.array([[1],[0],[1]])
-    l.y = np.array([1,0,0])
-    model = l.build_model(print_loss=True)
+    l.set_starting_list()
+    '''
+    l.X = np.array([[1]])
+    l.y = np.array([1])
+    l.num_examples = len(list(l.X))  # training set size
+    '''
+    #model = l.build_model(print_loss=True)
+
+    l.generate_perfect_vector(game)
     # Build a model
     #model = build_model(print_loss=True)
