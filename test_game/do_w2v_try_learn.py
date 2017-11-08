@@ -24,9 +24,10 @@ class LearnerModel:
         self.W1 = None
 
         self.start_list_len = 27
-        self.epochs = 20
+        self.epochs = 1
         #print (self.X)
         #print (self.y)
+        self.test_zeros = False
 
     def check_odd_vector(self, game, odd_vec=[], debug_msg=False, list_try=[], list_correct=[]):
 
@@ -37,15 +38,15 @@ class LearnerModel:
         ''' correct outputs in order '''
         list_i = list_correct
 
-        if len(odd_vec) > 0:
-            self.mv.set_odd_vec(odd_vec)
+        if True or len(odd_vec) > 0:
+            g.set_odd_vec(odd_vec)
 
         correct = 0
         total = len(list_i)
 
         for z in range(len(list_g)):
             i = list_g[z]
-            j = self.mv.resolve_word_closest(g.words_game, [i] , debug_msg=debug_msg)[0]
+            j = g.resolve_word_closest(g.words_game, [i] , debug_msg=debug_msg)[0]
             if j == list_i[z]: correct += 1
             pass
 
@@ -88,7 +89,9 @@ class LearnerModel:
             odd_vec = np.loadtxt(os.path.join("trained", name))
             #print (odd_vec)
         else:
-            odd_vec = np.zeros(300)
+            #odd_vec = np.zeros(300)
+            odd_vec = np.random.randn(self.nn_input_dim, 300) / np.sqrt(self.nn_input_dim)
+
         self.odd_vec = odd_vec
         return odd_vec
 
@@ -128,19 +131,17 @@ class LearnerModel:
 
 
 
-    # This function learns parameters for the neural network and returns the model.
-    # - nn_hdim: Number of nodes in the hidden layer
-    # - num_passes: Number of passes through the training data for gradient descent
-    # - print_loss: If True, print the loss every 1000 iterations
+
     def build_model(self, num_features=300, num_passes=1, print_loss=False):
         # Initialize the parameters to random values. We need to learn these.
         np.random.seed(0)
         W1 = np.random.randn(self.nn_input_dim, num_features) / np.sqrt(self.nn_input_dim)
         b1 = np.zeros((1, num_features))
-        #b1 = np.zeros( num_features)
 
+        print (W1)
+        print (self.W1)
         if not self.W1 is None:
-            W1 = self.W1
+            W1 = list(self.W1)
 
         # This is what we return at the end
         model = {}
@@ -180,20 +181,21 @@ class LearnerModel:
         return model
 
     def generate_perfect_vector(self, game):
+        g = game
         for i in range(self.epochs):
             for j in range(self.start_list_len):
-                score = self.check_odd_vector(game, odd_vec=self.W1,debug_msg=True
-                                             ,list_try=[self.list_basic_wrong[j]]
-                                             ,list_correct=[self.list_basic_right[j]])
+                score = self.check_odd_vector(g, odd_vec=self.W1,debug_msg=True
+                                             , list_try=[self.list_basic_wrong[j]]
+                                             , list_correct=[self.list_basic_right[j]])
                 if score == 1.0:
                     print (score)
-                    self.y = np.array([score])
+                    self.y = np.array([int(score)])
                 else:
                     self.y = np.array([0])
 
                 self.X = np.array([[1]])
                 self.num_examples = 1
-                model = l.build_model(print_loss=True)
+                model = l.build_model(print_loss=True,num_passes=1)
             pass
 
         pass
@@ -201,10 +203,11 @@ class LearnerModel:
 
 if __name__ == "__main__":
     game = game.Game()
-
+    game.load_w2v(load_special=False)
 
     l = LearnerModel()
 
+    l.W1 = l.load_vec()
     l.set_starting_list()
     '''
     l.X = np.array([[1]])

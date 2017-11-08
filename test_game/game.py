@@ -147,9 +147,9 @@ class Game(object, MeasureVec):
         self.multithreading = False
         self.vec = None
 
-    def run(self):
+    def run(self, load_special=True):
         self.game  = player.TextPlayer("zork1.z5")
-        self.load_w2v(load_special=True)
+        self.load_w2v(load_special=load_special)
         self.load_odd_vec()
         self.read_word_list()
 
