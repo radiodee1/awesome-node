@@ -27,7 +27,7 @@ class LearnerModel:
 
         self.start_list_len = 27
         self.epochs = 1
-        self.total_correct_old = 0
+        self.total_correct_old = self.start_list_len
         #print (self.X)
         #print (self.y)
         self.test_zeros = False
@@ -96,9 +96,13 @@ class LearnerModel:
             #print (odd_vec,"here")
 
         else:
-            #odd_vec = np.zeros(300)
-            odd_vec = np.random.randn(self.nn_input_dim, 300) / np.sqrt(self.nn_input_dim)
-            odd_vec.tolist()
+            self.total_correct_old = 0
+            if self.test_zeros:
+                odd_vec = np.zeros((self.nn_input_dim,300))
+            else:
+                odd_vec = np.random.randn(self.nn_input_dim, 300) / np.sqrt(self.nn_input_dim)
+                odd_vec.tolist()
+                pass
 
         self.odd_vec = odd_vec
         return odd_vec
@@ -150,9 +154,6 @@ class LearnerModel:
         total_correct = 0
         score = 0
 
-        #print (W1)
-        #print (self.W1)
-
         if not self.W1 is None:
             W1 =  np.array(self.W1)
 
@@ -168,7 +169,7 @@ class LearnerModel:
                     sample = np.zeros(num_features)
                 else:
                     sample = game_ref.word2vec_book.wv[word_compare[i]]
-                    print ('...', self.list_basic_wrong[i])
+                    #print ('...', self.list_basic_wrong[i])
                 pass
             except: # NameError:
                 continue
@@ -185,17 +186,13 @@ class LearnerModel:
             delta = probs
             delta[range(num_passes), self.y] -= 1
 
-            print (delta.shape)
-            print (self.y.shape)
-
             dW1 = np.dot(self.X.T, delta)
             db1 = np.sum(delta, axis=0)
 
 
             # Add regularization terms (b1 and b2 don't have regularization terms)
             dW1 += self.reg_lambda * W1
-            #W1 -= sample
-            #dW1 -= sample
+
 
             # Gradient descent parameter update
             W1 += -self.epsilon * dW1
@@ -214,13 +211,12 @@ class LearnerModel:
         # Optionally print the loss.
         # This is expensive because it uses the whole dataset, so we don't want to do it too often.
         if True: #print_loss and i % 1000 == 0:
-            print("Loss after iteration %i: %f" % (0, self.calculate_loss(model, sample=sample)))
+            print("Loss after iteration %i: %f" % (self.total_correct_old, self.calculate_loss(model, sample=sample)))
 
         #if score == 1.0: total_correct += 1
         total_correct = score * num_passes
 
         if total_correct > self.total_correct_old:
-            #total_correct = total_correct + score #* self.start_list_len
             self.total_correct_old = total_correct
             self.save_vec(odd_vec=self.W1 )
             print("--->", end="")
@@ -249,11 +245,11 @@ class LearnerModel:
                                            , list_correct=[self.list_basic_right[x]])
 
                 if score == 1.0:
-                    print ("here")
+                    #print ("here")
                     y.append(1)
                     #y = [0]
                 else:
-                    print ("not here")
+                    #print ("not here")
                     y.append(0)
                     #y = [1]
                 X.append([1])
@@ -262,8 +258,8 @@ class LearnerModel:
 
             self.X = np.array(X)
             self.y = np.array([y])
-            print (self.X)
-            print (self.y)
+            #print (self.X)
+            #print (self.y)
 
             model = self.build_model(print_loss=True,num_passes=self.start_list_len,game_ref=g,
                                       word_compare=self.list_basic_wrong)
@@ -291,8 +287,13 @@ if __name__ == "__main__":
                                , debug_msg=True
                                , list_try=l.list_basic_wrong
                                , list_correct=l.list_basic_right)
-    l.total_correct_old = score * l.start_list_len
-    l.epochs = 2000
+
+    if l.total_correct_old >= l.start_list_len:
+        l.total_correct_old = score * l.start_list_len
+
+    print (l.total_correct_old)
+    #exit()
+    l.epochs = 200
     l.generate_perfect_vector(game)
 
     print ("----------------")
