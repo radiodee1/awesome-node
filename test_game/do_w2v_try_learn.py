@@ -141,7 +141,7 @@ class LearnerModel:
 
 
 
-    def build_model(self, num_features=300, num_passes=1, print_loss=False, game_ref=None):
+    def build_model(self, num_features=300, num_passes=1, print_loss=False, game_ref=None,word_compare=None):
         # Initialize the parameters to random values. We need to learn these.
         np.random.seed(0)
         W1 = np.random.randn(self.nn_input_dim, num_features) / np.sqrt(self.nn_input_dim)
@@ -160,10 +160,13 @@ class LearnerModel:
         model = {}
 
         # Gradient descent. For each batch...
-        for i in range(0, self.start_list_len):
+        for i in range(0, num_passes):
 
             try:
-                sample = game_ref.word2vec_book.wv[self.list_basic_wrong[i]]
+                if word_compare is None:
+                    sample = np.zeros(num_features)
+                else:
+                    sample = game_ref.word2vec_book.wv[word_compare[i]]
                 #print (self.list_basic_right[i], self.list_basic_wrong[i])
                 pass
             except: # NameError:
@@ -205,16 +208,16 @@ class LearnerModel:
 
         score = self.check_odd_vector(game_ref, odd_vec=self.W1 #- sample
                                       , debug_msg=False
-                                      , list_try=self.list_basic_wrong
-                                      , list_correct=self.list_basic_right)
+                                      , list_try=[self.list_basic_wrong[i]]
+                                      , list_correct=[self.list_basic_right[i]])
 
         #if score == 1.0: total_correct += 1
-        total_correct = score * self.start_list_len
+        total_correct = score * num_passes
 
         if total_correct > self.total_correct_old:
             #total_correct = total_correct + score #* self.start_list_len
             self.total_correct_old = total_correct
-            self.save_vec(odd_vec=self.W1 - sample)
+            self.save_vec(odd_vec=self.W1 )
             print("--->", end="")
 
 
@@ -227,23 +230,36 @@ class LearnerModel:
         #total_correct = 0
         #self.total_correct_old = 0
 
-        X = []
-        y = []
-        for x in range(len(self.list_basic_right)):
-            if not self.list_basic_right[x] == self.list_basic_wrong[x]:
-                y.append([0])
-            else:
-                y.append([1])
-            X.append([1])
-            pass
-        self.X = np.array(X)
-        self.y = np.array([y])
-
         for i in range(self.epochs):
             total_correct = 0
             #for j in range(1):
 
-            model = l.build_model(print_loss=True,num_passes=self.start_list_len,game_ref=g)
+            X = []
+            y = []
+            for x in range(len(self.list_basic_right)):
+
+                score = self.check_odd_vector(game, odd_vec=self.W1
+                                           , debug_msg=False
+                                           , list_try=[self.list_basic_wrong[x]]
+                                           , list_correct=[self.list_basic_right[x]])
+
+                if score == 1.0: #not self.list_basic_right[x] == self.list_basic_wrong[x]:
+                    print ("here")
+                    y.append([1])
+                    #y = [0]
+                else:
+                    print ("not here")
+                    y.append([0])
+                    #y = [1]
+                X.append([1])
+                #X = [1]
+                pass
+
+            self.X = np.array(X)
+            self.y = np.array([y])
+
+            model = self.build_model(print_loss=True,num_passes=self.start_list_len,game_ref=g,
+                                      word_compare=self.list_basic_wrong)
 
 
             print ("totals",self.total_correct_old / total_tested, self.total_correct_old, total_tested)
