@@ -25,7 +25,7 @@ class OddVector( ):
         self.list_shift_wrong = []
         self.list_shift_right = []
         self.odd_vec = []
-        self.start_list_len = 23 #12
+        self.start_list_len = 16 #23 #12
         self.g = None
         self.q = Queue.Queue()
         self.q_size = self.q.qsize()
@@ -141,20 +141,22 @@ class OddVector( ):
 
     def set_starting_list(self):
         ''' list of possible inputs to try '''
-        self.list_basic_wrong = ['goes', 'gone', 'went', 'going',
+        self.list_basic_wrong = [ #'goes', 'gone', 'went', 'going',
                   'western', 'eastern', 'southern', 'northern'
             , 'southward', 'northward', 'westward', 'eastward'
             , 'southeasterly', 'northeasterly', 'southwesterly', 'northwesterly' ## too obscure
             , 'southeastern', 'northeastern', 'southwestern', 'northwestern'
-            ,'looking','looks','looked','opens','opens','opened','opening']
+            #,'looking','looks','looked','opens','opens','opened','opening'
+        ]
 
         ''' correct outputs in order '''
-        self.list_basic_right = ['go', 'go', 'go', 'go',
+        self.list_basic_right = [#'go', 'go', 'go', 'go',
                   'west', 'east', 'south', 'north'
             , 'south', 'north', 'west', 'east'
             , 'southeast', 'northeast', 'southwest', 'northwest' ## too obscure
             , 'southeast', 'northeast', 'southwest', 'northwest'
-            ,'look','look','look','open','open','open','open']
+            #,'look','look','look','open','open','open','open'
+        ]
 
         self.list_basic_wrong = self.list_basic_wrong[:self.start_list_len]
         self.list_basic_right = self.list_basic_right[:self.start_list_len]
@@ -301,7 +303,7 @@ class VectorOnce(object, OddVector):
         OddVector.__init__(self)
         print ("VectorOnce: ctrl-c to stop")
 
-        self.start_list_len = 27 # 23?, 12
+        self.start_list_len = 16 # 27 # 23?, 12
         self.game_setup()
         self.set_starting_list()
         patch_size = 10

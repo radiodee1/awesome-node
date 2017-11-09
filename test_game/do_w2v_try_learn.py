@@ -31,6 +31,7 @@ class LearnerModel:
         #print (self.X)
         #print (self.y)
         self.test_zeros = False
+        self.saved_once = False
 
     def check_odd_vector(self, game, odd_vec=[], debug_msg=False, list_try=[], list_correct=[]):
 
@@ -108,6 +109,7 @@ class LearnerModel:
         return odd_vec
 
     def save_vec(self, name="", odd_vec=[]):
+        self.saved_once = True
         if len(name) == 0:
             name = "word2vec_book_vec.npy.txt"
 
@@ -161,7 +163,7 @@ class LearnerModel:
         # This is what we return at the end
         model = {}
 
-        # Gradient descent. For each batch...
+        ######
         for i in range( num_passes):
 
             try:
@@ -174,9 +176,9 @@ class LearnerModel:
             except: # NameError:
                 continue
 
-            W1 += sample
+            #W1 += sample
             # Forward propagation
-            z1 = self.X.dot(W1)  + b1
+            z1 = self.X.dot(W1) + b1
 
             exp_scores = np.exp(z1)
             probs = exp_scores / np.sum(exp_scores, axis=1, keepdims=True)
@@ -198,10 +200,11 @@ class LearnerModel:
             W1 += -self.epsilon * dW1
             b1 += -self.epsilon * db1
 
-            W1 -= sample
+            #W1 -= sample
             # Assign new parameters to the model
             model = {'W1': W1, 'b1': b1}
-            self.W1 = W1
+
+        self.W1 = W1
 
         score = self.check_odd_vector(game_ref, odd_vec=self.W1
                                   , debug_msg=False
@@ -210,8 +213,8 @@ class LearnerModel:
 
         # Optionally print the loss.
         # This is expensive because it uses the whole dataset, so we don't want to do it too often.
-        if True: #print_loss and i % 1000 == 0:
-            print("Loss after iteration %i: %f" % (self.total_correct_old, self.calculate_loss(model, sample=sample)))
+        if True:
+            print("Loss after iteration %i: %f %f" % (self.total_correct_old, score, self.calculate_loss(model, sample=sample)))
 
         #if score == 1.0: total_correct += 1
         total_correct = score * num_passes
@@ -221,19 +224,14 @@ class LearnerModel:
             self.save_vec(odd_vec=self.W1 )
             print("--->", end="")
 
-
-
         return model
 
     def generate_perfect_vector(self, game, debug_msg=False):
         g = game
         total_tested = self.start_list_len
-        #total_correct = 0
-        #self.total_correct_old = 0
 
         for i in range(self.epochs):
             total_correct = 0
-            #for j in range(1):
 
             X = []
             y = []
@@ -268,9 +266,7 @@ class LearnerModel:
         print ("totals",self.total_correct_old / total_tested, self.total_correct_old, total_tested)
         total_correct = 0
         pass
-
-
-        pass
+        if not self.saved_once: self.save_vec(odd_vec=self.W1)
 
 
 if __name__ == "__main__":
@@ -293,7 +289,7 @@ if __name__ == "__main__":
 
     print (l.total_correct_old)
     #exit()
-    l.epochs = 200
+    l.epochs = 5000
     l.generate_perfect_vector(game)
 
     print ("----------------")
