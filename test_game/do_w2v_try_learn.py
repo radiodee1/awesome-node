@@ -16,7 +16,7 @@ class LearnerModel:
         self.y = [] #np.array([1,1,0])
 
         self.num_examples = 1 #len(list(self.X))  # training set size
-        self.nn_input_dim = 300 # input layer dimensionality
+        self.nn_input_dim = 1 # input layer dimensionality
         self.nn_output_dim = 300  # output layer dimensionality
 
         self.epsilon = 0.01  # learning rate for gradient descent
@@ -32,6 +32,9 @@ class LearnerModel:
         #print (self.y)
         self.test_zeros = False
         self.saved_once = False
+
+        self.mag = 10 #np.ones(300) * 10
+
 
     def check_odd_vector(self, game, odd_vec=[], debug_msg=False, list_try=[], list_correct=[]):
 
@@ -150,10 +153,9 @@ class LearnerModel:
     def build_model(self, num_features=300, num_passes=1, print_loss=False, game_ref=None,word_compare=None):
         # Initialize the parameters to random values. We need to learn these.
         np.random.seed(0)
-        W1 = np.random.randn(2, num_features) / np.sqrt(self.nn_input_dim)
+        W1 = np.random.randn(self.nn_input_dim, num_features) / np.sqrt(self.nn_input_dim)
         b1 = np.zeros((1, num_features))
 
-        print (W1.shape,"W1")
 
         total_correct = 0
         score = 0
@@ -180,8 +182,8 @@ class LearnerModel:
 
             #W1 += sample
             # Forward propagation
-            z1 = self.X.dot(W1) + b1
-
+            z1 = self.X.dot(W1) #+ b1
+            z1 += b1
             exp_scores = np.exp(z1)
             probs = exp_scores / np.sum(exp_scores, axis=1, keepdims=True) #axis=1
 
@@ -193,11 +195,8 @@ class LearnerModel:
             dW1 = np.dot(self.X.T, delta)
             db1 = np.sum(delta, axis=0) #axis=0
 
-            #dW1 = dW1.reshape((1,300,300))
             # Add regularization terms (b1 and b2 don't have regularization terms)
-            print (delta.shape, "delta")
-            print (dW1.shape,"dW1")
-            print (W1.shape,"W1")
+
             dW1 += self.reg_lambda * W1
 
 
@@ -209,27 +208,14 @@ class LearnerModel:
             # Assign new parameters to the model
             model = {'W1': W1, 'b1': b1}
 
-        self.W1 = W1
-
-        score = self.check_odd_vector(game_ref, odd_vec=self.W1
-                                  , debug_msg=False
-                                  , list_try=self.list_basic_wrong
-                                  , list_correct=self.list_basic_right)
+            self.W1 = W1
 
         # Optionally print the loss.
         # This is expensive because it uses the whole dataset, so we don't want to do it too often.
         if True:
-            loss = self.calculate_loss(model,sample=sample,list_len=num_passes)
-            print("Loss after iteration %i: %f %f" % (self.total_correct_old, score,
+            loss = self.calculate_loss(model, sample=sample, list_len=num_passes)
+            print("Loss after iteration %i:  %f" % (self.total_correct_old,
                                                       loss))
-
-        #if score == 1.0: total_correct += 1
-        total_correct = score * num_passes
-
-        if total_correct > self.total_correct_old:
-            self.total_correct_old = total_correct
-            self.save_vec(odd_vec=self.W1 )
-            print("--->", end="")
 
         return model
 
@@ -238,20 +224,18 @@ class LearnerModel:
         total_tested = self.start_list_len
 
         for i in range(self.epochs):
-            total_correct = 0
 
-            X = []
-            y = []
+            total_correct = 0
             for x in range(len(self.list_basic_right)):
                 X = []
                 y = []
 
-                score = self.check_odd_vector(game, odd_vec=self.W1
+                score = self.check_odd_vector(game, odd_vec=self.W1 * self.mag
                                            , debug_msg=False
                                            , list_try=[self.list_basic_wrong[x]]
                                            , list_correct=[self.list_basic_right[x]])
 
-                sample = game.word2vec_book.wv[self.list_basic_wrong[x]]
+                #sample = game.word2vec_book.wv[self.list_basic_wrong[x]]
 
                 if score == 1.0:
                     #print ("here")
@@ -262,7 +246,7 @@ class LearnerModel:
                     y.append(0)
                     #X.append([0])
 
-                X.append(sample) #[1]
+                X.append([1]) #[1]
 
                 self.X = np.array(X)
                 #self.y = np.array([y])
@@ -272,8 +256,16 @@ class LearnerModel:
 
                 model = self.build_model(print_loss=True,num_passes=1 #self.start_list_len
                                          ,game_ref=g,
-                                          word_compare=None)#self.list_basic_wrong[x])
+                                          word_compare=self.list_basic_wrong[x])
 
+
+                # if score == 1.0: total_correct += 1
+                total_correct += score #* len(self.list_basic_wrong)
+
+                if total_correct > self.total_correct_old:
+                    self.total_correct_old = total_correct
+                    self.save_vec(odd_vec=self.W1)
+                    print("--->", end="")
 
         print ("totals",self.total_correct_old / total_tested, self.total_correct_old, total_tested)
         total_correct = 0
@@ -291,7 +283,7 @@ if __name__ == "__main__":
     l.set_starting_list()
     l.start_list_len = len(l.list_basic_right)
 
-    score = l.check_odd_vector(game, odd_vec=l.W1
+    score = l.check_odd_vector(game, odd_vec=l.W1 * l.mag
                                , debug_msg=True
                                , list_try=l.list_basic_wrong
                                , list_correct=l.list_basic_right)
@@ -301,14 +293,14 @@ if __name__ == "__main__":
 
     print (l.total_correct_old)
     #exit()
-    l.epochs = 50
+    l.epochs = 500
     l.generate_perfect_vector(game)
 
     print ("----------------")
     if False:
 
         l.W1 = l.load_vec().tolist()
-        score = l.check_odd_vector(game, odd_vec=l.W1
+        score = l.check_odd_vector(game, odd_vec=l.W1 * l.mag
                                   , debug_msg=True
                                   , list_try=l.list_basic_wrong
                                   , list_correct=l.list_basic_right)
@@ -327,5 +319,5 @@ if __name__ == "__main__":
                                        , list_try=[l.list_basic_wrong[i]]
                                        , list_correct=[l.list_basic_right[i]])
 
-    if False:
-        print (l.W1)
+    if True:
+        print (l.W1 * l.mag)
