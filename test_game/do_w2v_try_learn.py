@@ -12,11 +12,11 @@ class LearnerModel:
     def __init__(self):
 
         np.random.seed(3)
-        self.X = np.array([[1],[1],[1]])
-        self.y = np.array([1,1,0])
+        self.X = [] #np.array([[1],[1],[1]])
+        self.y = [] #np.array([1,1,0])
 
-        self.num_examples = len(list(self.X))  # training set size
-        self.nn_input_dim = 1  # input layer dimensionality
+        self.num_examples = 1 #len(list(self.X))  # training set size
+        self.nn_input_dim = 300 # input layer dimensionality
         self.nn_output_dim = 300  # output layer dimensionality
 
         self.epsilon = 0.01  # learning rate for gradient descent
@@ -117,7 +117,7 @@ class LearnerModel:
             np.savetxt(os.path.join('trained',name), odd_vec)
 
     # Helper function to evaluate the total loss on the dataset
-    def calculate_loss(self, model, sample=None):
+    def calculate_loss(self, model, sample=None,list_len=1):
         W1, b1 = model['W1'], model['b1']
         #W1 = W1 - sample
         # Forward propagation to calculate our predictions
@@ -126,7 +126,7 @@ class LearnerModel:
         exp_scores = np.exp(z1)
         probs = exp_scores / np.sum(exp_scores, axis=1, keepdims=True)
         # Calculating the loss
-        corect_logprobs = -np.log(probs[range(self.start_list_len), self.y])
+        corect_logprobs = -np.log(probs[range(list_len), self.y])
         data_loss = np.sum(corect_logprobs)
         # Add regulatization term to loss (optional)
         data_loss += self.reg_lambda / 2 * np.sum(np.square(W1)) #+ np.sum(np.square(W2)))
@@ -150,8 +150,10 @@ class LearnerModel:
     def build_model(self, num_features=300, num_passes=1, print_loss=False, game_ref=None,word_compare=None):
         # Initialize the parameters to random values. We need to learn these.
         np.random.seed(0)
-        W1 = np.random.randn(self.nn_input_dim, num_features) / np.sqrt(self.nn_input_dim)
+        W1 = np.random.randn(2, num_features) / np.sqrt(self.nn_input_dim)
         b1 = np.zeros((1, num_features))
+
+        print (W1.shape,"W1")
 
         total_correct = 0
         score = 0
@@ -170,7 +172,7 @@ class LearnerModel:
                 if word_compare is None:
                     sample = np.zeros(num_features)
                 else:
-                    sample = game_ref.word2vec_book.wv[word_compare[i]]
+                    sample = game_ref.word2vec_book.wv[word_compare]
                     #print ('...', self.list_basic_wrong[i])
                 pass
             except: # NameError:
@@ -181,7 +183,7 @@ class LearnerModel:
             z1 = self.X.dot(W1) + b1
 
             exp_scores = np.exp(z1)
-            probs = exp_scores / np.sum(exp_scores, axis=1, keepdims=True)
+            probs = exp_scores / np.sum(exp_scores, axis=1, keepdims=True) #axis=1
 
 
             # Backpropagation
@@ -189,10 +191,13 @@ class LearnerModel:
             delta[range(num_passes), self.y] -= 1
 
             dW1 = np.dot(self.X.T, delta)
-            db1 = np.sum(delta, axis=0)
+            db1 = np.sum(delta, axis=0) #axis=0
 
-
+            #dW1 = dW1.reshape((1,300,300))
             # Add regularization terms (b1 and b2 don't have regularization terms)
+            print (delta.shape, "delta")
+            print (dW1.shape,"dW1")
+            print (W1.shape,"W1")
             dW1 += self.reg_lambda * W1
 
 
@@ -214,7 +219,9 @@ class LearnerModel:
         # Optionally print the loss.
         # This is expensive because it uses the whole dataset, so we don't want to do it too often.
         if True:
-            print("Loss after iteration %i: %f %f" % (self.total_correct_old, score, self.calculate_loss(model, sample=sample)))
+            loss = self.calculate_loss(model,sample=sample,list_len=num_passes)
+            print("Loss after iteration %i: %f %f" % (self.total_correct_old, score,
+                                                      loss))
 
         #if score == 1.0: total_correct += 1
         total_correct = score * num_passes
@@ -236,31 +243,36 @@ class LearnerModel:
             X = []
             y = []
             for x in range(len(self.list_basic_right)):
+                X = []
+                y = []
 
                 score = self.check_odd_vector(game, odd_vec=self.W1
                                            , debug_msg=False
                                            , list_try=[self.list_basic_wrong[x]]
                                            , list_correct=[self.list_basic_right[x]])
 
+                sample = game.word2vec_book.wv[self.list_basic_wrong[x]]
+
                 if score == 1.0:
                     #print ("here")
                     y.append(1)
-                    #y = [0]
+                    #X.append([1])
                 else:
                     #print ("not here")
                     y.append(0)
-                    #y = [1]
-                X.append([1])
-                #X = [1]
-                pass
+                    #X.append([0])
 
-            self.X = np.array(X)
-            self.y = np.array([y])
-            #print (self.X)
-            #print (self.y)
+                X.append(sample) #[1]
 
-            model = self.build_model(print_loss=True,num_passes=self.start_list_len,game_ref=g,
-                                      word_compare=self.list_basic_wrong)
+                self.X = np.array(X)
+                #self.y = np.array([y])
+                self.y = np.array(y)
+                #print (self.X)
+                #print (self.y)
+
+                model = self.build_model(print_loss=True,num_passes=1 #self.start_list_len
+                                         ,game_ref=g,
+                                          word_compare=None)#self.list_basic_wrong[x])
 
 
         print ("totals",self.total_correct_old / total_tested, self.total_correct_old, total_tested)
@@ -289,7 +301,7 @@ if __name__ == "__main__":
 
     print (l.total_correct_old)
     #exit()
-    l.epochs = 5000
+    l.epochs = 50
     l.generate_perfect_vector(game)
 
     print ("----------------")
