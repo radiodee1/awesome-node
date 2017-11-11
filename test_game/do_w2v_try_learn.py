@@ -143,7 +143,7 @@ class LearnerModel:
         return 1. / self.num_examples * data_loss
 
 
-
+    '''
     # Helper function to predict an output (0 or 1)
     def predict(self, model, x):
         W1, b1 = model['W1'], model['b1']
@@ -153,7 +153,7 @@ class LearnerModel:
         exp_scores = np.exp(z1)
         probs = exp_scores / np.sum(exp_scores, axis=1, keepdims=True)
         return np.argmax(probs, axis=1)
-
+    '''
 
 
 
@@ -193,12 +193,8 @@ class LearnerModel:
             exp_scores = a1
             probs = exp_scores #/ np.sum(exp_scores, axis=1, keepdims=True) #axis=1
 
-            print (self.y)
-            #exit()
-
             # Backpropagation
             delta = probs
-
 
             if self.y[0] == 0:
                 dW1 = np.dot(np.array(self.X).T, delta) + sample # R1
@@ -214,7 +210,6 @@ class LearnerModel:
             W1 += -self.epsilon * dW1
             #b1 += -self.epsilon * db1
 
-
             # Assign new parameters to the model
 
             self.W1 = W1
@@ -222,11 +217,11 @@ class LearnerModel:
             model = {'W1': W1, 'b1': b1}
 
         # Optionally print the loss.
-        # This is expensive because it uses the whole dataset, so we don't want to do it too often.
-        if True:
+        if False:
             loss = self.calculate_loss(model, sample=sample, list_len=num_passes)
-            print("Loss after iteration %i:  %f" % (self.total_correct_old,
-                                                      loss))
+            print("Loss after iteration %i:  %f" % (self.total_correct_old,loss))
+        else:
+            print ("found:",self.total_correct_old)
 
         return model
 
@@ -251,27 +246,21 @@ class LearnerModel:
                 if score == 1.0:
                     #print ("here")
                     y.append(1)
-                    #X.append([1])
                 else:
                     #print ("not here")
                     y.append(0)
-                    #X.append([0])
 
                 X.append([1]) #[1]
 
                 self.X = np.array(X)
-                #self.y = np.array([y])
                 self.y = np.array(y)
-                #print (self.X,'X')
-                #print (self.y,'y')
 
                 model = self.build_model(print_loss=True,num_passes=1 #self.start_list_len
                                          ,game_ref=g,
                                           word_compare=self.list_basic_right[x])
 
 
-                # if score == 1.0: total_correct += 1
-                total_correct += score #* len(self.list_basic_wrong)
+                total_correct += score 
 
                 if total_correct > self.total_correct_old:
                     self.total_correct_old = total_correct
