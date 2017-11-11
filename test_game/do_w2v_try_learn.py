@@ -33,7 +33,7 @@ class LearnerModel:
         self.test_zeros = False
         self.saved_once = False
 
-        self.mag = 10 #np.ones(300) * 10
+        self.mag = 1 #np.ones(300) * 10
 
 
     def check_odd_vector(self, game, odd_vec=[], debug_msg=False, list_try=[], list_correct=[]):
@@ -157,7 +157,7 @@ class LearnerModel:
         np.random.seed(0)
         W1 = np.random.randn(self.nn_input_dim, num_features) / np.sqrt(self.nn_input_dim)
         b1 = np.zeros((1, num_features))
-        R1 = np.random.randn(self.nn_input_dim, num_features)
+        R1 = np.random.randn(*W1.shape)
 
         total_correct = 0
         score = 0
@@ -185,22 +185,28 @@ class LearnerModel:
             #W1 += sample
             # Forward propagation
             z1 = self.X.dot(W1) #+ b1
-            #z1 += b1
+            z1 += b1
             a1 = np.tanh(z1)
             exp_scores = a1# np.exp(z1)
-            probs = exp_scores / np.sum(exp_scores, axis=1, keepdims=True) #axis=1
+            probs = exp_scores# / np.sum(exp_scores, axis=1, keepdims=True) #axis=1
 
+            print (self.y)
+            #exit()
 
             # Backpropagation
             delta = probs
+            dW1 = np.zeros_like(W1)
             #delta[range(num_passes), self.y] -= 1
-            if self.y is 0:
-                delta -= sample #R1
-            #dW2 = (a1.T).dot(delta)
-            ##db2 = np.sum(delta, axis=0, keepdims=True)
-            #delta2 = delta.dot(W1.T) * (1 - np.power(a1, 2))
-            dW1 = np.dot(self.X.T, delta)
-            db1 = np.sum(delta, axis=0) #axis=0
+            if self.y[0] == 0:
+                delta -= R1
+                print ("zero")
+            else:
+                print ("not zero")
+                #dW2 = (a1.T).dot(delta)
+                ##db2 = np.sum(delta, axis=0, keepdims=True)
+                #delta2 = delta.dot(W1.T) * (1 - np.power(a1, 2))
+            dW1 = np.dot(np.array(self.X).T, delta)
+                #db1 = np.sum(delta, axis=0) #axis=0
 
             # Add regularization terms (b1 and b2 don't have regularization terms)
 
@@ -208,7 +214,7 @@ class LearnerModel:
 
             # Gradient descent parameter update
             W1 += -self.epsilon * dW1
-            b1 += -self.epsilon * db1
+            #b1 += -self.epsilon * db1
 
             #W1 -= sample
             # Assign new parameters to the model
@@ -299,7 +305,7 @@ if __name__ == "__main__":
 
     print (l.total_correct_old)
     #exit()
-    l.epochs = 5000
+    l.epochs = 50
     l.generate_perfect_vector(game)
 
     print ("----------------")
