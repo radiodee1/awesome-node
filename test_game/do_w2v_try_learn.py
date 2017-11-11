@@ -45,6 +45,8 @@ class LearnerModel:
         ''' correct outputs in order '''
         list_i = list_correct
 
+        odd_vec = np.multiply(odd_vec, self.mag)
+
         if True or len(odd_vec) > 0:
             g.set_odd_vec(odd_vec)
 
@@ -132,7 +134,7 @@ class LearnerModel:
         corect_logprobs = -np.log(probs[range(list_len), self.y])
         data_loss = np.sum(corect_logprobs)
         # Add regulatization term to loss (optional)
-        data_loss += self.reg_lambda / 2 * np.sum(np.square(W1)) #+ np.sum(np.square(W2)))
+        #data_loss += self.reg_lambda / 2 * np.sum(np.square(W1)) #+ np.sum(np.square(W2)))
         return 1. / self.num_examples * data_loss
 
 
@@ -155,7 +157,7 @@ class LearnerModel:
         np.random.seed(0)
         W1 = np.random.randn(self.nn_input_dim, num_features) / np.sqrt(self.nn_input_dim)
         b1 = np.zeros((1, num_features))
-
+        R1 = np.random.randn(self.nn_input_dim, num_features)
 
         total_correct = 0
         score = 0
@@ -183,22 +185,26 @@ class LearnerModel:
             #W1 += sample
             # Forward propagation
             z1 = self.X.dot(W1) #+ b1
-            z1 += b1
-            exp_scores = np.exp(z1)
+            #z1 += b1
+            a1 = np.tanh(z1)
+            exp_scores = a1# np.exp(z1)
             probs = exp_scores / np.sum(exp_scores, axis=1, keepdims=True) #axis=1
 
 
             # Backpropagation
             delta = probs
-            delta[range(num_passes), self.y] -= 1
-
+            #delta[range(num_passes), self.y] -= 1
+            if self.y is 0:
+                delta -= sample #R1
+            #dW2 = (a1.T).dot(delta)
+            ##db2 = np.sum(delta, axis=0, keepdims=True)
+            #delta2 = delta.dot(W1.T) * (1 - np.power(a1, 2))
             dW1 = np.dot(self.X.T, delta)
             db1 = np.sum(delta, axis=0) #axis=0
 
             # Add regularization terms (b1 and b2 don't have regularization terms)
 
             dW1 += self.reg_lambda * W1
-
 
             # Gradient descent parameter update
             W1 += -self.epsilon * dW1
@@ -230,7 +236,7 @@ class LearnerModel:
                 X = []
                 y = []
 
-                score = self.check_odd_vector(game, odd_vec=self.W1 * self.mag
+                score = self.check_odd_vector(game, odd_vec=self.W1 #* self.mag
                                            , debug_msg=False
                                            , list_try=[self.list_basic_wrong[x]]
                                            , list_correct=[self.list_basic_right[x]])
@@ -251,8 +257,8 @@ class LearnerModel:
                 self.X = np.array(X)
                 #self.y = np.array([y])
                 self.y = np.array(y)
-                #print (self.X)
-                #print (self.y)
+                #print (self.X,'X')
+                #print (self.y,'y')
 
                 model = self.build_model(print_loss=True,num_passes=1 #self.start_list_len
                                          ,game_ref=g,
@@ -283,7 +289,7 @@ if __name__ == "__main__":
     l.set_starting_list()
     l.start_list_len = len(l.list_basic_right)
 
-    score = l.check_odd_vector(game, odd_vec=l.W1 * l.mag
+    score = l.check_odd_vector(game, odd_vec=l.W1 #* l.mag
                                , debug_msg=True
                                , list_try=l.list_basic_wrong
                                , list_correct=l.list_basic_right)
@@ -293,14 +299,14 @@ if __name__ == "__main__":
 
     print (l.total_correct_old)
     #exit()
-    l.epochs = 500
+    l.epochs = 5000
     l.generate_perfect_vector(game)
 
     print ("----------------")
     if False:
 
         l.W1 = l.load_vec().tolist()
-        score = l.check_odd_vector(game, odd_vec=l.W1 * l.mag
+        score = l.check_odd_vector(game, odd_vec=l.W1 #* l.mag
                                   , debug_msg=True
                                   , list_try=l.list_basic_wrong
                                   , list_correct=l.list_basic_right)
@@ -314,10 +320,10 @@ if __name__ == "__main__":
             except: # NameError:
                 continue
 
-            score = l.check_odd_vector(game, odd_vec=l.W1  - sample
+            score = l.check_odd_vector(game, odd_vec=l.W1 # - sample
                                        , debug_msg=True
                                        , list_try=[l.list_basic_wrong[i]]
                                        , list_correct=[l.list_basic_right[i]])
 
     if True:
-        print (l.W1 * l.mag)
+        print (np.multiply(l.W1 , l.mag))
