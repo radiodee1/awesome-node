@@ -33,7 +33,7 @@ class LearnerModel:
         self.test_zeros = False
         self.saved_once = False
 
-        self.mag = 1 #np.ones(300) * 10
+        self.mag = 10 #np.ones(300) * 10
 
 
     def check_odd_vector(self, game, odd_vec=[], debug_msg=False, list_try=[], list_correct=[]):
@@ -187,25 +187,29 @@ class LearnerModel:
             z1 = self.X.dot(W1) #+ b1
             z1 += b1
             a1 = np.tanh(z1)
-            exp_scores = a1# np.exp(z1)
-            probs = exp_scores# / np.sum(exp_scores, axis=1, keepdims=True) #axis=1
+            exp_scores = a1# a1 np.exp(z1)
+            probs = exp_scores #/ np.sum(exp_scores, axis=1, keepdims=True) #axis=1
 
             print (self.y)
             #exit()
 
             # Backpropagation
             delta = probs
-            dW1 = np.zeros_like(W1)
+            #dW1 = probs + sample
             #delta[range(num_passes), self.y] -= 1
+
+            #dW1 = np.dot(np.array(self.X).T, delta)
+
+
             if self.y[0] == 0:
-                delta -= R1
+                dW1 = np.dot(np.array(self.X).T, delta) + sample # R1
                 print ("zero")
             else:
                 print ("not zero")
                 #dW2 = (a1.T).dot(delta)
                 ##db2 = np.sum(delta, axis=0, keepdims=True)
                 #delta2 = delta.dot(W1.T) * (1 - np.power(a1, 2))
-            dW1 = np.dot(np.array(self.X).T, delta)
+                dW1 = np.dot(np.array(self.X).T, delta) - sample
                 #db1 = np.sum(delta, axis=0) #axis=0
 
             # Add regularization terms (b1 and b2 don't have regularization terms)
@@ -213,14 +217,16 @@ class LearnerModel:
             dW1 += self.reg_lambda * W1
 
             # Gradient descent parameter update
-            W1 += -self.epsilon * dW1
-            #b1 += -self.epsilon * db1
+            if True or self.y[0] != 0:
+                W1 += -self.epsilon * dW1
+                #b1 += -self.epsilon * db1
 
-            #W1 -= sample
-            # Assign new parameters to the model
+                #W1 -= sample
+                # Assign new parameters to the model
+
+                self.W1 = W1
+
             model = {'W1': W1, 'b1': b1}
-
-            self.W1 = W1
 
         # Optionally print the loss.
         # This is expensive because it uses the whole dataset, so we don't want to do it too often.
@@ -268,7 +274,7 @@ class LearnerModel:
 
                 model = self.build_model(print_loss=True,num_passes=1 #self.start_list_len
                                          ,game_ref=g,
-                                          word_compare=self.list_basic_wrong[x])
+                                          word_compare=self.list_basic_right[x])
 
 
                 # if score == 1.0: total_correct += 1
@@ -305,7 +311,7 @@ if __name__ == "__main__":
 
     print (l.total_correct_old)
     #exit()
-    l.epochs = 50
+    l.epochs = 5000
     l.generate_perfect_vector(game)
 
     print ("----------------")
