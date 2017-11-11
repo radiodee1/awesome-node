@@ -33,7 +33,7 @@ class LearnerModel:
         self.test_zeros = False
         self.saved_once = False
 
-        self.mag = 10 #np.ones(300) * 10
+        self.mag = 10
 
 
     def check_odd_vector(self, game, odd_vec=[], debug_msg=False, list_try=[], list_correct=[]):
@@ -126,13 +126,18 @@ class LearnerModel:
         W1, b1 = model['W1'], model['b1']
         #W1 = W1 - sample
         # Forward propagation to calculate our predictions
-        z1 = self.X.dot(W1) #+ b1
+        #z1 = self.X.dot(W1) #+ b1
 
-        exp_scores = np.exp(z1)
-        probs = exp_scores / np.sum(exp_scores, axis=1, keepdims=True)
+        z1 = self.X.dot(W1)  # + b1
+        z1 += b1
+        a1 = np.tanh(z1)
+        exp_scores = a1
+
+        #exp_scores = np.exp(z1)
+        probs = exp_scores #/ np.sum(exp_scores, axis=1, keepdims=True)
         # Calculating the loss
-        corect_logprobs = -np.log(probs[range(list_len), self.y])
-        data_loss = np.sum(corect_logprobs)
+        #corect_logprobs = -np.log(probs[range(list_len), self.y])
+        data_loss = np.sum(probs)
         # Add regulatization term to loss (optional)
         #data_loss += self.reg_lambda / 2 * np.sum(np.square(W1)) #+ np.sum(np.square(W2)))
         return 1. / self.num_examples * data_loss
@@ -157,10 +162,9 @@ class LearnerModel:
         np.random.seed(0)
         W1 = np.random.randn(self.nn_input_dim, num_features) / np.sqrt(self.nn_input_dim)
         b1 = np.zeros((1, num_features))
-        R1 = np.random.randn(*W1.shape)
 
-        total_correct = 0
-        score = 0
+        #total_correct = 0
+        #score = 0
 
         if not self.W1 is None:
             W1 =  np.array(self.W1)
@@ -182,12 +186,11 @@ class LearnerModel:
             except: # NameError:
                 continue
 
-            #W1 += sample
             # Forward propagation
             z1 = self.X.dot(W1) #+ b1
             z1 += b1
             a1 = np.tanh(z1)
-            exp_scores = a1# a1 np.exp(z1)
+            exp_scores = a1
             probs = exp_scores #/ np.sum(exp_scores, axis=1, keepdims=True) #axis=1
 
             print (self.y)
@@ -195,36 +198,26 @@ class LearnerModel:
 
             # Backpropagation
             delta = probs
-            #dW1 = probs + sample
-            #delta[range(num_passes), self.y] -= 1
-
-            #dW1 = np.dot(np.array(self.X).T, delta)
 
 
             if self.y[0] == 0:
                 dW1 = np.dot(np.array(self.X).T, delta) + sample # R1
                 print ("zero")
             else:
-                print ("not zero")
-                #dW2 = (a1.T).dot(delta)
-                ##db2 = np.sum(delta, axis=0, keepdims=True)
-                #delta2 = delta.dot(W1.T) * (1 - np.power(a1, 2))
                 dW1 = np.dot(np.array(self.X).T, delta) - sample
-                #db1 = np.sum(delta, axis=0) #axis=0
+                print ("not zero")
 
             # Add regularization terms (b1 and b2 don't have regularization terms)
-
             dW1 += self.reg_lambda * W1
 
             # Gradient descent parameter update
-            if True or self.y[0] != 0:
-                W1 += -self.epsilon * dW1
-                #b1 += -self.epsilon * db1
+            W1 += -self.epsilon * dW1
+            #b1 += -self.epsilon * db1
 
-                #W1 -= sample
-                # Assign new parameters to the model
 
-                self.W1 = W1
+            # Assign new parameters to the model
+
+            self.W1 = W1
 
             model = {'W1': W1, 'b1': b1}
 
