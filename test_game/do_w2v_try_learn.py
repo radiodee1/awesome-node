@@ -28,12 +28,13 @@ class LearnerModel:
         self.start_list_len = 27
         self.epochs = 1
         self.total_correct_old = self.start_list_len
+        self.total_correct_old_loaded = 0
         #print (self.X)
         #print (self.y)
         self.test_zeros = False
         self.saved_once = False
 
-        self.mag = 10
+        self.mag = 10.0
 
 
     def check_odd_vector(self, game, odd_vec=[], debug_msg=False, list_try=[], list_correct=[]):
@@ -100,7 +101,7 @@ class LearnerModel:
             odd_vec = np.loadtxt(os.path.join("trained", name))
             odd_vec = np.array([odd_vec])
             #print (odd_vec,"here")
-
+            odd_vec = np.multiply(np.array(odd_vec) , 1.0 / self.mag)
         else:
             self.total_correct_old = 0
             if self.test_zeros:
@@ -111,6 +112,9 @@ class LearnerModel:
                 pass
 
         self.odd_vec = odd_vec
+        #print (self.odd_vec)
+        #exit()
+
         return odd_vec
 
     def save_vec(self, name="", odd_vec=[]):
@@ -119,7 +123,8 @@ class LearnerModel:
             name = "word2vec_book_vec.npy.txt"
 
         if os.path.isdir('trained') and not self.test_zeros:
-            np.savetxt(os.path.join('trained',name), odd_vec)
+            np.savetxt(os.path.join('trained',name), np.multiply(np.array(odd_vec) , self.mag))
+
 
     # Helper function to evaluate the total loss on the dataset
     def calculate_loss(self, model, sample=None,list_len=1):
@@ -143,31 +148,20 @@ class LearnerModel:
         return 1. / self.num_examples * data_loss
 
 
-    '''
-    # Helper function to predict an output (0 or 1)
-    def predict(self, model, x):
-        W1, b1 = model['W1'], model['b1']
-        # Forward propagation
-        z1 = x.dot(W1) + b1
-
-        exp_scores = np.exp(z1)
-        probs = exp_scores / np.sum(exp_scores, axis=1, keepdims=True)
-        return np.argmax(probs, axis=1)
-    '''
 
 
 
     def build_model(self, num_features=300, num_passes=1, print_loss=False, game_ref=None,word_compare=None):
         # Initialize the parameters to random values. We need to learn these.
         np.random.seed(0)
-        W1 = np.random.randn(self.nn_input_dim, num_features) / np.sqrt(self.nn_input_dim)
+        W1 = None #np.random.randn(self.nn_input_dim, num_features) / np.sqrt(self.nn_input_dim)
         b1 = np.zeros((1, num_features))
 
         #total_correct = 0
         #score = 0
 
-        if not self.W1 is None:
-            W1 =  np.array(self.W1)
+        if self.W1 is not None:
+            W1 = np.array(self.W1)
 
 
         # This is what we return at the end
@@ -188,7 +182,7 @@ class LearnerModel:
 
             # Forward propagation
             z1 = self.X.dot(W1) #+ b1
-            z1 += b1
+            #z1 += b1
             a1 = np.tanh(z1)
             exp_scores = a1
             probs = exp_scores #/ np.sum(exp_scores, axis=1, keepdims=True) #axis=1
@@ -217,7 +211,7 @@ class LearnerModel:
             model = {'W1': W1, 'b1': b1}
 
         # Optionally print the loss.
-        if False:
+        if print_loss:
             loss = self.calculate_loss(model, sample=sample, list_len=num_passes)
             print("Loss after iteration %i:  %f" % (self.total_correct_old,loss))
         else:
@@ -236,18 +230,21 @@ class LearnerModel:
                 X = []
                 y = []
 
-                score = self.check_odd_vector(game, odd_vec=self.W1 #* self.mag
+                score = self.check_odd_vector(game, odd_vec=self.W1
                                            , debug_msg=False
                                            , list_try=[self.list_basic_wrong[x]]
                                            , list_correct=[self.list_basic_right[x]])
 
-                #sample = game.word2vec_book.wv[self.list_basic_wrong[x]]
+                total_correct += score
+
+                if total_correct > self.total_correct_old :
+                    self.total_correct_old = total_correct
+                    self.save_vec(odd_vec=self.W1)
+                    print("--->", end="")
 
                 if score == 1.0:
-                    #print ("here")
                     y.append(1)
                 else:
-                    #print ("not here")
                     y.append(0)
 
                 X.append([1]) #[1]
@@ -255,22 +252,17 @@ class LearnerModel:
                 self.X = np.array(X)
                 self.y = np.array(y)
 
-                model = self.build_model(print_loss=True,num_passes=1 #self.start_list_len
+                model = self.build_model(print_loss=False
+                                         ,num_passes=1
                                          ,game_ref=g,
                                           word_compare=self.list_basic_right[x])
 
 
-                total_correct += score
-
-                if total_correct > self.total_correct_old:
-                    self.total_correct_old = total_correct
-                    self.save_vec(odd_vec=self.W1)
-                    print("--->", end="")
-
         print ("totals",self.total_correct_old / total_tested, self.total_correct_old, total_tested)
         total_correct = 0
         pass
-        if not self.saved_once: self.save_vec(odd_vec=self.W1)
+        if (not self.saved_once) and self.total_correct_old_loaded != self.total_correct_old:
+            self.save_vec(odd_vec=self.W1)
 
 
 if __name__ == "__main__":
@@ -291,9 +283,11 @@ if __name__ == "__main__":
     if l.total_correct_old >= l.start_list_len:
         l.total_correct_old = score * l.start_list_len
 
+    l.total_correct_old_loaded = l.total_correct_old # total correct we start with
+
     print (l.total_correct_old)
     #exit()
-    l.epochs = 5000
+    l.epochs = 100
     l.generate_perfect_vector(game)
 
     print ("----------------")
@@ -320,4 +314,6 @@ if __name__ == "__main__":
                                        , list_correct=[l.list_basic_right[i]])
 
     if True:
-        print (np.multiply(l.W1 , l.mag))
+        l.W1 = l.load_vec().tolist()
+        print (l.W1 )
+        print (len(l.W1[0]), l.total_correct_old,l.total_correct_old_loaded)
