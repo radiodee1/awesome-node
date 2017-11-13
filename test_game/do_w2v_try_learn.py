@@ -46,7 +46,11 @@ class LearnerModel:
         ''' correct outputs in order '''
         list_i = list_correct
 
+        odd_vec = odd_vec[:]
+        #print (odd_vec,'after copy')
         odd_vec = np.multiply(odd_vec, self.mag)
+        #print (odd_vec,'after mult')
+        #exit()
 
         if True or len(odd_vec) > 0:
             g.set_odd_vec(odd_vec)
@@ -160,8 +164,10 @@ class LearnerModel:
         #total_correct = 0
         #score = 0
 
-        if self.W1 is not None:
-            W1 = np.array(self.W1)
+        #if self.W1 is not None:
+        #W1 = np.array(self.W1)
+        #print (W1,'model')
+        #exit()
 
 
         # This is what we return at the end
@@ -169,6 +175,7 @@ class LearnerModel:
 
         ######
         for i in range( num_passes):
+            W1 = np.array(self.W1)
 
             try:
                 if word_compare is None:
@@ -184,11 +191,11 @@ class LearnerModel:
             z1 = self.X.dot(W1) #+ b1
             #z1 += b1
             a1 = np.tanh(z1)
-            exp_scores = a1
-            probs = exp_scores #/ np.sum(exp_scores, axis=1, keepdims=True) #axis=1
+            #exp_scores = a1
+            #probs = exp_scores #/ np.sum(exp_scores, axis=1, keepdims=True) #axis=1
 
             # Backpropagation
-            delta = probs
+            delta = a1 #= probs
 
             if self.y[0] == 0:
                 dW1 = np.dot(np.array(self.X).T, delta) + sample # R1
@@ -222,7 +229,7 @@ class LearnerModel:
     def generate_perfect_vector(self, game, debug_msg=False):
         g = game
         total_tested = self.start_list_len
-
+        score = 1.0
         for i in range(self.epochs):
 
             total_correct = 0
@@ -230,17 +237,12 @@ class LearnerModel:
                 X = []
                 y = []
 
+
                 score = self.check_odd_vector(game, odd_vec=self.W1
                                            , debug_msg=False
                                            , list_try=[self.list_basic_wrong[x]]
                                            , list_correct=[self.list_basic_right[x]])
 
-                total_correct += score
-
-                if total_correct > self.total_correct_old :
-                    self.total_correct_old = total_correct
-                    self.save_vec(odd_vec=self.W1)
-                    print("--->", end="")
 
                 if score == 1.0:
                     y.append(1)
@@ -252,17 +254,32 @@ class LearnerModel:
                 self.X = np.array(X)
                 self.y = np.array(y)
 
-                model = self.build_model(print_loss=False
-                                         ,num_passes=1
-                                         ,game_ref=g,
-                                          word_compare=self.list_basic_right[x])
+                if True: #total_correct < self.total_correct_old :
+                    self.build_model(print_loss=False
+                                    ,num_passes=1
+                                    ,game_ref=g
+                                    ,word_compare=self.list_basic_right[x])
 
+                score = self.check_odd_vector(game, odd_vec=self.W1
+                                              , debug_msg=False
+                                              , list_try=[self.list_basic_wrong[x]]
+                                              , list_correct=[self.list_basic_right[x]])
+
+                if score == 1.0:
+                    total_correct += score
+
+
+                if total_correct > self.total_correct_old :
+                    self.total_correct_old = total_correct
+                    self.save_vec(odd_vec=self.W1)
+                    print("--->", end="")
 
         print ("totals",self.total_correct_old / total_tested, self.total_correct_old, total_tested)
         total_correct = 0
         pass
-        if (not self.saved_once) and self.total_correct_old_loaded != self.total_correct_old:
-            self.save_vec(odd_vec=self.W1)
+        if (not self.saved_once) and self.total_correct_old_loaded < self.total_correct_old:
+            #self.save_vec(odd_vec=self.W1)
+            pass
 
 
 if __name__ == "__main__":
@@ -282,6 +299,12 @@ if __name__ == "__main__":
 
     if l.total_correct_old >= l.start_list_len:
         l.total_correct_old = score * l.start_list_len
+        #l.saved_once = True
+        #print (l.total_correct_old, 'load time')
+        #exit()
+    else:
+        pass
+        #l.saved_once = True
 
     l.total_correct_old_loaded = l.total_correct_old # total correct we start with
 
@@ -316,4 +339,5 @@ if __name__ == "__main__":
     if True:
         l.W1 = l.load_vec().tolist()
         print (l.W1 )
-        print (len(l.W1[0]), l.total_correct_old,l.total_correct_old_loaded)
+        print (len(l.W1[0]), l.total_correct_old, l.total_correct_old_loaded)
+

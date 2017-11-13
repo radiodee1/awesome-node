@@ -60,8 +60,8 @@
       <file leaf-file-name="do_w2v_try_learn.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/do_w2v_try_learn.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="264" column="41" lean-forward="false" selection-start-line="264" selection-start-column="41" selection-end-line="264" selection-end-column="41" />
+            <state relative-caret-position="-968">
+              <caret line="194" column="13" lean-forward="false" selection-start-line="194" selection-start-column="13" selection-end-line="194" selection-end-column="13" />
               <folding>
                 <element signature="e#19#83#0" expanded="true" />
               </folding>
@@ -124,7 +124,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>saved_score</find>
       <find>words_input</find>
       <find>multi_thread</find>
       <find>run</find>
@@ -145,15 +144,16 @@
       <find>nn_output_dim</find>
       <find>reg_lambda</find>
       <find>epsilon</find>
-      <find>total_correct_old</find>
       <find>num_examples</find>
       <find>test_zeros</find>
       <find>score</find>
-      <find>check_odd_vector</find>
       <find>None</find>
       <find>saved_once</find>
-      <find>load_vec</find>
       <find>multiply</find>
+      <find>save_vec</find>
+      <find>total_correct_old</find>
+      <find>load_vec</find>
+      <find>check_odd_vector</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -240,8 +240,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -638,8 +638,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/do_w2v_try_learn.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="264" column="41" lean-forward="false" selection-start-line="264" selection-start-column="41" selection-end-line="264" selection-end-column="41" />
+        <state relative-caret-position="-968">
+          <caret line="194" column="13" lean-forward="false" selection-start-line="194" selection-start-column="13" selection-end-line="194" selection-end-column="13" />
           <folding>
             <element signature="e#19#83#0" expanded="true" />
           </folding>
