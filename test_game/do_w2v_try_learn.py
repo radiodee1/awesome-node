@@ -258,13 +258,6 @@ class LearnerModel:
                                     ,game_ref=g
                                     ,word_compare=self.list_basic_right[x])
 
-                '''
-                score = self.check_odd_vector(game, odd_vec=self.W1
-                                              , debug_msg=False
-                                              , list_try=[self.list_basic_wrong[x]]
-                                              , list_correct=[self.list_basic_right[x]])
-                '''
-
 
                 if total_correct > self.total_correct_old :
                     self.total_correct_old = total_correct
