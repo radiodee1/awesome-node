@@ -46,7 +46,7 @@ class LearnerModel:
         ''' correct outputs in order '''
         list_i = list_correct
 
-        odd_vec = odd_vec[:]
+        #odd_vec = [odd_vec[0][:]]
         #print (odd_vec,'after copy')
         odd_vec = np.multiply(odd_vec, self.mag)
         #print (odd_vec,'after mult')
@@ -105,7 +105,7 @@ class LearnerModel:
             odd_vec = np.loadtxt(os.path.join("trained", name))
             odd_vec = np.array([odd_vec])
             #print (odd_vec,"here")
-            odd_vec = np.multiply(np.array(odd_vec) , 1.0 / self.mag)
+            odd_vec = np.divide(np.array(odd_vec) ,  self.mag)
         else:
             self.total_correct_old = 0
             if self.test_zeros:
@@ -116,7 +116,7 @@ class LearnerModel:
                 pass
 
         self.odd_vec = odd_vec
-        #print (self.odd_vec)
+        #print (self.odd_vec,'odd')
         #exit()
 
         return odd_vec
@@ -161,14 +161,6 @@ class LearnerModel:
         W1 = None #np.random.randn(self.nn_input_dim, num_features) / np.sqrt(self.nn_input_dim)
         b1 = np.zeros((1, num_features))
 
-        #total_correct = 0
-        #score = 0
-
-        #if self.W1 is not None:
-        #W1 = np.array(self.W1)
-        #print (W1,'model')
-        #exit()
-
 
         # This is what we return at the end
         model = {}
@@ -176,6 +168,8 @@ class LearnerModel:
         ######
         for i in range( num_passes):
             W1 = np.array(self.W1)
+
+            self.odd_vec = [(self.W1[0])[:]]
 
             try:
                 if word_compare is None:
@@ -189,6 +183,7 @@ class LearnerModel:
 
             # Forward propagation
             z1 = self.X.dot(W1) #+ b1
+
             #z1 += b1
             a1 = np.tanh(z1)
             #exp_scores = a1
@@ -260,19 +255,24 @@ class LearnerModel:
                                     ,game_ref=g
                                     ,word_compare=self.list_basic_right[x])
 
+                '''
                 score = self.check_odd_vector(game, odd_vec=self.W1
                                               , debug_msg=False
                                               , list_try=[self.list_basic_wrong[x]]
                                               , list_correct=[self.list_basic_right[x]])
-
+                '''
                 if score == 1.0:
                     total_correct += score
 
 
                 if total_correct > self.total_correct_old :
                     self.total_correct_old = total_correct
-                    self.save_vec(odd_vec=self.W1)
+                    self.save_vec(odd_vec=self.odd_vec)
                     print("--->", end="")
+
+                #print (self.odd_vec,'odd')
+                #print (self.W1,'W1')
+                #exit()
 
         print ("totals",self.total_correct_old / total_tested, self.total_correct_old, total_tested)
         total_correct = 0
@@ -308,8 +308,12 @@ if __name__ == "__main__":
 
     l.total_correct_old_loaded = l.total_correct_old # total correct we start with
 
+    '''
     print (l.total_correct_old)
-    #exit()
+    print (l.W1,'W1')
+    exit()
+    '''
+
     l.epochs = 100
     l.generate_perfect_vector(game)
 
@@ -337,7 +341,14 @@ if __name__ == "__main__":
                                        , list_correct=[l.list_basic_right[i]])
 
     if True:
+
         l.W1 = l.load_vec().tolist()
+
+        score = l.check_odd_vector(game, odd_vec=l.W1  # * l.mag
+                                   , debug_msg=True
+                                   , list_try=l.list_basic_wrong
+                                   , list_correct=l.list_basic_right)
         print (l.W1 )
         print (len(l.W1[0]), l.total_correct_old, l.total_correct_old_loaded)
+        print (score * len(l.list_basic_right),'score')
 
