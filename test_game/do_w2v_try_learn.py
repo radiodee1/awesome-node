@@ -266,10 +266,10 @@ class LearnerModel:
                 '''
 
 
-            if total_correct > self.total_correct_old :
-                self.total_correct_old = total_correct
-                self.save_vec(odd_vec=self.W1)
-                print("--->", end="")
+                if total_correct > self.total_correct_old :
+                    self.total_correct_old = total_correct
+                    self.save_vec(odd_vec=self.W1)
+                    print("--->", end="")
 
                 #print (self.odd_vec,'odd')
                 #print (self.W1,'W1')
