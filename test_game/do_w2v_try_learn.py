@@ -253,6 +253,7 @@ class LearnerModel:
                     total_correct += score
 
                 if total_correct <= self.total_correct_old :
+                    ### this condition seems to make no sense ###
                     self.build_model(print_loss=False
                                     ,num_passes=1
                                     ,game_ref=g
@@ -264,9 +265,7 @@ class LearnerModel:
                 self.save_vec(odd_vec=self.W1)
                 print("--->", end="")
 
-                #print (self.odd_vec,'odd')
-                #print (self.W1,'W1')
-                #exit()
+
 
         print ("totals",self.total_correct_old / total_tested, self.total_correct_old, total_tested)
         total_correct = 0
