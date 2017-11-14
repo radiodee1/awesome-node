@@ -249,6 +249,9 @@ class LearnerModel:
                 self.X = np.array(X)
                 self.y = np.array(y)
 
+                if score == 1.0:
+                    total_correct += score
+
                 if True: #total_correct < self.total_correct_old :
                     self.build_model(print_loss=False
                                     ,num_passes=1
@@ -261,14 +264,12 @@ class LearnerModel:
                                               , list_try=[self.list_basic_wrong[x]]
                                               , list_correct=[self.list_basic_right[x]])
                 '''
-                if score == 1.0:
-                    total_correct += score
 
 
-                if total_correct > self.total_correct_old :
-                    self.total_correct_old = total_correct
-                    self.save_vec(odd_vec=self.odd_vec)
-                    print("--->", end="")
+            if total_correct > self.total_correct_old :
+                self.total_correct_old = total_correct
+                self.save_vec(odd_vec=self.W1)
+                print("--->", end="")
 
                 #print (self.odd_vec,'odd')
                 #print (self.W1,'W1')
