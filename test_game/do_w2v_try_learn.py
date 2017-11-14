@@ -252,17 +252,17 @@ class LearnerModel:
                 if score == 1.0:
                     total_correct += score
 
-                if True: #total_correct < self.total_correct_old :
+                if total_correct <= self.total_correct_old :
                     self.build_model(print_loss=False
                                     ,num_passes=1
                                     ,game_ref=g
                                     ,word_compare=self.list_basic_right[x])
 
 
-                if total_correct > self.total_correct_old :
-                    self.total_correct_old = total_correct
-                    self.save_vec(odd_vec=self.W1)
-                    print("--->", end="")
+            if total_correct > self.total_correct_old :
+                self.total_correct_old = total_correct
+                self.save_vec(odd_vec=self.W1)
+                print("--->", end="")
 
                 #print (self.odd_vec,'odd')
                 #print (self.W1,'W1')
@@ -344,5 +344,5 @@ if __name__ == "__main__":
                                    , list_correct=l.list_basic_right)
         print (l.W1 )
         print (len(l.W1[0]), l.total_correct_old, l.total_correct_old_loaded)
-        print (score * len(l.list_basic_right),'score')
+        print (score * len(l.list_basic_right),'reload score')
 
