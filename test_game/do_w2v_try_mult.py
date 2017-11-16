@@ -8,7 +8,117 @@ import numpy as np
 
 import game
 
-class LearnerModel:
+
+class MeasureVecMult:
+    def __init__(self):
+        self.words_all = []
+        self.word2vec_book = None
+        self.odd_vec = []
+
+    ## convenience methods
+    def set_w2v(self, w2v=None):
+        self.word2vec_book = w2v
+
+    def set_odd_vec(self, odd_vec=[]):
+        self.odd_vec = odd_vec
+
+    ## crucial methods
+    def resolve_word_closest(self, list_suggested, list_command, odd_word=None , debug_msg=False, use_ending=False):
+        list_out = []
+        #
+        #
+        for word in list_command:
+            if not  (word in self.words_all):
+                num_best = -3
+                word_best = ""
+                vec_best = 1000000
+                #
+                for near in list_suggested:
+                    ######
+                    word_print_near = "[" + near + "]"
+                    word_print_word = "[" + word + "]"
+                    word_print_bool = True
+                    if use_ending: near = near + "zzz"
+                    try:
+                        ############
+                        if len(self.odd_vec) == 0:
+
+                            num = self.word2vec_book.wv.similarity(word, near)
+                            if odd_word != None:
+
+                                num = num + self.word2vec_book.wv.similarity(word,odd_word)
+                                num = num + self.word2vec_book.wv.similarity(near,odd_word)
+                            if debug_msg: print (word, near, odd_word, num)
+                            if num > num_best and near != odd_word:
+                                num_best = num
+                                word_best = near
+                        ############
+                        if len(self.odd_vec) > 0:
+
+                            word_vec = self._list_sum(positive=[word],negative=[])
+                            word_print_word = word
+                            near_vec = self._list_sum(positive=[near],negative=[])
+                            word_print_near = near
+                            word_print_bool = False
+                            vec = self._distance(near_vec, word_vec - self.odd_vec) ### - (subtraction)
+
+                            if debug_msg:
+                                if not word_print_bool and True:
+                                    print(word, near, word_best, vec)
+                                else:
+                                    print (word_print_word + " ---- " + word_print_near)
+
+                            if vec < vec_best:
+                                vec_best = vec
+                                word_best = near
+
+
+                        pass
+                    except KeyboardInterrupt:
+                        raise KeyboardInterrupt()
+                        pass
+                    except:
+                        if debug_msg: print(word_print_word + " ---- " + word_print_near)
+                        pass
+                    ######
+                    pass
+                list_out.append(word_best)
+                pass
+
+            pass
+        if debug_msg:
+            print (list_out)
+            #print (self.odd_vec)
+        return list_out
+
+    ### private methods
+    def _distance(self, v1, v2):
+        return spatial.distance.euclidean(v1,v2)
+
+    def _list_sum(self, positive=[], negative=[]):
+        ######
+        try:
+            if len(positive) > 0:
+                sample = self.word2vec_book.wv[positive[0]]
+            else:
+                sample = self.word2vec_book.wv[negative[0]]
+            tot = np.zeros_like(sample)
+        except:
+            tot = np.zeros(300)
+        ######
+        #tot = np.zeros_like(sample)
+
+        for i in positive:
+            sample = self.word2vec_book.wv[i]
+            tot = np.add(tot , sample)
+
+        for i in negative:
+            sample = self.word2vec_book.wv[i]
+            tot = np.subtract(tot ,  sample)
+        return tot
+
+
+class LearnerModelMult:
     def __init__(self):
 
         np.random.seed(3)
@@ -279,7 +389,7 @@ if __name__ == "__main__":
     game = game.Game()
     game.load_w2v(load_special=False)
 
-    l = LearnerModel()
+    l = LearnerModelMult()
 
     l.W1 = l.load_vec().tolist()
     l.set_starting_list()
