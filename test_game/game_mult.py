@@ -2,11 +2,11 @@
 
 from __future__ import absolute_import, division, print_function
 import gensim.models.word2vec as w2v
-
+import scipy.spatial as spatial
 import os
 import numpy as np
 
-import game
+import game as game_learn
 
 
 class MeasureVecMult:
@@ -60,7 +60,7 @@ class MeasureVecMult:
                             near_vec = self._list_sum(positive=[near],negative=[])
                             word_print_near = near
                             word_print_bool = False
-                            vec = self._distance(near_vec, word_vec - self.odd_vec) ### - (subtraction)
+                            vec = self._distance(near_vec, word_vec * self.odd_vec) ### - (multipllication)
 
                             if debug_msg:
                                 if not word_print_bool and True:
@@ -84,7 +84,7 @@ class MeasureVecMult:
                     pass
                 list_out.append(word_best)
                 pass
-
+            print ("mult here")
             pass
         if debug_msg:
             print (list_out)
@@ -118,8 +118,12 @@ class MeasureVecMult:
         return tot
 
 
-class LearnerModelMult:
+class LearnerModelMult(MeasureVecMult):
     def __init__(self):
+        MeasureVecMult.__init__(self)
+
+        #game = game_l.Game()
+        #game.load_w2v(load_special=False)
 
         np.random.seed(3)
         self.X = [] #np.array([[1],[1],[1]])
@@ -144,7 +148,7 @@ class LearnerModelMult:
         self.test_zeros = False
         self.saved_once = False
 
-        self.mag = 10.0
+        self.mag = 1.0 #10.0
 
 
     def check_odd_vector(self, game, odd_vec=[], debug_msg=False, list_try=[], list_correct=[]):
@@ -156,21 +160,18 @@ class LearnerModelMult:
         ''' correct outputs in order '''
         list_i = list_correct
 
-        #odd_vec = [odd_vec[0][:]]
-        #print (odd_vec,'after copy')
-        odd_vec = np.multiply(odd_vec, self.mag)
-        #print (odd_vec,'after mult')
-        #exit()
+        ## must remove and mult elsewhere ##
+        #odd_vec = np.multiply(odd_vec, self.mag)
 
         if True or len(odd_vec) > 0:
-            g.set_odd_vec(odd_vec)
+            self.set_odd_vec(odd_vec)
 
         correct = 0
         total = len(list_i)
 
         for z in range(len(list_g)):
             i = list_g[z]
-            j = g.resolve_word_closest(g.words_game, [i] , debug_msg=debug_msg)[0]
+            j = self.resolve_word_closest(g.words_game, [i] , debug_msg=debug_msg)[0]
             if j == list_i[z]: correct += 1
             pass
 
@@ -386,10 +387,12 @@ class LearnerModelMult:
 
 
 if __name__ == "__main__":
-    game = game.Game()
+    game = game_learn.Game()
     game.load_w2v(load_special=False)
 
     l = LearnerModelMult()
+
+    l.set_w2v(w2v=game.word2vec_book)
 
     l.W1 = l.load_vec().tolist()
     l.set_starting_list()
@@ -417,7 +420,7 @@ if __name__ == "__main__":
     exit()
     '''
 
-    l.epochs = 100
+    l.epochs = 1000
     l.generate_perfect_vector(game)
 
     print ("----------------")
