@@ -307,7 +307,7 @@ if __name__ == "__main__":
     exit()
     '''
 
-    l.epochs = 100
+    l.epochs = 10000
     l.generate_perfect_vector(game)
 
     print ("----------------")

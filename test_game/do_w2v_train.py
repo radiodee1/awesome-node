@@ -175,7 +175,7 @@ sentences_book = []
 if False:
     sentences_game = assemble_corpus(game_glob1, stem_words=False)
 
-if False:
+if True:
     sentences_zork = assemble_corpus(game_glob2, pos_tag=False,print_sentences=True)
 
 if False:
@@ -186,7 +186,7 @@ if False:
     #sentences_book = []
     sentences_book = assemble_corpus(game_glob4, pos_tag=False)
 
-if False:
+if True:
     sentences_book.extend(sentences_zork)
     sentences_book.extend(test)
 
@@ -236,7 +236,7 @@ seed = 1
 epochs = 500
 
 ###################################################
-if model_generate_new and True:
+if model_generate_new and False:
     word2vec_game = w2v.Word2Vec(
         sg=1,
         seed=seed,
@@ -251,13 +251,13 @@ else:
     print ("stage: load model")
     word2vec_game = w2v.Word2Vec.load(os.path.join("trained","word2vec_game.w2v"))
 
-if True:
+if False:
 
     word2vec_game.build_vocab(sentences_game)
 
     print("stage: Word2Vec game vocabulary length:", len(word2vec_game.wv.vocab))
 
-if True:
+if False:
     print ("stage: train")
 
     word2vec_game.train(sentences_game,
@@ -291,9 +291,9 @@ downsampling = 1e-2
 #deterministic, good for debugging
 seed = 1
 
-epochs = 1
+epochs = 1000
 
-if model_generate_new and False:
+if model_generate_new and True:
     word2vec_book = w2v.Word2Vec(
         sg=1,
         seed=seed,
@@ -304,13 +304,13 @@ if model_generate_new and False:
         sample=downsampling
     )
 
-elif True:
+elif False:
     print ("stage: load model")
     word2vec_book = w2v.Word2Vec.load(os.path.join("trained","word2vec_book.w2v"))
     #word2vec_book = w2v.KeyedVectors.load_word2vec_format(os.path.join("trained",'saved_google',"GoogleNews-vectors-negative300.bin"),binary=True)
 
 
-if False:
+if True:
     word2vec_book.build_vocab(sentences_book)
 
     print("stage: Word2Vec book vocabulary length:", len(word2vec_book.wv.vocab))
