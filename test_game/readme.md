@@ -60,7 +60,11 @@ $ ./launch_game.sh
 
 ## Using `do_w2v_test.py` after training your model:
 
-* basic usage: `./do_w2v_test.py` This will run basic tests that show if you have trained your model sufficiently. It will only test the models that you have trained yourself.  
+* `do_w2v_test.py` is a work in progress. You may have to edit the code yourself to get it to run to your specifications.
+* Optionally get the text file from the following address:  
+http://download.tensorflow.org/data/questions-words.txt    
+Put the downloaded file in the `data/` directory.
+* basic usage: `./do_w2v_test.py` This will run basic tests that show if you have trained your model sufficiently. It will only test the models that you have trained yourself. The model tested is the one you creaate and save in the `trained/` folder.  
 For example, several lines with analogies will print on the screen. They will show if the basic relationship between the cardinal directions have formed.
 * making an 'odd_vec': `./do_w2v_test.py 20` This will run the part of the script which tries to save the 'odd_vec' npy file. This vector is used by the test program and the game class to suggest game words when non game words are used by the player.  
 The command above devides the vector into patches that are 20 features wide. Good results can be achieved with values of 10, 20, up to 50. This is the reason that a well trained network is desired, so that this function will suggest words better.  
@@ -72,3 +76,7 @@ or
 https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit?usp=sharing  
 This is a 3+ gig download. After downloading the model, run `mkdir -p trained/saved_google/` and put the `bin` file there. Then you should be able to use the `-load-special` flag when creating your 'odd_vec' and when running `-no-find` on your 'odd_vec'.  
 The `-load-special` flag must be after all other flags on the terminal command line.
+
+## Training:
+
+* There are two basic methods for training. One uses the `do_w2v_train.py` script and any text you might have. The other method uses the wikipedia articles downloaded above. This second method is more complex and time consuming. It uses three scripts, the `do_w2v_corpus_wiki.py` script, the `do_w2v_corpus_wiki_mod.py` script, and the `do_w2v_train_wiki.py` script.    
