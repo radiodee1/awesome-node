@@ -11,16 +11,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="do_w2v_test.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/do_w2v_test.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="666">
-              <caret line="47" column="90" lean-forward="false" selection-start-line="47" selection-start-column="90" selection-end-line="47" selection-end-column="90" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="do_w2v_corpus_wiki.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/do_w2v_corpus_wiki.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -36,11 +26,21 @@
       <file leaf-file-name="do_w2v_try_learn.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/do_w2v_try_learn.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="684">
-              <caret line="309" column="19" lean-forward="false" selection-start-line="309" selection-start-column="19" selection-end-line="309" selection-end-column="19" />
+            <state relative-caret-position="1260">
+              <caret line="344" column="76" lean-forward="false" selection-start-line="344" selection-start-column="52" selection-end-line="344" selection-end-column="76" />
               <folding>
                 <element signature="e#19#83#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="launch_vector_generate.sh" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/launch_vector_generate.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -189,7 +189,6 @@
         <option value="$PROJECT_DIR$/do_w2v_plot_csv_save.py" />
         <option value="$PROJECT_DIR$/data/zork1-example.txt" />
         <option value="$PROJECT_DIR$/launch_threaded.sh" />
-        <option value="$PROJECT_DIR$/launch_vector_generate.sh" />
         <option value="$PROJECT_DIR$/do_w2v_train_wiki.py" />
         <option value="$PROJECT_DIR$/do_w2v_corpus_wiki.py" />
         <option value="$PROJECT_DIR$/do_w2v_wiki_mod.py" />
@@ -202,6 +201,7 @@
         <option value="$PROJECT_DIR$/readme.md" />
         <option value="$PROJECT_DIR$/game.py" />
         <option value="$PROJECT_DIR$/do_w2v_try_learn.py" />
+        <option value="$PROJECT_DIR$/launch_vector_generate.sh" />
       </list>
     </option>
   </component>
@@ -538,13 +538,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/launch_threaded.sh" />
-    <entry file="file://$PROJECT_DIR$/launch_vector_generate.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="2" lean-forward="false" selection-start-line="0" selection-start-column="2" selection-end-line="0" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/do_w2v_train_wiki.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
@@ -652,10 +645,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/launch_vector_generate.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/do_w2v_try_learn.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="684">
-          <caret line="309" column="19" lean-forward="false" selection-start-line="309" selection-start-column="19" selection-end-line="309" selection-end-column="19" />
+        <state relative-caret-position="1260">
+          <caret line="344" column="76" lean-forward="false" selection-start-line="344" selection-start-column="52" selection-end-line="344" selection-end-column="76" />
           <folding>
             <element signature="e#19#83#0" expanded="true" />
           </folding>
