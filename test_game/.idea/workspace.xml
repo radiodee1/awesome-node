@@ -33,11 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="do_w2v_try_learn.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="do_w2v_try_learn.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/do_w2v_try_learn.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1224">
-              <caret line="309" column="20" lean-forward="false" selection-start-line="309" selection-start-column="20" selection-end-line="309" selection-end-column="20" />
+            <state relative-caret-position="684">
+              <caret line="309" column="19" lean-forward="false" selection-start-line="309" selection-start-column="19" selection-end-line="309" selection-end-column="19" />
               <folding>
                 <element signature="e#19#83#0" expanded="true" />
               </folding>
@@ -109,7 +109,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="game_vector_old.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="game_vector_old.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game_vector_old.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-3096">
@@ -198,10 +198,10 @@
         <option value="$PROJECT_DIR$/game_vector.py" />
         <option value="$PROJECT_DIR$/do_w2v_try_mult.py" />
         <option value="$PROJECT_DIR$/game_mult.py" />
-        <option value="$PROJECT_DIR$/do_w2v_try_learn.py" />
         <option value="$PROJECT_DIR$/do_w2v_train.py" />
         <option value="$PROJECT_DIR$/readme.md" />
         <option value="$PROJECT_DIR$/game.py" />
+        <option value="$PROJECT_DIR$/do_w2v_try_learn.py" />
       </list>
     </option>
   </component>
@@ -644,21 +644,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/do_w2v_try_learn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1224">
-          <caret line="309" column="20" lean-forward="false" selection-start-line="309" selection-start-column="20" selection-end-line="309" selection-end-column="20" />
-          <folding>
-            <element signature="e#19#83#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/game_vector_old.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3096">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/do_w2v_try_learn.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="684">
+          <caret line="309" column="19" lean-forward="false" selection-start-line="309" selection-start-column="19" selection-end-line="309" selection-end-column="19" />
+          <folding>
+            <element signature="e#19#83#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
