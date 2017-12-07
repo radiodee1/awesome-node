@@ -1,1 +1,0 @@
-/usr/bin/python -c "import game_vector; game_vector.VectorThread()"
