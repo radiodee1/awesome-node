@@ -167,7 +167,7 @@ class Game(object, MeasureVec):
         name = 'word2vec_book_vec.npy.txt'
         if os.path.isfile(os.path.join("trained",name)):
             #print ("odd vec")
-            self.odd_vec = np.loadtxt(os.path.join("trained",name), delimiter=',')
+            self.odd_vec = np.loadtxt(os.path.join("trained",name), delimiter=' ')
             #print (self.odd_vec)
         else:
             self.odd_vec = np.zeros(300)

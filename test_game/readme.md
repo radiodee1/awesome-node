@@ -18,6 +18,7 @@ $ wget https://dumps.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xm
 ````
 
 ## General:
+* This project is a 'Work-In-Progress'.
 * Download this project.  Run the `do_make_dir.sh` script.
 * Run the `do_make_nltk_data.sh` script. This will install all the nltk resources in a central location on your computer. You need this for the training stage. This script will ask for your administrator password.
 * Download the wikipedia file and put it in the `data` directory. This should take 2 or more hours.
