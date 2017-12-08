@@ -77,7 +77,7 @@ class LearnerModel:
 
     def set_starting_list(self):
         ''' list of possible inputs to try '''
-        self.list_basic_wrong = [ #'goes', 'gone', 'went', 'going',
+        self.list_basic_wrong = [ 'goes', 'gone', 'went', 'going',
                   'western', 'eastern', 'southern', 'northern'
             , 'southward', 'northward', 'westward', 'eastward'
             , 'southeasterly', 'northeasterly', 'southwesterly', 'northwesterly' ## too obscure
@@ -86,7 +86,7 @@ class LearnerModel:
         ]
 
         ''' correct outputs in order '''
-        self.list_basic_right = [ #'go', 'go', 'go', 'go',
+        self.list_basic_right = [ 'go', 'go', 'go', 'go',
                   'west', 'east', 'south', 'north'
             , 'south', 'north', 'west', 'east'
             , 'southeast', 'northeast', 'southwest', 'northwest' ## too obscure

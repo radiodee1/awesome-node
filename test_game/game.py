@@ -5,6 +5,67 @@ import gensim.models.word2vec as w2v
 import numpy as np
 import scipy.spatial as spatial
 
+class Vocab:
+    def __init__(self):
+        self.words_all = []
+        self.words_quit = []
+        self.words_game = []
+        self.list_basic_right = []
+        self.list_basic_wrong = []
+        self.list_basic_graph = []
+        self.start_list_len = 20
+
+    def set_starting_list(self):
+        self.list_basic_wrong = [ #
+            'goes', 'gone', 'went', 'going',
+            'western', 'eastern', 'southern', 'northern',
+            'southward', 'northward', 'westward', 'eastward',
+            'southeasterly', 'northeasterly', 'southwesterly', 'northwesterly', ## too obscure
+            'southeastern', 'northeastern', 'southwestern', 'northwestern'
+            #,'looking','looks','looked','opens','opens','opened','opening'
+        ]
+
+        self.list_basic_right = [ #
+            'go', 'go', 'go', 'go',
+            'west', 'east', 'south', 'north',
+            'south', 'north', 'west', 'east',
+            'southeast', 'northeast', 'southwest', 'northwest', ## too obscure
+            'southeast', 'northeast', 'southwest', 'northwest'
+            #,'look','look','look','open','open','open','open'
+        ]
+
+        self.list_basic_wrong = self.list_basic_wrong[:self.start_list_len]
+        self.list_basic_right = self.list_basic_right[:self.start_list_len]
+
+    def set_game_lists(self):
+        self.words_quit = ['q', 'quit', 'exit', 'save']
+        # 'save' was added so that frotz would not do that
+
+        self.words_game = ['north', 'n', 'south', 's', 'west', 'w', 'east', 'e',
+                           'look', 'l', 'at',
+                           'northeast', 'ne', 'northwest', 'nw', 'southeast', 'se', 'southwest', 'sw',
+                           'get', 'take', 'drop', 'up', 'u', 'down', 'd', 'open', 'close',
+                           'go', 'inventory', 'i', 'walk']
+
+    def set_graph_list(self):
+        self.list_basic_graph = self.list_basic_wrong[:]
+        self.list_basic_graph.extend(['go','west','east','south','north',
+                                      'southeast','southwest','northeast','northwest'])
+        #print(self.list_basic_graph)
+
+    def read_word_list(self):
+        self.words_all = self.words_game[:]
+        if os.path.isfile("data/list.txt"):
+            f = open("data/list.txt","r")
+            for line in f:
+                line = line.strip().lower()
+                for word in line.split():
+                    if not word in self.words_all:
+                        self.words_all.append(word)
+            f.close()
+        #print (self.words_game)
+        pass
+
 
 class MeasureVec:
     def __init__(self):
