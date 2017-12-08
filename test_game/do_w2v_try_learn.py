@@ -308,40 +308,46 @@ if __name__ == "__main__":
     '''
 
     l.epochs = 1000
-    l.generate_perfect_vector(game)
 
-    print ("----------------")
-    if False:
+    try:
+        l.generate_perfect_vector(game)
+    except:
+        print("keyboard interrupt")
 
-        l.W1 = l.load_vec().tolist()
-        score = l.check_odd_vector(game, odd_vec=l.W1 #* l.mag
-                                  , debug_msg=True
-                                  , list_try=l.list_basic_wrong
-                                  , list_correct=l.list_basic_right)
-    print ("----------------")
-    if False:
-        for i in range(l.start_list_len):
-            try:
-                sample = game.word2vec_book.wv[l.list_basic_wrong[i]]
-                #print (self.list_basic_right[i], self.list_basic_wrong[i])
-                pass
-            except: # NameError:
-                continue
+    finally:
 
-            score = l.check_odd_vector(game, odd_vec=l.W1 # - sample
+        print ("----------------")
+        if False:
+
+            l.W1 = l.load_vec().tolist()
+            score = l.check_odd_vector(game, odd_vec=l.W1 #* l.mag
+                                      , debug_msg=True
+                                      , list_try=l.list_basic_wrong
+                                      , list_correct=l.list_basic_right)
+        print ("----------------")
+        if False:
+            for i in range(l.start_list_len):
+                try:
+                    sample = game.word2vec_book.wv[l.list_basic_wrong[i]]
+                    #print (self.list_basic_right[i], self.list_basic_wrong[i])
+                    pass
+                except: # NameError:
+                    continue
+
+                score = l.check_odd_vector(game, odd_vec=l.W1 # - sample
+                                           , debug_msg=True
+                                           , list_try=[l.list_basic_wrong[i]]
+                                           , list_correct=[l.list_basic_right[i]])
+
+        if True:
+
+            l.W1 = l.load_vec().tolist()
+
+            score = l.check_odd_vector(game, odd_vec=l.W1  # * l.mag
                                        , debug_msg=True
-                                       , list_try=[l.list_basic_wrong[i]]
-                                       , list_correct=[l.list_basic_right[i]])
-
-    if True:
-
-        l.W1 = l.load_vec().tolist()
-
-        score = l.check_odd_vector(game, odd_vec=l.W1  # * l.mag
-                                   , debug_msg=True
-                                   , list_try=l.list_basic_wrong
-                                   , list_correct=l.list_basic_right)
-        print (l.W1 )
-        print (len(l.W1[0]), l.total_correct_old, l.total_correct_old_loaded)
-        print (score * len(l.list_basic_right),'reload score')
+                                       , list_try=l.list_basic_wrong
+                                       , list_correct=l.list_basic_right)
+            #print (l.W1 )
+            print (len(l.W1[0]), l.total_correct_old, l.total_correct_old_loaded)
+            print (score * len(l.list_basic_right),'reload score')
 

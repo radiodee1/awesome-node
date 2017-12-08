@@ -196,7 +196,9 @@ class Game(object, MeasureVec, Vocab):
         self.bool_show_lists = False
         self.odd_word = None
         self.odd_vec = []
+        self.mag = 10.0
 
+        ''' list method '''
         self.set_game_lists()
 
         ''' multithreading options '''
@@ -225,10 +227,11 @@ class Game(object, MeasureVec, Vocab):
             #print ("odd vec")
             self.odd_vec = np.loadtxt(os.path.join("trained",name), delimiter=' ')
             #print (self.odd_vec)
+            self.odd_vec = self.odd_vec / self.mag
         else:
             self.odd_vec = np.zeros(300)
 
-    
+
 
     def play_loop(self):
         start_info = self.game.run()
