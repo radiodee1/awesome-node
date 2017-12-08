@@ -36,8 +36,8 @@
       <file leaf-file-name="game.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="305" column="12" lean-forward="false" selection-start-line="305" selection-start-column="12" selection-end-line="305" selection-end-column="12" />
+            <state relative-caret-position="270">
+              <caret line="291" column="103" lean-forward="false" selection-start-line="291" selection-start-column="103" selection-end-line="291" selection-end-column="103" />
               <folding>
                 <element signature="e#0#47#0" expanded="true" />
               </folding>
@@ -128,7 +128,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>STOP_2</find>
       <find>words_last</find>
       <find>set_extra_list</find>
       <find>list_shift_right</find>
@@ -158,6 +157,7 @@
       <find>words_all</find>
       <find>mag</find>
       <find>bool_show_lists</find>
+      <find>resolve_word_closest</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -636,8 +636,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="305" column="12" lean-forward="false" selection-start-line="305" selection-start-column="12" selection-end-line="305" selection-end-column="12" />
+        <state relative-caret-position="270">
+          <caret line="291" column="103" lean-forward="false" selection-start-line="291" selection-start-column="103" selection-end-line="291" selection-end-column="103" />
           <folding>
             <element signature="e#0#47#0" expanded="true" />
           </folding>

@@ -81,13 +81,13 @@ class MeasureVec:
         self.odd_vec = odd_vec
 
     ## crucial methods
-    def resolve_word_closest(self, list_suggested, list_command, odd_word=None , debug_msg=False, use_ending=False):
+    def resolve_word_closest(self, list_suggested, list_command,include_correct=False, odd_word=None , debug_msg=False, use_ending=False):
         list_out = []
         #
         #
         for word in list_command:
             if word in self.words_all:
-                list_out.append("#" + word)
+                if include_correct: list_out.append("#" + word)
             if not  (word in self.words_all):
                 num_best = -3
                 word_best = ""
@@ -289,7 +289,7 @@ class Game(object, MeasureVec, Vocab):
 
         if compare_to_vec:
             self.set_odd_vec(self.odd_vec)
-            self.words_correct = self.resolve_word_closest(self.words_game, input, debug_msg=False, use_ending=False)
+            self.words_correct = self.resolve_word_closest(self.words_game, input,include_correct=True, debug_msg=False, use_ending=False)
 
         elif len(self.words_raw_input) > 0:
             ### hacky - what if words_raw_input == 2 ###
@@ -303,7 +303,7 @@ class Game(object, MeasureVec, Vocab):
     def print_list_suggested(self):
 
         if len(self.words_correct) > 0 and len(self.words_correct[0]) > 0 :
-            
+
             list_output = []
             for word in self.words_correct:
                 if word.startswith("#"):
