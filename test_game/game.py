@@ -63,7 +63,7 @@ class Vocab:
                     if not word in self.words_all:
                         self.words_all.append(word)
             f.close()
-        #print (self.words_game)
+        print (self.words_all)
         pass
 
 
@@ -176,25 +176,18 @@ class MeasureVec:
         return tot
 
 
-class Game(object, MeasureVec):
+class Game(object, MeasureVec, Vocab):
 
     def __init__(self):
         MeasureVec.__init__(self)
+        Vocab.__init__(self)
         self.name = ""
         self.word2vec_game = None
         self.word2vec_book = None
 
         self.game = None
         self.words_last = []
-        #self.gameplay_flag = True
-        self.words_quit = ['q','quit','exit','save']
-                            # 'save' was added so that frotz would not do that
 
-        self.words_game = ['north','n','south','s','west','w','east','e',
-                           'look','l','at',
-                           'northeast','ne','northwest','nw','southeast','se','southwest','sw',
-                           'get','take','drop','up','u','down','d','open','close',
-                           'go','inventory','i','walk']
         self.words_all = []
         self.words_thread_input = []
 
@@ -203,6 +196,8 @@ class Game(object, MeasureVec):
         self.bool_show_lists = False
         self.odd_word = None
         self.odd_vec = []
+
+        self.set_game_lists()
 
         ''' multithreading options '''
         self.multithreading = False
@@ -233,20 +228,7 @@ class Game(object, MeasureVec):
         else:
             self.odd_vec = np.zeros(300)
 
-
-    def read_word_list(self):
-        self.words_all = self.words_game[:]
-        if os.path.isfile("data/list.txt"):
-            f = open("data/list.txt","r")
-            for line in f:
-                line = line.strip().lower()
-                for word in line.split():
-                    if not word in self.words_all:
-                        self.words_all.append(word)
-            f.close()
-        #print (self.words_game)
-        pass
-
+    
 
     def play_loop(self):
         start_info = self.game.run()
