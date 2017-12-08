@@ -315,12 +315,12 @@ class Game(object, MeasureVec, Vocab):
             zz = raw_input ("try: '"+ " ".join(list_output) + "' [Y/n]:" )
             if zz.strip() == 'n' or zz.strip() == 'N':
                 self.words_thread_input.extend(self.words_raw_input)
-                print (self.words_thread_input)
+                #print (self.words_thread_input)
                 self.words_correct = []
             else:
                 if len(self.words_thread_input) > 1:
                     self.enqueue(list_wrong=self.words_thread_input[:-1], list_right=[self.words_thread_input[-1]])
-                    print (self.words_thread_input)
+                    #print (self.words_thread_input)
                     self.words_thread_input = []
                 pass
                 self.words_correct = list_output
