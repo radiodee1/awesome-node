@@ -63,7 +63,7 @@ class Vocab:
                     if not word in self.words_all:
                         self.words_all.append(word)
             f.close()
-        print (self.words_all)
+        #print (self.words_all)
         pass
 
 
@@ -86,6 +86,8 @@ class MeasureVec:
         #
         #
         for word in list_command:
+            if word in self.words_all:
+                list_out.append("#" + word)
             if not  (word in self.words_all):
                 num_best = -3
                 word_best = ""
@@ -226,8 +228,9 @@ class Game(object, MeasureVec, Vocab):
         if os.path.isfile(os.path.join("trained",name)):
             #print ("odd vec")
             self.odd_vec = np.loadtxt(os.path.join("trained",name), delimiter=' ')
-            #print (self.odd_vec)
+            #print (self.odd_vec, "-----")
             self.odd_vec = self.odd_vec / self.mag
+            #print(self.odd_vec)
         else:
             self.odd_vec = np.zeros(300)
 
@@ -300,8 +303,16 @@ class Game(object, MeasureVec, Vocab):
     def print_list_suggested(self):
 
         if len(self.words_correct) > 0 and len(self.words_correct[0]) > 0 :
+            
+            list_output = []
+            for word in self.words_correct:
+                if word.startswith("#"):
+                    word = word[1:]
+                    list_output.append(word)
+                else:
+                    list_output.append(word)
 
-            zz = raw_input ("try: '"+ " ".join(self.words_correct) + "' [Y/n]:" )
+            zz = raw_input ("try: '"+ " ".join(list_output) + "' [Y/n]:" )
             if zz.strip() == 'n' or zz.strip() == 'N':
                 self.words_thread_input.extend(self.words_raw_input)
                 print (self.words_thread_input)
@@ -312,7 +323,9 @@ class Game(object, MeasureVec, Vocab):
                     print (self.words_thread_input)
                     self.words_thread_input = []
                 pass
-                print (self.words_correct)
+                self.words_correct = list_output
+                #print (self.words_correct, "-")
+                #print(list_output,"--")
             #self.words_correct = []
 
     def enqueue(self, list_wrong=[], list_right=[], check=False):
