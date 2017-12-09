@@ -153,7 +153,8 @@ class MeasureVec:
 
     ### private methods
     def _distance(self, v1, v2):
-        return spatial.distance.euclidean(v1,v2)
+        return spatial.distance.cosine(v1,v2)
+        #return spatial.distance.euclidean(v1,v2)
 
     def _list_sum(self, positive=[], negative=[]):
         ######

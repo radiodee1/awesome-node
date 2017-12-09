@@ -43,11 +43,7 @@ if len(sys.argv) > 1:
 else:
     load_book_and_game = True
 
-print ('''
-        usage: 
-               do_w2v_test.py                     (show key analogies)
-               do_w2v_test.py -load-special       (show key analogies on google-news model)
-    ''')
+#####################################
 
 if load_book_and_game:
     word2vec_game = w2v.Word2Vec.load(os.path.join("trained", "word2vec_game.w2v"))
@@ -104,54 +100,54 @@ def nearest_similarity(model, start1, end1, end2):
 ############################################################
 
 def _distance( v1, v2):
-    return spatial.distance.euclidean(v1,v2)
+    #return spatial.distance.euclidean(v1,v2)
+    #return np.linalg.norm(v1 - v2)
+    return  spatial.distance.cosine(v1,v2)
 
 def _list_sum(model, positive=[], negative=[]):
-    ######
-    try:
-        if len(positive) > 0:
-            sample = model.wv[positive[0]]
-        else:
-            sample = model.wv[negative[0]]
-        tot = np.zeros_like(sample)
-    except:
-        tot = np.zeros(300)
-    ######
-    #tot = np.zeros_like(sample)
+    tot = np.zeros(300)
 
     for i in positive:
         sample = model.wv[i]
         tot = np.add(tot , sample)
-
+        print(tot[0])
+    print("---")
     for i in negative:
         sample = model.wv[i]
         tot = np.subtract(tot ,  sample)
+        print(tot[0])
     return tot
 
 def mult_similarity(model, vocab=[],list_pos=[], list_neg=[], word=''):
     list_pos.append(word)
+    #list_neg.append(word)
+    #list_pos.extend(list_neg)
     print(list_pos)
-    sum = _list_sum(model, list_pos, list_neg)
-    dist_chosen = 100000
+    print(list_neg)
+    sum = _list_sum(model, positive=list_pos, negative=list_neg)
+    dist_chosen = 10000000
     dist_word = ''
     for i in vocab:
+        #vec_voc = np.zeros(300)
+        dist = 0
         try:
             vec_voc = model.wv[i]
-
             dist = _distance(sum,vec_voc)
             if dist < dist_chosen:
                 dist_chosen = dist
                 dist_word = i
         except:
-            print("word not found",i)
+            #print("word not found",i)
             pass
-    print(dist_word, dist_chosen)
+        finally:
+            print(i, dist)
+    print("#", dist_word, dist_chosen)
     pass
 
 
 ###########################################################
 
-if load_book_and_game:
+if load_book_and_game and False:
 
     #print (list(word2vec_book.vocab))
     print ("---------------")
@@ -182,17 +178,21 @@ if load_book_and_game:
     print ('\nern ending - not opposites')
     nearest_similarity_cosmul(word2vec_book, 'northern','north', 'east')
 
+if True:
     vv = game.Vocab()
     vv.set_starting_list()
     vv.set_game_lists()
     vv.set_graph_list()
     v = vv.words_game
-    list_pos = ['westward', 'southerly','eastern']
-    list_neg = [ 'west','south','east']
+    list_pos = ['northern']#,'southerly','eastward']
+    list_neg = ['north']#,'south','east']
     print(v)
 
     print ("-----")
-    mult_similarity(word2vec_book,v,list_pos=list_pos,list_neg=list_neg,word='northward')
+    mult_similarity(word2vec_book,v,list_pos=list_pos,list_neg=list_neg,word='western')
+
+    nearest_similarity_cosmul(word2vec_book, 'north', 'northern', 'eastern')
+    nearest_similarity_cosmul(word2vec_book, 'north', 'northern', 'western')
 
 
 if False:
