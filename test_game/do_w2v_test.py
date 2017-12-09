@@ -9,6 +9,7 @@ import numpy as np
 import itertools
 import math
 import sys
+import scipy.spatial as spatial
 
 import game
 
@@ -100,6 +101,55 @@ def nearest_similarity(model, start1, end1, end2):
 
     return start2
 
+############################################################
+
+def _distance( v1, v2):
+    return spatial.distance.euclidean(v1,v2)
+
+def _list_sum(model, positive=[], negative=[]):
+    ######
+    try:
+        if len(positive) > 0:
+            sample = model.wv[positive[0]]
+        else:
+            sample = model.wv[negative[0]]
+        tot = np.zeros_like(sample)
+    except:
+        tot = np.zeros(300)
+    ######
+    #tot = np.zeros_like(sample)
+
+    for i in positive:
+        sample = model.wv[i]
+        tot = np.add(tot , sample)
+
+    for i in negative:
+        sample = model.wv[i]
+        tot = np.subtract(tot ,  sample)
+    return tot
+
+def mult_similarity(model, vocab=[],list_pos=[], list_neg=[], word=''):
+    list_pos.append(word)
+    print(list_pos)
+    sum = _list_sum(model, list_pos, list_neg)
+    dist_chosen = 100000
+    dist_word = ''
+    for i in vocab:
+        try:
+            vec_voc = model.wv[i]
+
+            dist = _distance(sum,vec_voc)
+            if dist < dist_chosen:
+                dist_chosen = dist
+                dist_word = i
+        except:
+            print("word not found",i)
+            pass
+    print(dist_word, dist_chosen)
+    pass
+
+
+###########################################################
 
 if load_book_and_game:
 
@@ -132,9 +182,20 @@ if load_book_and_game:
     print ('\nern ending - not opposites')
     nearest_similarity_cosmul(word2vec_book, 'northern','north', 'east')
 
-    print ()
+    vv = game.Vocab()
+    vv.set_starting_list()
+    vv.set_game_lists()
+    vv.set_graph_list()
+    v = vv.words_game
+    list_pos = ['westward', 'southerly','eastern']
+    list_neg = [ 'west','south','east']
+    print(v)
 
-if True:
+    print ("-----")
+    mult_similarity(word2vec_book,v,list_pos=list_pos,list_neg=list_neg,word='northward')
+
+
+if False:
     logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
     word2vec_book.wv.accuracy("data/questions-words.txt")
