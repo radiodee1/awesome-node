@@ -16,6 +16,13 @@ This is the url for wiki material. put resulting file in `data` dir. Try this ur
 ````
 $ wget https://dumps.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2
 ````
+Here is a list of python modules that need to be installed.
+```
+gensim
+numpy
+gTTS
+pocketsphynx
+```
 
 ## General:
 * This project is a 'Work-In-Progress'.
