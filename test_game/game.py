@@ -259,9 +259,9 @@ class Game(object, MeasureVec, Vocab):
 
             if len(command_in) > 0:
                 command_output = self.game.execute_command(command_in)
-                print(command_output)
+                self.set_output_text(text=command_output)
 
-            command_in = raw_input("> ")
+            command_in = self.get_input_text("> ")
             command_in = command_in.strip().lower()
             if self.bool_show_lists: print(command_in.split())
 
@@ -333,6 +333,12 @@ class Game(object, MeasureVec, Vocab):
         ''' not used here -- see threaded version for more '''
         print ("not used 'enqueue'")
         pass
+
+    def get_input_text(self, prompt=""):
+        return raw_input(prompt)
+
+    def set_output_text(self,text=""):
+        print(text)
 
 def main():
     print("zork 1")
