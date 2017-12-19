@@ -283,7 +283,7 @@ class Game(object, MeasureVec, Vocab):
                 print ("not in list:",w)
 
         if input[0] == 'check':
-            self.enqueue(list_wrong=[], list_right=[], check=True)
+            self.enqueue_odd_vec(list_wrong=[], list_right=[], check=True)
             self.words_correct = []
             print ("enqueue check")
             return
@@ -296,7 +296,7 @@ class Game(object, MeasureVec, Vocab):
             ### hacky - what if words_raw_input == 2 ###
             print (self.words_raw_input, "raw")
             self.words_thread_input.extend(self.words_raw_input)
-            self.enqueue(list_wrong=self.words_thread_input[:-1], list_right=[self.words_thread_input[-1]])
+            self.enqueue_odd_vec(list_wrong=self.words_thread_input[:-1], list_right=[self.words_thread_input[-1]])
             print ("enqueue")
             pass
 
@@ -320,7 +320,7 @@ class Game(object, MeasureVec, Vocab):
                 self.words_correct = []
             else:
                 if len(self.words_thread_input) > 1:
-                    self.enqueue(list_wrong=self.words_thread_input[:-1], list_right=[self.words_thread_input[-1]])
+                    self.enqueue_odd_vec(list_wrong=self.words_thread_input[:-1], list_right=[self.words_thread_input[-1]])
                     #print (self.words_thread_input)
                     self.words_thread_input = []
                 pass
@@ -329,7 +329,7 @@ class Game(object, MeasureVec, Vocab):
                 #print(list_output,"--")
             #self.words_correct = []
 
-    def enqueue(self, list_wrong=[], list_right=[], check=False):
+    def enqueue_odd_vec(self, list_wrong=[], list_right=[], check=False):
         ''' not used here -- see threaded version for more '''
         print ("not used 'enqueue'")
         pass

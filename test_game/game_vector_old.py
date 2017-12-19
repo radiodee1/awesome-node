@@ -365,7 +365,7 @@ class VectorThread( game.Game):
         self.vec.q.put(i)
 
 
-    def enqueue(self, list_wrong=[], list_right=[] ,check=False):
+    def enqueue_odd_vec(self, list_wrong=[], list_right=[] ,check=False):
 
         if isinstance(list_right,str): list_right=[list_right]
         if isinstance(list_wrong,str): list_wrong=[list_wrong]
