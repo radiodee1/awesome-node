@@ -10,7 +10,7 @@ import Queue
 import time
 import sys
 from datetime import datetime
-from pocketsphinx import LiveSpeech
+from pocketsphinx import AudioFile
 
 import game
 
@@ -37,7 +37,7 @@ class VoiceSphinx( ):
         #self.mv.set_w2v(w2v=self.g.word2vec_book)
 
     def multi_run_detection(self):
-        for phrase in LiveSpeech():
+        for phrase in AudioFile():
             i = InfoVoice()
             i.message = InfoVoice.NEW_VALUES_1
             i.input_string = phrase
@@ -115,23 +115,21 @@ class VoiceThread( game.Game):
 
         print ("VoiceThread:")
         self.start_list_len = 12
-        #self.multithreading = True
-        #self.run()
-
         self.multithreading = True
+        self.run()
+
+        #self.multithreading = True
         self.voice = VoiceSphinx()
         self.voice.game_setup(g=self)
 
-        tt = threading.Thread(target=self.run)
-        tt.daemon = True
-        tt.start()
+
 
         print("start stt")
-        t = threading.Thread(target=self.voice.multi_run)
+        t = threading.Thread(target=self.voice.multi_run_detection)
         t.daemon = True
         t.start()
 
-        self.voice.multi_run_detection()
+        #self.voice.multi_run_detection()
 
         #self.run()
         self.play_loop()
