@@ -10,7 +10,7 @@ import Queue
 import time
 import sys
 from datetime import datetime
-from pocketsphinx import AudioFile
+from pocketsphinx import LiveSpeech
 
 import game
 
@@ -22,8 +22,6 @@ class VoiceSphinx( ):
         self.g = None
         self.q = Queue.PriorityQueue()
         self.q_size = self.q.qsize()
-
-
         pass
 
     def game_setup(self, g = None):
@@ -37,12 +35,13 @@ class VoiceSphinx( ):
         #self.mv.set_w2v(w2v=self.g.word2vec_book)
 
     def multi_run_detection(self):
-        for phrase in AudioFile():
+        #return
+        for phrase in LiveSpeech():
             i = InfoVoice()
             i.message = InfoVoice.NEW_VALUES_1
             i.input_string = phrase
-            self.q.put((1,i))
-            print(phrase ,'<- input')
+            self.q.put(self.q.qsize(),i)
+            print(phrase ,'<- input', self.q.qsize())
         pass
 
     def multi_run(self):
@@ -57,13 +56,13 @@ class VoiceSphinx( ):
 
             z = self.q.get()
             self.q_size = self.q.qsize()
+            print(z)
 
             while self.q.qsize() is 0: time.sleep(1)
 
             while self.q.qsize() > 0 or z is not None:
                 ##############
 
-                ''' process z - generate perfect vector '''
                 if z.message == InfoVoice.NEW_VALUES_1:
                     #start_time = datetime.now()
 
@@ -71,10 +70,11 @@ class VoiceSphinx( ):
                     #end_time = datetime.now() - start_time
                     #print('Time elpased (hh:mm:ss.ms) {}'.format(end_time))
                     z = self.q.get()
-                    return z.message
+                    print(z.input_string, "<- queue")
+                    return z.input_string
 
                 if z.message == InfoVoice.STOP_2:
-                    self.q = Queue.PriorityQueue()
+                    #self.q = Queue.PriorityQueue()
                     ### clear queue
                     pass
                 if z.message == InfoVoice.QUIT_3:
@@ -86,7 +86,7 @@ class VoiceSphinx( ):
 
 
                 ''' get new z '''
-                #z = self.q.get()
+                z = self.q.get()
 
                 self.q_size = self.q.qsize()
 
@@ -109,7 +109,7 @@ class InfoVoice:
         self.input_string = ''
 
 
-class VoiceThread( game.Game):
+class VoiceThread(game.Game):
     def __init__(self):
         game.Game.__init__(self)
 
@@ -122,24 +122,31 @@ class VoiceThread( game.Game):
         self.voice = VoiceSphinx()
         self.voice.game_setup(g=self)
 
-
+        tt = threading.Thread(target=self.run_game)
+        #tt.daemon = True
+        tt.start()
 
         print("start stt")
-        t = threading.Thread(target=self.voice.multi_run_detection)
-        t.daemon = True
-        t.start()
+        #t = threading.Thread(target=self.voice.multi_run)
+        #t.daemon = True
+        #t.start()
 
-        #self.voice.multi_run_detection()
+        self.voice.multi_run_detection()
 
         #self.run()
+        #self.play_loop()
+        #self.play_stop()
+
+        #i = InfoVoice()
+        #i.message = InfoVoice.QUIT_3
+        #self.voice.q.put( self.voice.q.qsize(),i)
+
+    def run_game(self):
+        #self.run(load_special=False)
+        print('loop start')
         self.play_loop()
+        print('shutting down')
         self.play_stop()
-
-        i = InfoVoice()
-        i.message = InfoVoice.QUIT_3
-        self.voice.q.put((i,1))
-
-
 
 
     def enqueue_voice_in(self):
@@ -147,19 +154,17 @@ class VoiceThread( game.Game):
         pass
 
     def get_input_text(self, prompt=""):
-
+        print(prompt)
         if self.voice.q.qsize() > 1:
             i = InfoVoice()
             i.message = InfoVoice.STOP_2
-            self.voice.q.put((0, i))
+            self.voice.q.put(0,i)
 
         return self.voice.multi_run()
-
-
         pass
 
-
-    def set_output_text(self,text=""):
+    def set_output_text(self, text=""):
+        print(text)
         pass
 
 def main():
