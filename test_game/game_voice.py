@@ -20,7 +20,7 @@ class VoiceSphinx( ):
     def __init__(self):
 
         self.g = None
-        self.q = Queue.PriorityQueue()
+        self.q = Queue.Queue()
         self.q_size = self.q.qsize()
         pass
 
@@ -40,8 +40,9 @@ class VoiceSphinx( ):
             i = InfoVoice()
             i.message = InfoVoice.NEW_VALUES_1
             i.input_string = phrase
-            self.q.put(self.q.qsize(),i)
+            self.q.put(i)
             print(phrase ,'<- input', self.q.qsize())
+            return str(phrase)
         pass
 
     def multi_run(self):
@@ -58,7 +59,7 @@ class VoiceSphinx( ):
             self.q_size = self.q.qsize()
             print(z)
 
-            while self.q.qsize() is 0: time.sleep(1)
+            while self.q.qsize() is 0 and z is None: time.sleep(1)
 
             while self.q.qsize() > 0 or z is not None:
                 ##############
@@ -122,16 +123,18 @@ class VoiceThread(game.Game):
         self.voice = VoiceSphinx()
         self.voice.game_setup(g=self)
 
-        tt = threading.Thread(target=self.run_game)
-        #tt.daemon = True
-        tt.start()
+        self.run_game()
 
-        print("start stt")
+        #tt = threading.Thread(target=self.run_game)
+        #tt.daemon = True
+        #tt.start()
+
+        #print("start stt")
         #t = threading.Thread(target=self.voice.multi_run)
         #t.daemon = True
         #t.start()
 
-        self.voice.multi_run_detection()
+        #self.voice.multi_run_detection()
 
         #self.run()
         #self.play_loop()
@@ -154,13 +157,14 @@ class VoiceThread(game.Game):
         pass
 
     def get_input_text(self, prompt=""):
-        print(prompt)
-        if self.voice.q.qsize() > 1:
-            i = InfoVoice()
-            i.message = InfoVoice.STOP_2
-            self.voice.q.put(0,i)
+        print(prompt,":")
+        if False and self.voice.q.qsize() > 1 :
+            self.voice.q = Queue.Queue()
+            #i = InfoVoice()
+            #i.message = InfoVoice.STOP_2
+            #self.voice.q.put(0,i)
 
-        return self.voice.multi_run()
+        return self.voice.multi_run_detection()
         pass
 
     def set_output_text(self, text=""):
