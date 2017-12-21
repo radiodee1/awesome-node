@@ -71,6 +71,8 @@ class VoiceThread(game.Game):
         pass
 
     def get_input_text_yes_no(self, text="", hint=True):
+        text = "try '"+ text + "' ?"
+        if hint is True: text = text + " [yes/NO]:"
         print(text)
         v = self.voice.multi_run_detection()
         if v.lower() == "yes" or v.lower() == "yeah": return True
