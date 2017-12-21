@@ -313,8 +313,8 @@ class Game(object, MeasureVec, Vocab):
                 else:
                     list_output.append(word)
 
-            zz = raw_input ("try: '"+ " ".join(list_output) + "' [Y/n]:" )
-            if zz.strip() == 'n' or zz.strip() == 'N':
+
+            if not self.get_input_text_yes_no(text=" ".join(list_output)):
                 self.words_thread_input.extend(self.words_raw_input)
                 #print (self.words_thread_input)
                 self.words_correct = []
@@ -325,9 +325,7 @@ class Game(object, MeasureVec, Vocab):
                     self.words_thread_input = []
                 pass
                 self.words_correct = list_output
-                #print (self.words_correct, "-")
-                #print(list_output,"--")
-            #self.words_correct = []
+
 
     def enqueue_odd_vec(self, list_wrong=[], list_right=[], check=False):
         ''' not used here -- see threaded version for more '''
@@ -339,6 +337,15 @@ class Game(object, MeasureVec, Vocab):
 
     def set_output_text(self,text=""):
         print(text)
+
+    def get_input_text_yes_no(self, text="", hint=True):
+        message = "try: '"+ text + "' "
+        if hint: message = message + "[Y/n]:"
+        else: message = message + ":"
+        zz = raw_input (message )
+        if zz.strip() == 'n' or zz.strip() == 'N': return False
+        else: return True
+        pass
 
 def main():
     print("zork 1")

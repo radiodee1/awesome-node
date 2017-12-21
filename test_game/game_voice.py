@@ -66,8 +66,15 @@ class VoiceThread(game.Game):
 
 
     def get_input_text(self, prompt=""):
-        print(prompt,":",end='')
+        print(prompt,":")
         return self.voice.multi_run_detection()
+        pass
+
+    def get_input_text_yes_no(self, text="", hint=True):
+        print(text)
+        v = self.voice.multi_run_detection()
+        if v.lower() == "yes" or v.lower() == "yeah": return True
+        else: return False
         pass
 
     def set_output_text(self, text=""):
