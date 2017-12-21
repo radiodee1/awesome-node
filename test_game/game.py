@@ -197,6 +197,7 @@ class Game(object, MeasureVec, Vocab):
         self.words_correct = []
         self.words_raw_input = []
         self.bool_show_lists = False
+        self.bool_skip_this_input = False
         self.odd_word = None
         self.odd_vec = []
         self.mag = 10.0
@@ -240,30 +241,45 @@ class Game(object, MeasureVec, Vocab):
     def play_loop(self):
         start_info = self.game.run()
         print(start_info)
+        self.bool_skip_this_input = True
 
         command_in = ''
 
         while command_in not in self.words_quit:
 
-            if self.multithreading or len(command_in.split()) > 0  and not  all( word in self.words_all for word in command_in.split() ):
+            if not self.bool_skip_this_input:
+                if True or self.multithreading or ( len(command_in.split()) > 0  and not  all( word in self.words_all for word in command_in.split() )):
 
-                #self.words_input = command_in.split()
+                    #self.words_input = command_in.split()
 
-                self.parse_input(command_in.split())
-                self.print_list_suggested()
+                    self.parse_input(command_in.split())
+                    self.print_list_suggested(apply_on_negate=False)
 
-            if len(self.words_correct) > 0:
-                self.words_correct = " ".join(self.words_correct)
-                command_in = self.words_correct
+                if len(self.words_correct) > 0:
+                    self.words_correct = " ".join(self.words_correct)
+                    command_in = self.words_correct
+                    self.words_correct = []
+                elif False:
+                    command_in = ''
+
+                    #self.words_correct = []
+                    #self.words_raw_input = []
+                    pass
+
+            if not self.bool_skip_this_input:
+                if len(command_in) > 0 :
+                    command_output = self.game.execute_command(command_in)
+                    self.set_output_text(text=command_output)
+
+                #if not self.bool_skip_this_input:
+                command_in = self.get_input_text("> ")
+                command_in = command_in.strip().lower()
+            else:
+                command_in = ''
                 self.words_correct = []
 
-            if len(command_in) > 0:
-                command_output = self.game.execute_command(command_in)
-                self.set_output_text(text=command_output)
-
-            command_in = self.get_input_text("> ")
-            command_in = command_in.strip().lower()
-            if self.bool_show_lists: print(command_in.split())
+            if self.bool_show_lists : print(command_in.split(),'<- list')
+            self.bool_skip_this_input = False
 
     def play_stop(self):
         if self.game.get_score() is not None:
@@ -294,14 +310,14 @@ class Game(object, MeasureVec, Vocab):
 
         elif len(self.words_raw_input) > 0:
             ### hacky - what if words_raw_input == 2 ###
-            print (self.words_raw_input, "raw")
+            #print (self.words_raw_input, "raw")
+            #self.words_correct = self.words_raw_input
             self.words_thread_input.extend(self.words_raw_input)
             self.enqueue_odd_vec(list_wrong=self.words_thread_input[:-1], list_right=[self.words_thread_input[-1]])
-            print ("enqueue")
+            #print ("enqueue")
             pass
 
-
-    def print_list_suggested(self):
+    def print_list_suggested(self, apply_on_negate=False):
 
         if len(self.words_correct) > 0 and len(self.words_correct[0]) > 0 :
 
@@ -315,9 +331,15 @@ class Game(object, MeasureVec, Vocab):
 
 
             if not self.get_input_text_yes_no(text=" ".join(list_output)):
-                self.words_thread_input.extend(self.words_raw_input)
-                #print (self.words_thread_input)
-                self.words_correct = []
+                if apply_on_negate:
+                    self.words_thread_input.extend(self.words_raw_input)
+                    self.words_correct = []
+                else:
+                    #self.words_thread_input = []
+                    self.words_raw_input = []
+                    self.bool_skip_this_input = True
+                    #print (self.words_thread_input)
+                    #self.words_correct = []
             else:
                 if len(self.words_thread_input) > 1:
                     self.enqueue_odd_vec(list_wrong=self.words_thread_input[:-1], list_right=[self.words_thread_input[-1]])
@@ -329,7 +351,7 @@ class Game(object, MeasureVec, Vocab):
 
     def enqueue_odd_vec(self, list_wrong=[], list_right=[], check=False):
         ''' not used here -- see threaded version for more '''
-        print ("not used 'enqueue'")
+        #print ("not used 'enqueue'")
         pass
 
     def get_input_text(self, prompt=""):

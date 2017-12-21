@@ -26,8 +26,8 @@
       <file leaf-file-name="game.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="315" column="0" lean-forward="false" selection-start-line="315" selection-start-column="0" selection-end-line="315" selection-end-column="0" />
+            <state relative-caret-position="2038">
+              <caret line="353" column="9" lean-forward="false" selection-start-line="353" selection-start-column="9" selection-end-line="353" selection-end-column="9" />
               <folding>
                 <element signature="e#0#47#0" expanded="true" />
               </folding>
@@ -70,8 +70,8 @@
       <file leaf-file-name="game_voice.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game_voice.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="73" column="33" lean-forward="false" selection-start-line="73" selection-start-column="33" selection-end-line="73" selection-end-column="33" />
+            <state relative-caret-position="338">
+              <caret line="63" column="8" lean-forward="true" selection-start-line="63" selection-start-column="8" selection-end-line="63" selection-end-column="8" />
               <folding>
                 <element signature="e#19#83#0" expanded="true" />
               </folding>
@@ -100,11 +100,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>None</find>
-      <find>saved_once</find>
-      <find>multiply</find>
-      <find>save_vec</find>
-      <find>total_correct_old</find>
       <find>load_vec</find>
       <find>set_odd_vec</find>
       <find>model_generate_new</find>
@@ -130,6 +125,11 @@
       <find>multi_run_detection</find>
       <find>multi_run</find>
       <find>enqueue_voice_in</find>
+      <find>get_input_text_yes_no</find>
+      <find>print_list_suggested</find>
+      <find>words_correct</find>
+      <find>bool_skip_this_input</find>
+      <find>apply_on_negate</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -170,7 +170,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="489" />
+    <option name="x" value="490" />
     <option name="y" value="71" />
     <option name="width" value="1400" />
     <option name="height" value="1000" />
@@ -264,7 +264,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="489" y="71" width="1400" height="1000" extended-state="0" />
+    <frame x="490" y="71" width="1400" height="1000" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -555,11 +555,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/readme.md">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="20" column="37" lean-forward="false" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
-        </state>
-      </provider>
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="414">
@@ -568,6 +563,11 @@
           <second_editor>
             <js_state />
           </second_editor>
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="20" column="37" lean-forward="false" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -614,8 +614,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="315" column="0" lean-forward="false" selection-start-line="315" selection-start-column="0" selection-end-line="315" selection-end-column="0" />
+        <state relative-caret-position="2038">
+          <caret line="353" column="9" lean-forward="false" selection-start-line="353" selection-start-column="9" selection-end-line="353" selection-end-column="9" />
           <folding>
             <element signature="e#0#47#0" expanded="true" />
           </folding>
@@ -624,8 +624,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/game_voice.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="73" column="33" lean-forward="false" selection-start-line="73" selection-start-column="33" selection-end-line="73" selection-end-column="33" />
+        <state relative-caret-position="338">
+          <caret line="63" column="8" lean-forward="true" selection-start-line="63" selection-start-column="8" selection-end-line="63" selection-end-column="8" />
           <folding>
             <element signature="e#19#83#0" expanded="true" />
           </folding>

@@ -32,7 +32,7 @@ class VoiceSphinx( ):
             i.message = InfoVoice.NEW_VALUES_1
             i.input_string = phrase
             #self.q.put(i)
-            print(phrase ,'<- input')
+            print(phrase )
             return str(phrase)
         pass
 
@@ -53,20 +53,21 @@ class InfoVoice:
 class VoiceThread(game.Game):
     def __init__(self):
         game.Game.__init__(self)
-
-        print ("VoiceThread:")
+        self.multithreading = True
+        print ("Voice Input:")
         self.run(load_special=False)
 
         self.voice = VoiceSphinx()
 
-        print('loop start')
+        #print('loop start')
         self.play_loop()
         print('shutting down')
         self.play_stop()
 
 
+
     def get_input_text(self, prompt=""):
-        print(prompt,":")
+        #print(prompt,":")
         return self.voice.multi_run_detection()
         pass
 
@@ -75,8 +76,12 @@ class VoiceThread(game.Game):
         if hint is True: text = text + " [yes/NO]:"
         print(text)
         v = self.voice.multi_run_detection()
-        if v.lower() == "yes" or v.lower() == "yeah": return True
-        else: return False
+        if v.lower() == "yes" or v.lower() == "yeah":
+            print("accept")
+            return True
+        else:
+            print("reject")
+            return False
         pass
 
     def set_output_text(self, text=""):
