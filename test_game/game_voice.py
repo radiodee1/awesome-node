@@ -22,10 +22,7 @@ class VoiceSphinx( ):
     def voice_detection(self):
         #return
         for phrase in LiveSpeech():
-            i = InfoVoice()
-            i.message = InfoVoice.NEW_VALUES_1
-            i.input_string = phrase
-            #self.q.put(i)
+            
             print(phrase )
             return str(phrase)
         pass
@@ -35,26 +32,16 @@ class VoiceSphinx( ):
         path = os.path.join("trained","temp_speech.mp3")
         tts.save(path)
         os.system("mpg321 " + path + " > /dev/null 2>&1 ")
-
         pass
 
-class InfoVoice:
 
-    NEW_VALUES_1 = 1
-    STOP_2 = 2  # special meaning
-    QUIT_3 = 3
-    CHECK_SHOW_4 = 4
-
-    def __init__(self):
-        self.message = 0
-        self.input_string = ''
 
 
 class VoiceThread(game.Game):
     def __init__(self):
         game.Game.__init__(self)
         self.multithreading = True
-        print ("Voice Input:")
+        print ("Voice Input: Zork I")
         self.run(load_special=False)
 
         self.voice = VoiceSphinx()
@@ -76,7 +63,8 @@ class VoiceThread(game.Game):
     def get_input_text_yes_no(self, text="", hint=True):
         text = "try '"+ text + "' ?"
         if hint is True: text = text + " [yes/NO]:"
-        print(text)
+        #print(text)
+        self.set_output_text(text=text)
         v = self.voice.voice_detection()
         if v.lower() == "yes" or v.lower() == "yeah":
             print("accept")
