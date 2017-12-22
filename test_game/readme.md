@@ -10,7 +10,6 @@ Refer to these other projects.
 setup the directory structure:
 ```
 $ ./do_make_dir.sh
-
 ```
 This is the url for wiki material. put resulting file in `data` dir. Try this url with the `wget` command or your favorite web browser. Should take approx 2 hrs.
 ````
@@ -23,7 +22,11 @@ numpy
 gTTS
 pocketsphynx
 ```
-
+Here is a list of common ubuntu/linux packages that must be installed:
+```
+mpg321
+build-essential
+```
 ## General:
 * This project is a 'Work-In-Progress'.
 * Download this project.  Run the `do_make_dir.sh` script.

@@ -240,7 +240,8 @@ class Game(object, MeasureVec, Vocab):
 
     def play_loop(self):
         start_info = self.game.run()
-        print(start_info)
+        #print(start_info)
+        self.set_output_text(text=start_info)
         self.bool_skip_this_input = True
 
         command_in = ''

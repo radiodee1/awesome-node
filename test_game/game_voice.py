@@ -2,13 +2,7 @@
 
 from __future__ import absolute_import, division, print_function
 import os
-import numpy as np
-import itertools
-import math
-import threading
-import Queue
-import time
-import sys
+from gtts import gTTS
 from datetime import datetime
 from pocketsphinx import LiveSpeech
 
@@ -25,7 +19,7 @@ class VoiceSphinx( ):
 
 
 
-    def multi_run_detection(self):
+    def voice_detection(self):
         #return
         for phrase in LiveSpeech():
             i = InfoVoice()
@@ -36,7 +30,13 @@ class VoiceSphinx( ):
             return str(phrase)
         pass
 
+    def speech_out(self,text=""):
+        tts = gTTS(text=text, lang='en')
+        path = os.path.join("trained","temp_speech.mp3")
+        tts.save(path)
+        os.system("mpg321 " + path + " > /dev/null 2>&1 ")
 
+        pass
 
 class InfoVoice:
 
@@ -64,18 +64,20 @@ class VoiceThread(game.Game):
         print('shutting down')
         self.play_stop()
 
-
+    def print_list_suggested(self, apply_on_negate=False):
+        apply_on_negate = False
+        game.Game.print_list_suggested(self, apply_on_negate)
 
     def get_input_text(self, prompt=""):
         #print(prompt,":")
-        return self.voice.multi_run_detection()
+        return self.voice.voice_detection()
         pass
 
     def get_input_text_yes_no(self, text="", hint=True):
         text = "try '"+ text + "' ?"
         if hint is True: text = text + " [yes/NO]:"
         print(text)
-        v = self.voice.multi_run_detection()
+        v = self.voice.voice_detection()
         if v.lower() == "yes" or v.lower() == "yeah":
             print("accept")
             return True
@@ -86,6 +88,7 @@ class VoiceThread(game.Game):
 
     def set_output_text(self, text=""):
         print(text)
+        self.voice.speech_out(text)
         pass
 
 def main():
