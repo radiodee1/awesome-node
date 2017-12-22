@@ -12,17 +12,12 @@ import game
 class VoiceSphinx( ):
 
     def __init__(self):
-
-        self.g = None
-
+        #self.g = None
         pass
 
-
-
     def voice_detection(self):
-        #return
         for phrase in LiveSpeech():
-            
+            # just one phrase!!
             print(phrase )
             return str(phrase)
         pass
