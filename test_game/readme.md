@@ -21,11 +21,15 @@ gensim
 numpy
 gTTS
 pocketsphynx
+google-api-python-client
+SpeechRecognition
+PyAudio
 ```
 Here is a list of common ubuntu/linux packages that must be installed:
 ```
 mpg321
 build-essential
+portaudio
 ```
 ## General:
 * This project is a 'Work-In-Progress'.
@@ -91,3 +95,18 @@ The `-load-special` flag must be after all other flags on the terminal command l
 ## Training:
 
 * There are two basic methods for training. One uses the `do_w2v_train.py` script and any text you might have. The other method uses the wikipedia articles downloaded above. This second method is more complex and time consuming. It uses three scripts, the `do_w2v_corpus_wiki.py` script, the `do_w2v_corpus_wiki_mod.py` script, and the `do_w2v_train_wiki.py` script.    
+
+## Notes on using Google Speech Recognition
+* Install all the recommended python packages and make sure they work.
+* Test google speech recognition with the `do_test_google_sr.py` script.
+* Setup a google cloud platform account and project. For a project name I used `awesome-sr`
+* https://cloud.google.com/speech/docs/quickstart  See this location for more google setup info.
+* Download and install the Google-Cloud-Sdk. This package has the `gcloud` command.
+  * This includes downloading the google-cloud-sdk file, unpacking it, and executing the command `./google-cloud-sdk/install.sh`
+  * You must also restart your terminal.
+* Use Google Cloud Platform Console to create a project and download a project json file. I put my project in a directory called `/home/<myname>/bin` .
+* Use the `gcloud` command to set up your authentication. I used the following: `gcloud auth activate-service-account --key-file=bin/awesome-sr-*.json`
+* https://cloud.google.com/sdk/docs/quickstart-linux See this url for details.
+* Go to the Google Cloud Platform's API's and Services Page. Generate an API key and copy the contents to a file called `api_key.txt` . Save this file in the `test_game` directory of this project.
+* Execute the script `do_move_api_key_file.sh` after you have placed your key in the `api_key.txt` file.
+* https://console.cloud.google.com/apis/ Try this url and see if it works for you.

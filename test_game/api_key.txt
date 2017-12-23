@@ -1,0 +1,9 @@
+#############################################
+## erase this file and replace it with the ##
+## api key from the google site below:     ##
+## https://console.cloud.google.com/apis/  ##
+##                                         ##
+## then execute the command:               ##
+## ./do_move_api_key_file.sh               ##
+#############################################
+
