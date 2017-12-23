@@ -5,6 +5,7 @@ import os
 from gtts import gTTS
 from datetime import datetime
 from pocketsphinx import LiveSpeech
+import speech_recognition as sr
 
 import game
 
@@ -13,14 +14,48 @@ class VoiceSphinx( ):
 
     def __init__(self):
         #self.g = None
+        self.r = None
+        self.google_key = None
+        self.read_google_key()
+
+        pass
+
+    def read_google_key(self):
+        try:
+            f = open(os.path.join('scripts','api_key.txt'),'r')
+            self.google_key = f.read()
+            self.google_key = str(self.google_key.strip())
+            print (self.google_key)
+        except:
+            pass
+        finally:
+            if self.google_key is not None:
+                self.r = sr.Recognizer()
         pass
 
     def voice_detection(self):
-        for phrase in LiveSpeech():
-            # just one phrase!!
-            print(phrase )
-            return str(phrase)
-        pass
+
+        if self.google_key is None:
+            for phrase in LiveSpeech():
+                # just one phrase!!
+                print(phrase )
+                return str(phrase)
+            pass
+        else:
+            with sr.Microphone() as source:
+                audio = self.r.listen(source)
+                try:
+                    phrase = self.r.recognize_google(audio, key=self.google_key)
+                    print(phrase)
+                    return str(phrase)
+                    pass
+                except sr.UnknownValueError:
+                    print("Google Speech Recognition could not understand audio")
+                except sr.RequestError as e:
+                    print(self.google_key)
+                    print("Could not request results from Google Speech Recognition service; {0}".format(e))
+                    pass
+
 
     def speech_out(self,text=""):
         tts = gTTS(text=text, lang='en')
@@ -41,6 +76,7 @@ class VoiceThread(game.Game):
 
         self.voice = VoiceSphinx()
 
+        #exit()
         #print('loop start')
         self.play_loop()
         print('shutting down')

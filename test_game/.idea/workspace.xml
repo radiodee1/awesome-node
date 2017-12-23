@@ -33,11 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="game_vector_old.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/game_vector_old.py">
+      <file leaf-file-name="game_voice.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/game_voice.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1746">
-              <caret line="108" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
+            <state relative-caret-position="576">
+              <caret line="47" column="58" lean-forward="false" selection-start-line="47" selection-start-column="58" selection-end-line="47" selection-end-column="58" />
               <folding>
                 <element signature="e#19#83#0" expanded="true" />
               </folding>
@@ -45,14 +45,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="game_voice.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/game_voice.py">
+      <file leaf-file-name="api_key.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scripts/api_key.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="17" column="30" lean-forward="false" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
-              <folding>
-                <element signature="e#19#83#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="0">
+              <caret line="0" column="39" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="39" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -82,26 +80,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="do_move_api_key_file.sh" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/do_move_api_key_file.sh">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="2" lean-forward="false" selection-start-line="0" selection-start-column="2" selection-end-line="0" selection-end-column="2" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="api_key.txt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/api_key.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
@@ -112,11 +90,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="do_test_google_sr.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="do_test_google_sr.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/do_test_google_sr.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="14" column="101" lean-forward="false" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="101" />
+            <state relative-caret-position="446">
+              <caret line="184" column="43" lean-forward="false" selection-start-line="184" selection-start-column="43" selection-end-line="184" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -196,12 +174,13 @@
         <option value="$PROJECT_DIR$/do_w2v_test.py" />
         <option value="$PROJECT_DIR$/do_test_pocketsphynx.py" />
         <option value="$PROJECT_DIR$/game_vector_old.py" />
-        <option value="$PROJECT_DIR$/game_voice.py" />
         <option value="$PROJECT_DIR$/game.py" />
-        <option value="$PROJECT_DIR$/do_test_google_sr.py" />
         <option value="$PROJECT_DIR$/readme.md" />
         <option value="$PROJECT_DIR$/do_move_api_key_file.sh" />
         <option value="$PROJECT_DIR$/api_key.txt" />
+        <option value="$PROJECT_DIR$/scripts/api_key.txt" />
+        <option value="$PROJECT_DIR$/game_voice.py" />
+        <option value="$PROJECT_DIR$/do_test_google_sr.py" />
       </list>
     </option>
   </component>
@@ -333,13 +312,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/do_w2v_train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/do_w2v_test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="900">
@@ -536,7 +508,7 @@
         <state relative-caret-position="594">
           <caret line="39" column="24" lean-forward="false" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="24" />
           <folding>
-            <element signature="e#19#83#0" expanded="true" />
+            <element signature="e#19#83#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -569,17 +541,7 @@
         <state relative-caret-position="1746">
           <caret line="108" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
           <folding>
-            <element signature="e#19#83#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game_voice.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="17" column="30" lean-forward="false" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
-          <folding>
-            <element signature="e#19#83#0" expanded="true" />
+            <element signature="e#19#83#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -594,26 +556,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/do_test_pocketsphinx.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="26" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/do_test_google_sr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="14" column="101" lean-forward="false" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="101" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="5" lean-forward="false" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api_key.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/do_move_api_key_file.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="2" lean-forward="false" selection-start-line="0" selection-start-column="2" selection-end-line="0" selection-end-column="2" />
           <folding />
         </state>
       </provider>
@@ -623,6 +585,32 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/do_test_pocketsphinx.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="26" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/api_key.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="39" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game_voice.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="576">
+          <caret line="47" column="58" lean-forward="false" selection-start-line="47" selection-start-column="58" selection-end-line="47" selection-end-column="58" />
+          <folding>
+            <element signature="e#19#83#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -644,18 +632,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/do_move_api_key_file.sh">
+    <entry file="file://$PROJECT_DIR$/do_test_google_sr.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="2" lean-forward="false" selection-start-line="0" selection-start-column="2" selection-end-line="0" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api_key.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        <state relative-caret-position="446">
+          <caret line="184" column="43" lean-forward="false" selection-start-line="184" selection-start-column="43" selection-end-line="184" selection-end-column="43" />
           <folding />
         </state>
       </provider>
