@@ -17,7 +17,7 @@ class VoiceSphinx( ):
         self.r = None
         self.google_key = None
         self.read_google_key()
-
+        self.force_pocketsphinx = True
         pass
 
     def read_google_key(self):
@@ -35,7 +35,7 @@ class VoiceSphinx( ):
 
     def voice_detection(self):
 
-        if self.google_key is None:
+        if self.google_key is None or self.force_pocketsphinx:
             for phrase in LiveSpeech():
                 # just one phrase!!
                 print(phrase )
@@ -58,10 +58,11 @@ class VoiceSphinx( ):
 
 
     def speech_out(self,text=""):
-        tts = gTTS(text=text, lang='en')
-        path = os.path.join("trained","temp_speech.mp3")
-        tts.save(path)
-        os.system("mpg321 " + path + " > /dev/null 2>&1 ")
+        if len(text) > 0:
+            tts = gTTS(text=text, lang='en')
+            path = os.path.join("trained","temp_speech.mp3")
+            tts.save(path)
+            os.system("mpg321 " + path + " > /dev/null 2>&1 ")
         pass
 
 
