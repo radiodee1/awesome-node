@@ -110,3 +110,4 @@ The `-load-special` flag must be after all other flags on the terminal command l
 * Go to the Google Cloud Platform's API's and Services Page. Generate an API key and copy the contents to a file called `api_key.txt` . Save this file in the `test_game` directory of this project.
 * Execute the script `do_move_api_key_file.sh` after you have placed your key in the `api_key.txt` file.
 * https://console.cloud.google.com/apis/ Try this url and see if it works for you.
+* You may need to set up a billing account with Google for yourself.

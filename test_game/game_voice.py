@@ -14,13 +14,14 @@ class VoiceSphinx( ):
 
     def __init__(self):
         #self.g = None
+        self.force_pocketsphinx = True
         self.r = None
         self.google_key = None
         self.read_google_key()
-        self.force_pocketsphinx = True
         pass
 
     def read_google_key(self):
+        if self.force_pocketsphinx: return
         try:
             f = open(os.path.join('scripts','api_key.txt'),'r')
             self.google_key = f.read()
