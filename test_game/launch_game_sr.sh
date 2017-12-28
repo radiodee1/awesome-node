@@ -1,1 +1,1 @@
- ./game_sr.py 2> /dev/null
+ ./game_voice.py 2> /dev/null

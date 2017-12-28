@@ -8,6 +8,7 @@ from pocketsphinx import LiveSpeech
 import speech_recognition as sr
 
 import game
+import game_sr
 
 class VoiceOut:
     def __init__(self):
@@ -21,7 +22,7 @@ class VoiceOut:
             os.system("mpg321 " + path + " > /dev/null 2>&1 ")
         pass
 
-class VoiceSphinx( ):
+class VoiceSphinxSR( ):
 
     def __init__(self):
         #self.g = None
@@ -80,7 +81,8 @@ class VoiceThread(game.Game):
         print ("Voice Input: Zork I")
         self.run(load_special=False)
 
-        self.voice = VoiceSphinx()
+        #self.voice = VoiceSphinxSR()
+        self.voice = game_sr.VoiceGoogleSR()
         self.speech_out = VoiceOut()
 
         #exit()
