@@ -9,10 +9,22 @@ import speech_recognition as sr
 
 import game
 
+class VoiceOut:
+    def __init__(self):
+        pass
 
-class VoiceSphinx( ):
+    def speech_out(self,text=""):
+        if len(text) > 0:
+            tts = gTTS(text=text, lang='en')
+            path = os.path.join("trained","temp_speech.mp3")
+            tts.save(path)
+            os.system("mpg321 " + path + " > /dev/null 2>&1 ")
+        pass
+
+class VoiceSphinx(VoiceOut ):
 
     def __init__(self):
+        VoiceOut.__init__(self)sp
         #self.g = None
         self.force_pocketsphinx = True
         self.r = None
@@ -58,13 +70,6 @@ class VoiceSphinx( ):
                     pass
 
 
-    def speech_out(self,text=""):
-        if len(text) > 0:
-            tts = gTTS(text=text, lang='en')
-            path = os.path.join("trained","temp_speech.mp3")
-            tts.save(path)
-            os.system("mpg321 " + path + " > /dev/null 2>&1 ")
-        pass
 
 
 

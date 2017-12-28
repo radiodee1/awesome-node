@@ -23,11 +23,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="game_voice.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="game_voice.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game_voice.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="16" column="38" lean-forward="false" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
+            <state relative-caret-position="468">
+              <caret line="26" column="33" lean-forward="false" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="33" />
               <folding>
                 <element signature="e#19#83#0" expanded="true" />
               </folding>
@@ -90,7 +90,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="game_sr.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="game_sr.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game_sr.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="770">
@@ -178,11 +178,11 @@
         <option value="$PROJECT_DIR$/do_move_api_key_file.sh" />
         <option value="$PROJECT_DIR$/api_key.txt" />
         <option value="$PROJECT_DIR$/scripts/api_key.txt" />
-        <option value="$PROJECT_DIR$/game_voice.py" />
         <option value="$PROJECT_DIR$/readme.md" />
         <option value="$PROJECT_DIR$/do_test_google_sr.py" />
         <option value="$PROJECT_DIR$/game_sr.py" />
         <option value="$PROJECT_DIR$/launch_game_sr.sh" />
+        <option value="$PROJECT_DIR$/game_voice.py" />
       </list>
     </option>
   </component>
@@ -590,16 +590,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game_voice.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="16" column="38" lean-forward="false" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
-          <folding>
-            <element signature="e#19#83#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/readme.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
@@ -631,6 +621,16 @@
         <state relative-caret-position="770">
           <caret line="260" column="8" lean-forward="false" selection-start-line="260" selection-start-column="8" selection-end-line="260" selection-end-column="8" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game_voice.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="26" column="33" lean-forward="false" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="33" />
+          <folding>
+            <element signature="e#19#83#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
