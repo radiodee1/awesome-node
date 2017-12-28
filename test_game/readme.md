@@ -24,6 +24,7 @@ pocketsphynx
 google-api-python-client
 SpeechRecognition
 PyAudio
+google-cloud-speech
 ```
 Here is a list of common ubuntu/linux packages that must be installed:
 ```

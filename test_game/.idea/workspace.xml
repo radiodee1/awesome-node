@@ -36,7 +36,7 @@
       <file leaf-file-name="game_voice.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game_voice.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
+            <state relative-caret-position="162">
               <caret line="16" column="38" lean-forward="false" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
               <folding>
                 <element signature="e#19#83#0" expanded="true" />
@@ -55,12 +55,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="readme.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="readme.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/readme.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="683">
-                <caret line="109" column="276" lean-forward="false" selection-start-line="109" selection-start-column="276" selection-end-line="109" selection-end-column="276" />
+              <first_editor relative-caret-position="468">
+                <caret line="26" column="19" lean-forward="false" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
                 <folding />
               </first_editor>
               <second_editor>
@@ -90,11 +90,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="do_test_google_sr.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="do_test_google_sr.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/do_test_google_sr.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+            <state relative-caret-position="680">
+              <caret line="162" column="0" lean-forward="false" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -111,7 +111,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>load_vec</find>
       <find>set_odd_vec</find>
       <find>model_generate_new</find>
       <find>delimiter</find>
@@ -141,6 +140,7 @@
       <find>bool_skip_this_input</find>
       <find>apply_on_negate</find>
       <find>multi_run_detection</find>
+      <find>speech</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -178,9 +178,9 @@
         <option value="$PROJECT_DIR$/do_move_api_key_file.sh" />
         <option value="$PROJECT_DIR$/api_key.txt" />
         <option value="$PROJECT_DIR$/scripts/api_key.txt" />
-        <option value="$PROJECT_DIR$/do_test_google_sr.py" />
         <option value="$PROJECT_DIR$/game_voice.py" />
         <option value="$PROJECT_DIR$/readme.md" />
+        <option value="$PROJECT_DIR$/do_test_google_sr.py" />
       </list>
     </option>
   </component>
@@ -237,8 +237,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -280,7 +280,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="487" y="72" width="1400" height="1000" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -594,17 +593,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/do_test_google_sr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/game_voice.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
+        <state relative-caret-position="162">
           <caret line="16" column="38" lean-forward="false" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
           <folding>
             <element signature="e#19#83#0" expanded="true" />
@@ -615,8 +606,8 @@
     <entry file="file://$PROJECT_DIR$/readme.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="683">
-            <caret line="109" column="276" lean-forward="false" selection-start-line="109" selection-start-column="276" selection-end-line="109" selection-end-column="276" />
+          <first_editor relative-caret-position="468">
+            <caret line="26" column="19" lean-forward="false" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
             <folding />
           </first_editor>
           <second_editor>
@@ -627,6 +618,14 @@
       <provider editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="20" column="37" lean-forward="false" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/do_test_google_sr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="162" column="0" lean-forward="false" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
