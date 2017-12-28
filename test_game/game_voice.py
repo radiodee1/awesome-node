@@ -21,10 +21,9 @@ class VoiceOut:
             os.system("mpg321 " + path + " > /dev/null 2>&1 ")
         pass
 
-class VoiceSphinx(VoiceOut ):
+class VoiceSphinx( ):
 
     def __init__(self):
-        VoiceOut.__init__(self)
         #self.g = None
         self.force_pocketsphinx = True
         self.r = None
@@ -82,6 +81,7 @@ class VoiceThread(game.Game):
         self.run(load_special=False)
 
         self.voice = VoiceSphinx()
+        self.speech_out = VoiceOut()
 
         #exit()
         #print('loop start')
@@ -114,7 +114,7 @@ class VoiceThread(game.Game):
 
     def set_output_text(self, text=""):
         print(text)
-        self.voice.speech_out(text)
+        self.speech_out.speech_out(text)
         pass
 
 def main():
