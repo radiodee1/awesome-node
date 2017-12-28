@@ -85,8 +85,6 @@ class VoiceThread(game.Game):
         self.voice = game_sr.VoiceGoogleSR()
         self.speech_out = VoiceOut()
 
-        #exit()
-        #print('loop start')
         self.play_loop()
         print('shutting down')
         self.play_stop()
