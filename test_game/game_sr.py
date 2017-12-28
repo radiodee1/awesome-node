@@ -113,7 +113,23 @@ class MicrophoneStream(object):
 # [END audio_stream]
 
 
-class VoiceGoogle:
+class VoiceGoogleSR:
+
+    def __init__(self):
+
+        # See http://g.co/cloud/speech/docs/languages
+        # for a list of supported languages.
+        language_code = 'en-US'  # a BCP-47 language tag
+
+        self.client = speech.SpeechClient()
+        config = types.RecognitionConfig(
+            encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16,
+            sample_rate_hertz=RATE,
+            language_code=language_code)
+        self.streaming_config = types.StreamingRecognitionConfig(
+            config=config,
+            interim_results=True)
+
     def listen_print_loop(self, responses):
         """Iterates through server responses and prints them.
 
@@ -169,21 +185,62 @@ class VoiceGoogle:
 
                 num_chars_printed = 0
 
+    def listen(self, responses):
+        num_chars_printed = 0
+        for response in responses:
+            if not response.results:
+                continue
 
-    def __init__(self):
+            # The `results` list is consecutive. For streaming, we only care about
+            # the first result being considered, since once it's `is_final`, it
+            # moves on to considering the next utterance.
+            result = response.results[0]
+            if not result.alternatives:
+                continue
 
-        # See http://g.co/cloud/speech/docs/languages
-        # for a list of supported languages.
-        language_code = 'en-US'  # a BCP-47 language tag
+            # Display the transcription of the top alternative.
+            transcript = result.alternatives[0].transcript
 
-        self.client = speech.SpeechClient()
-        config = types.RecognitionConfig(
-            encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16,
-            sample_rate_hertz=RATE,
-            language_code=language_code)
-        self.streaming_config = types.StreamingRecognitionConfig(
-            config=config,
-            interim_results=True)
+            # Display interim results, but with a carriage return at the end of the
+            # line, so subsequent lines will overwrite them.
+            #
+            # If the previous result was longer than this one, we need to print
+            # some extra spaces to overwrite the previous result
+            overwrite_chars = ' ' * (num_chars_printed - len(transcript))
+
+            if not result.is_final:
+                #sys.stdout.write(transcript + overwrite_chars + '\r')
+                #sys.stdout.flush()
+
+                #num_chars_printed = len(transcript)
+                pass
+
+            else:
+                print(transcript + overwrite_chars)
+                print("--" + str(transcript).strip() + "--")
+
+                # Exit recognition if any of the transcribed phrases could be
+                # one of our keywords.
+                if re.search(r'\b(exit|quit)\b', transcript, re.I):
+                    print('Exiting..')
+                    break
+                else:
+                    return str(transcript).strip()
+                num_chars_printed = 0
+
+
+    def voice_detection(self):
+        with MicrophoneStream(RATE, CHUNK) as stream:
+            audio_generator = stream.generator()
+            requests = (types.StreamingRecognizeRequest(audio_content=content)
+                        for content in audio_generator)
+
+            responses = self.client.streaming_recognize(self.streaming_config, requests)
+
+            # Now, put the transcription responses to use.
+            value = self.listen(responses)
+            return value
+
 
     def run_recognition(self):
         with MicrophoneStream(RATE, CHUNK) as stream:
@@ -198,5 +255,7 @@ class VoiceGoogle:
 
 
 if __name__ == '__main__':
-    v = VoiceGoogle()
-    v.run_recognition()
+    v = VoiceGoogleSR()
+    for i in range(3):
+        words = v.voice_detection()
+        print(words)

@@ -1,0 +1,1 @@
+ ./game_sr.py 2> /dev/null
