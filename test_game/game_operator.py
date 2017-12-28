@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 import os.path , sys
 
 op_dir = os.path.abspath(os.path.join(os.path.dirname(__file__),'operator')) + "/"
-print(op_dir)
+#print(op_dir)
 
 import game as game
 import game_sr as sr
@@ -13,12 +13,8 @@ import game_voice as vo
 
 sys.path.append(op_dir)
 from op_basic import Op
-print('loaded')
-#sys.path.append(op_dir)
-#from .game import Game
-#from .game_sr import VoiceGoogleSR
-#from .game_voice import VoiceOut
-#from .operator.op_basic import Op
+#print('loaded')
+
 
 class Operator(game.Game):
     def __init__(self):
