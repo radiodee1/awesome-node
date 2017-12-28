@@ -24,7 +24,7 @@ class VoiceOut:
 class VoiceSphinx(VoiceOut ):
 
     def __init__(self):
-        VoiceOut.__init__(self)sp
+        VoiceOut.__init__(self)
         #self.g = None
         self.force_pocketsphinx = True
         self.r = None
