@@ -1,5 +1,5 @@
 from __future__ import absolute_import, division, print_function
-
+import os.path
 
 
 class DictVocab:
@@ -69,6 +69,7 @@ class DictVocab:
             'nineteen': 46,
             'twenty': 47,
 
+            'office': 48
 
         }
         self.words_phrase = [
@@ -103,6 +104,8 @@ class DictVocab:
             ['south','west', 6],
             ['south','east', 7]
         ]
+
+        self._add_to_vocab_table(list=self.words_phrase)
 
         self.rooms = {
             'room-0': 0, # north-most room
@@ -140,6 +143,7 @@ class DictVocab:
             'mid-hallway': 5,  # mid hallway
             'middle-hallway': 5, # middle hallway
             'library-room': 6,  # south-east room ** what goes here?!!
+            'office-room': 6,
 
             'south-hallway': 7,  # south hallway
             'green-house-room': 8,  # souuth-most room
@@ -154,10 +158,13 @@ class DictVocab:
             'movie': 4,  # south-west room
             'video': 4,
             'library': 6,  # south-east room ** what goes here?!!
+            'office': 6,
 
             'solarium': 8,  #
             'green-house': 8,  # souuth-most room
         }
+
+
         moves = [
             #### directional ####
             ['music-room', 's','north-hallway'],
@@ -165,6 +172,12 @@ class DictVocab:
 
             ['mail-room', 'e', 'north-hallway'],
             ['north-hallway', 'w', 'mail-room'],
+
+            ['internet-room', 'w', 'north-hallway'],
+            ['north-hallway','e', 'internet-room'],
+
+            ['north-hallway','s','middle-hallway'],
+            ['middle-hallway','n', 'north-hallway'],
 
             ['movie-room', 'e','middle-hallway'],
             ['middle-hallway', 'w', 'movie-room'],
@@ -185,16 +198,37 @@ class DictVocab:
             ['#', 'web', 'internet-room'],
             ['#', 'movie', 'movie-room'],
             ['#', 'library', 'library-room'],
+            ['#', 'office', 'library-room'],
             ['#', 'video', 'movie-room'],
             ['#', 'green-house', 'green-house-room'],
         ]
 
-        self._add_to_vocab_table(list=self.words_phrase)
-        print(self.words_dict)
+        #print(self.words_dict)
 
         self.move_table = {}
         self._add_to_move_table(list=moves)
-        print(self.move_table)
+
+        text = {
+            'music-room': 'Music Room',
+            'north-hallway': 'North Hallway',
+            'mail-room': 'Mail Room',
+            'internet-room': 'Internet Room',
+            'movie-room': 'Video Room',
+            'middle-hallway':'Middle Hallway',
+            'library-room': 'Library and Office',
+            'south-hallway' : 'South Hallway',
+            'green-house-room': 'Green House'
+        }
+
+        self.text_short_table = {}
+        self.text_long_table = {}
+
+        self._add_to_text_short_table(dict=text)
+        self._add_to_text_long_table(dict=text)
+        #print(self.text_short_table)
+        #print(self.text_long_table)
+
+        #print(self.move_table)
         pass
 
     def _arrange_move_pattern(self,list=[],start_anywhere=False, start=0):
@@ -241,7 +275,7 @@ class DictVocab:
                 pass
             l = move[1:-1]
             move_word = self._arrange_move_pattern(list=l,start_anywhere=start_anywhere,start=start)
-            if not move_word in self.move_table:
+            if move_word not in self.move_table:
                 self.move_table[move_word] = new_room
         pass
 
@@ -255,4 +289,20 @@ class DictVocab:
                 if ll < len(l) - 2:
                     word += '-'
             self.words_dict[word] = voc_num[0]
-            print(word, voc_num[0])
+            #print(word, voc_num[0])
+
+    def _add_to_text_short_table(self,dict={}):
+        for key in dict:
+            self.text_short_table[self.rooms[key]] = dict[key]
+
+    def _add_to_text_long_table(self,dict={}):
+        #op_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'operator')) + "/"
+        #print(op_dir)
+        for key in dict:
+            num = self.rooms[key]
+            name = 'description-'+ str(num) + '.txt'
+            if os.path.exists(os.path.join('operator','txt', name)):
+                f = open(os.path.join('operator','txt', name),'r')
+                val = f.read()
+                self.text_long_table[num] = val
+                pass

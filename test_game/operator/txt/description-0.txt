@@ -1,0 +1,2 @@
+Here is the Music Room. You can listen to music from your favorite recordings.
+The operator picks from the Music directory in your home folder.
