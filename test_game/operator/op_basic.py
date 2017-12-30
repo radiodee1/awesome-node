@@ -37,7 +37,11 @@ class Op(dict.DictVocab):
             move_word = self.arrange_move_pattern(list=com, start_anywhere=False, start=self.room_num)
             if move_word in self.move_table:
                 self.room_num = self.move_table[move_word]
-
+                #return ''
+        move_word = self.arrange_move_pattern(list=com, start_anywhere=True, start=self.room_num)
+        if move_word in self.start_op_table:
+            self.start_op(self.start_op_table[move_word])
+            return ''
         text = self.output_text(self.room_num)
         self.room_num_old = self.room_num
 
@@ -106,3 +110,22 @@ class Op(dict.DictVocab):
             pass
         return nlist
 
+    def start_op(self, op, list=[]):
+        exec_line = ''
+        op = str(op).split('+')
+        op = op[0] ## magic index number
+        if os.path.exists(op):
+            f = open(op, 'r')
+            for l in f:
+                if l.startswith('Exec='):
+                    exec_line = l[len('Exec='):]
+                    break
+            f.close()
+            exec_line = exec_line.split()
+            exec_line = exec_line[0]
+            if len(list) == 0:
+                os.system(exec_line)
+            else:
+                exec_line += ' ' + ' '.join(list)
+                os.system(exec_line)
+        pass

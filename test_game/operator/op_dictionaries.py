@@ -9,6 +9,16 @@ class DictVocab:
     START_INTERNET = 3
     START_OFFICE = 4
     START_MAIL = 5
+    START_PROGRAM = 6
+
+    LAUNCH_SYNC = 7
+    LAUNCH_ASYNC = 8
+
+    COLUMN_VOCAB = 0
+    COLUMN_PROGRAM_KEY = 1
+    COLUMN_LAUNCH_STRING = 2
+    COLUMN_SYNC_ASYNC = 3
+
 
     def __init__(self):
         self.words_dict = {
@@ -77,7 +87,8 @@ class DictVocab:
             'twenty': 47,
 
             'office': 48,
-            #'internet': 49, ## duplicate!
+            'program': 49,
+
 
         }
         self.words_phrase = [
@@ -112,6 +123,7 @@ class DictVocab:
             ['start','music', 512],
             ['start','internet',513],
             ['start','office', 514],
+            ['start','program', 515],
 
             ['north','west', 4],
             ['north','east', 5],
@@ -122,6 +134,7 @@ class DictVocab:
         self._add_to_vocab_table(list=self.words_phrase)
 
         self.rooms = {
+            ### abbreviation ###
             'room-0': 0, # north-most room
             'room-1': 1, # north-west room
             'room-2': 2, # north hallway
@@ -268,17 +281,19 @@ class DictVocab:
         self._add_to_text_long_table(dict=text)
 
         start = [
-            ['start-music', DictVocab.START_MUSIC],
-            ['start-mail', DictVocab.START_MAIL],
-            ['start-movie', DictVocab.START_MOVIE],
-            ['start-office', DictVocab.START_OFFICE],
-            ['start-internet', DictVocab.START_INTERNET]
+            ['start-music', DictVocab.START_MUSIC,'/usr/share/applications/audacious.desktop', DictVocab.LAUNCH_SYNC],
+            ['start-mail', DictVocab.START_MAIL,'/usr/share/applications/thunderbird.desktop', DictVocab.LAUNCH_ASYNC],
+            ['start-movie', DictVocab.START_MOVIE, '/usr/share/applications/vlc.desktop', DictVocab.LAUNCH_SYNC],
+            ['start-office', DictVocab.START_OFFICE, '/usr/share/applications/libreoffice-startcenter.desktop', DictVocab.LAUNCH_ASYNC],
+            ['start-internet', DictVocab.START_INTERNET, '/usr/share/applications/google-chrome.desktop', DictVocab.LAUNCH_ASYNC],
+            ['start-program', DictVocab.START_PROGRAM, 'exec', DictVocab.LAUNCH_ASYNC]
         ]
 
-        self.start_op_table = []
+        self.start_op_table = {}
 
         self._add_to_start_op_table(list=start)
-
+        #print(self.start_op_table)
+        #exit()
         pass
 
     def arrange_move_pattern(self,list=[],start_anywhere=False, start=0):
@@ -293,6 +308,18 @@ class DictVocab:
             if not i == len(list) -1:
                 val += '+'
         #print(val)
+        return val
+        pass
+
+    def arrange_launch_pattern(self, async=False, launch_code='', enum_type=0):
+        val = ''
+        val += launch_code
+        val += '+'
+        val += str(enum_type)
+        val += '+'
+        if async: val += str(DictVocab.LAUNCH_ASYNC)
+        else: val += str(DictVocab.LAUNCH_SYNC)
+
         return val
         pass
 
@@ -357,5 +384,19 @@ class DictVocab:
                 pass
             self.room_seen_bool[num] = False
 
-    def _add_to_start_op_table(self, list=[]):
+    def _add_to_start_op_table(self, list={}):
+        start_anywhere = True
+        start = -1
+        for line in list:
+            code = line[DictVocab.COLUMN_LAUNCH_STRING]
+            l = [line[DictVocab.COLUMN_VOCAB]]
+            enum = line[DictVocab.COLUMN_PROGRAM_KEY]
+            #print(l)
+            async = True
+            if line[DictVocab.COLUMN_SYNC_ASYNC] == DictVocab.LAUNCH_SYNC:
+                async = False
+            start_code = self.arrange_launch_pattern(launch_code=code, async=async,enum_type=enum)
+            move_word = self.arrange_move_pattern(list=l,start_anywhere=start_anywhere,start=start)
+            #print(start_code)
+            self.start_op_table[move_word] = start_code
         pass

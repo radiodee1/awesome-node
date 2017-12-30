@@ -48,8 +48,8 @@
       <file leaf-file-name="list.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/operator/txt/list.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+            <state relative-caret-position="198">
+              <caret line="11" column="5" lean-forward="false" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -68,8 +68,8 @@
       <file leaf-file-name="op_basic.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/operator/op_basic.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1080">
-              <caret line="60" column="63" lean-forward="false" selection-start-line="60" selection-start-column="63" selection-end-line="60" selection-end-column="63" />
+            <state relative-caret-position="626">
+              <caret line="125" column="0" lean-forward="false" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
               <folding>
                 <element signature="e#18#82#0" expanded="true" />
               </folding>
@@ -80,8 +80,8 @@
       <file leaf-file-name="op_dictionaries.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/operator/op_dictionaries.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="279" column="46" lean-forward="false" selection-start-line="279" selection-start-column="46" selection-end-line="279" selection-end-column="46" />
+            <state relative-caret-position="270">
+              <caret line="269" column="28" lean-forward="false" selection-start-line="269" selection-start-column="28" selection-end-line="269" selection-end-column="28" />
               <folding>
                 <element signature="e#0#64#0" expanded="true" />
               </folding>
@@ -132,7 +132,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>words_all</find>
       <find>bool_show_lists</find>
       <find>mag</find>
       <find>resolve_word_closest</find>
@@ -162,6 +161,7 @@
       <find>read_word_list</find>
       <find>nlist</find>
       <find>_add_to_vocab_table</find>
+      <find>arrange_launch_pattern</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -205,15 +205,15 @@
         <option value="$PROJECT_DIR$/game_sr.py" />
         <option value="$PROJECT_DIR$/game_voice.py" />
         <option value="$PROJECT_DIR$/launch_operator.sh" />
-        <option value="$PROJECT_DIR$/operator/txt/list.txt" />
         <option value="$PROJECT_DIR$/game_operator.py" />
-        <option value="$PROJECT_DIR$/operator/op_basic.py" />
         <option value="$PROJECT_DIR$/operator/op_dictionaries.py" />
+        <option value="$PROJECT_DIR$/operator/txt/list.txt" />
+        <option value="$PROJECT_DIR$/operator/op_basic.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="489" />
+    <option name="x" value="488" />
     <option name="y" value="71" />
     <option name="width" value="1400" />
     <option name="height" value="1000" />
@@ -233,6 +233,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -276,7 +277,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -318,7 +318,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="489" y="71" width="1400" height="1000" extended-state="0" />
+    <frame x="488" y="71" width="1400" height="1000" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -589,6 +589,11 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/readme.md">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="20" column="37" lean-forward="false" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
+        </state>
+      </provider>
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="468">
@@ -598,11 +603,6 @@
           <second_editor>
             <js_state />
           </second_editor>
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="20" column="37" lean-forward="false" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -632,14 +632,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game_voice.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="14" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/game.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1062">
@@ -658,14 +650,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/operator/txt/list.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/game_operator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
@@ -676,20 +660,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/operator/txt/list.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="11" column="5" lean-forward="false" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/operator/op_dictionaries.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="279" column="46" lean-forward="false" selection-start-line="279" selection-start-column="46" selection-end-line="279" selection-end-column="46" />
+        <state relative-caret-position="270">
+          <caret line="269" column="28" lean-forward="false" selection-start-line="269" selection-start-column="28" selection-end-line="269" selection-end-column="28" />
           <folding>
             <element signature="e#0#64#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/game_voice.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="14" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/operator/op_basic.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1080">
-          <caret line="60" column="63" lean-forward="false" selection-start-line="60" selection-start-column="63" selection-end-line="60" selection-end-column="63" />
+        <state relative-caret-position="626">
+          <caret line="125" column="0" lean-forward="false" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
           <folding>
             <element signature="e#18#82#0" expanded="true" />
           </folding>
