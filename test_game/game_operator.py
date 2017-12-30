@@ -43,6 +43,7 @@ class Operator(game.Game):
                     if not word in self.words_all:
                         self.words_all.append(word)
             f.close()
+        self.words_game.extend(self.words_all)
 
     def print_list_suggested(self, apply_on_negate=False):
         apply_on_negate = False

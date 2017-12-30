@@ -70,7 +70,7 @@ class DictVocab:
             'twenty': 47,
 
             'office': 48,
-            'internet': 49
+            #'internet': 49, ## duplicate!
 
         }
         self.words_phrase = [
