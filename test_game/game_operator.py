@@ -44,18 +44,23 @@ class Operator(game.Game):
         pass
 
     def get_input_text_yes_no(self, text="", hint=True):
-        text = "try '"+ text + "' ?"
-        if hint is True: text = text + " [yes/NO]:"
-        #print(text)
-        self.set_output_text(text=text)
-        v = self.voice.voice_detection()
-        if v.lower() == "yes" or v.lower() == "yeah":
-            print("accept")
-            return True
+        if self.play.get_raw_input_bool() is False:
+            ## ask about input ##
+            text = "try '"+ text + "' ?"
+            if hint is True: text = text + " [yes/NO]:"
+            #print(text)
+            self.set_output_text(text=text)
+            v = self.voice.voice_detection()
+            if v.lower() == "yes" or v.lower() == "yeah":
+                print("accept")
+                return True
+            else:
+                print("reject")
+                return False
+            pass
         else:
-            print("reject")
+            ## use raw input ##
             return False
-        pass
 
     def set_output_text(self, text=""):
         print(text)

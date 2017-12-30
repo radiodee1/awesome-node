@@ -69,7 +69,8 @@ class DictVocab:
             'nineteen': 46,
             'twenty': 47,
 
-            'office': 48
+            'office': 48,
+            'internet': 49
 
         }
         self.words_phrase = [
@@ -162,6 +163,7 @@ class DictVocab:
 
             'solarium': 8,  #
             'green-house': 8,  # souuth-most room
+
         }
 
 
@@ -190,6 +192,31 @@ class DictVocab:
 
             ['south-hallway', 's', 'green-house-room'],
             ['green-house-room', 'n', 'south-hallway'],
+
+            #### go ####
+            ['music-room','go' ,'s', 'north-hallway'],
+            ['north-hallway','go' , 'n', 'music-room'],
+
+            ['mail-room','go' , 'e', 'north-hallway'],
+            ['north-hallway', 'go' ,'w', 'mail-room'],
+
+            ['internet-room','go' , 'w', 'north-hallway'],
+            ['north-hallway','go' , 'e', 'internet-room'],
+
+            ['north-hallway', 'go' ,'s', 'middle-hallway'],
+            ['middle-hallway','go' , 'n', 'north-hallway'],
+
+            ['movie-room','go' , 'e', 'middle-hallway'],
+            ['middle-hallway', 'go' ,'w', 'movie-room'],
+
+            ['library-room', 'go' ,'w', 'middle-hallway'],
+            ['middle-hallway', 'go' ,'e', 'library-room'],
+
+            ['middle-hallway','go' , 's', 'south-hallway'],
+            ['south-hallway', 'go' ,'n', 'middle-hallway'],
+
+            ['south-hallway', 'go' ,'s', 'green-house-room'],
+            ['green-house-room', 'go' ,'n', 'south-hallway'],
 
             #### general ####
             ['#', 'music', 'music-room'],
@@ -222,16 +249,17 @@ class DictVocab:
 
         self.text_short_table = {}
         self.text_long_table = {}
+        self.room_seen_bool = {}
 
         self._add_to_text_short_table(dict=text)
         self._add_to_text_long_table(dict=text)
         #print(self.text_short_table)
         #print(self.text_long_table)
-
         #print(self.move_table)
+
         pass
 
-    def _arrange_move_pattern(self,list=[],start_anywhere=False, start=0):
+    def arrange_move_pattern(self,list=[],start_anywhere=False, start=0):
         val = ''
         if start_anywhere or start == -1:
             val += "#"
@@ -274,7 +302,7 @@ class DictVocab:
                 print('cannot find new room')
                 pass
             l = move[1:-1]
-            move_word = self._arrange_move_pattern(list=l,start_anywhere=start_anywhere,start=start)
+            move_word = self.arrange_move_pattern(list=l,start_anywhere=start_anywhere,start=start)
             if move_word not in self.move_table:
                 self.move_table[move_word] = new_room
         pass
@@ -296,8 +324,6 @@ class DictVocab:
             self.text_short_table[self.rooms[key]] = dict[key]
 
     def _add_to_text_long_table(self,dict={}):
-        #op_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'operator')) + "/"
-        #print(op_dir)
         for key in dict:
             num = self.rooms[key]
             name = 'description-'+ str(num) + '.txt'
@@ -306,3 +332,4 @@ class DictVocab:
                 val = f.read()
                 self.text_long_table[num] = val
                 pass
+            self.room_seen_bool[num] = False
