@@ -3,6 +3,13 @@ import os.path
 
 
 class DictVocab:
+
+    START_MUSIC = 1
+    START_MOVIE = 2
+    START_INTERNET = 3
+    START_OFFICE = 4
+    START_MAIL = 5
+
     def __init__(self):
         self.words_dict = {
             'north' : 0,
@@ -99,6 +106,12 @@ class DictVocab:
             ['green','house', 508],
 
             ['world','wide','web', 509],
+
+            ['start','movie', 510],
+            ['start','mail', 511],
+            ['start','music', 512],
+            ['start','internet',513],
+            ['start','office', 514],
 
             ['north','west', 4],
             ['north','east', 5],
@@ -253,9 +266,18 @@ class DictVocab:
 
         self._add_to_text_short_table(dict=text)
         self._add_to_text_long_table(dict=text)
-        #print(self.text_short_table)
-        #print(self.text_long_table)
-        #print(self.move_table)
+
+        start = [
+            ['start-music', DictVocab.START_MUSIC],
+            ['start-mail', DictVocab.START_MAIL],
+            ['start-movie', DictVocab.START_MOVIE],
+            ['start-office', DictVocab.START_OFFICE],
+            ['start-internet', DictVocab.START_INTERNET]
+        ]
+
+        self.start_op_table = []
+
+        self._add_to_start_op_table(list=start)
 
         pass
 
@@ -334,3 +356,6 @@ class DictVocab:
                 f.close()
                 pass
             self.room_seen_bool[num] = False
+
+    def _add_to_start_op_table(self, list=[]):
+        pass

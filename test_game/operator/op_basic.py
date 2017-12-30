@@ -14,6 +14,7 @@ class Op(dict.DictVocab):
         self.room_num = 0 ## start in music room
         self.room_num_old = -1
         self.raw_input_bool = False
+        self.speak_aloud_bool = True
         pass
 
     def get_raw_input_bool(self):
@@ -57,7 +58,7 @@ class Op(dict.DictVocab):
         if num in self.text_long_table and self.room_seen_bool[num] is False:
             txt += self.text_long_table[num]
         self.room_seen_bool[num] = True
-        if num == self.room_num_old:
+        if num == self.room_num_old or self.speak_aloud_bool is False:
             print(txt)
             return '' ## Don't say it out loud!!
         return txt
