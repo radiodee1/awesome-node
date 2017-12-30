@@ -1,0 +1,10 @@
+internet
+library
+office
+music
+mail
+movie
+video
+hallway
+greenhouse
+green

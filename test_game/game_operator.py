@@ -32,7 +32,17 @@ class Operator(game.Game):
         print('shutting down')
         self.play_stop()
 
-
+    def read_word_list(self):
+        #super(game.Game, self).read_word_list()
+        game.Game.read_word_list(self)
+        if os.path.isfile("operator/txt/list.txt"):
+            f = open("operator/txt/list.txt","r")
+            for line in f:
+                line = line.strip().lower()
+                for word in line.split():
+                    if not word in self.words_all:
+                        self.words_all.append(word)
+            f.close()
 
     def print_list_suggested(self, apply_on_negate=False):
         apply_on_negate = False

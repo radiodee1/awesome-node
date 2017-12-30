@@ -331,5 +331,6 @@ class DictVocab:
                 f = open(os.path.join('operator','txt', name),'r')
                 val = f.read()
                 self.text_long_table[num] = val
+                f.close()
                 pass
             self.room_seen_bool[num] = False
