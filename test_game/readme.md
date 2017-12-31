@@ -31,6 +31,10 @@ Here is a list of common ubuntu/linux packages that must be installed:
 mpg321
 build-essential
 portaudio
+rhythmbox
+libreoffice
+vlc
+thunderbird
 ```
 ## General:
 * This project is a 'Work-In-Progress'.

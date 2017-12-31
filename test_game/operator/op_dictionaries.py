@@ -88,7 +88,7 @@ class DictVocab:
 
             'office': 48,
             'program': 49,
-
+            'email': 50
 
         }
         self.words_phrase = [
@@ -281,12 +281,21 @@ class DictVocab:
         self._add_to_text_long_table(dict=text)
 
         start = [
-            ['start-music', DictVocab.START_MUSIC,'/usr/share/applications/audacious.desktop', DictVocab.LAUNCH_SYNC],
+            ['start-music', DictVocab.START_MUSIC,'/usr/share/applications/rhythmbox.desktop', DictVocab.LAUNCH_SYNC],
             ['start-mail', DictVocab.START_MAIL,'/usr/share/applications/thunderbird.desktop', DictVocab.LAUNCH_ASYNC],
             ['start-movie', DictVocab.START_MOVIE, '/usr/share/applications/vlc.desktop', DictVocab.LAUNCH_SYNC],
             ['start-office', DictVocab.START_OFFICE, '/usr/share/applications/libreoffice-startcenter.desktop', DictVocab.LAUNCH_ASYNC],
             ['start-internet', DictVocab.START_INTERNET, '/usr/share/applications/google-chrome.desktop', DictVocab.LAUNCH_ASYNC],
-            ['start-program', DictVocab.START_PROGRAM, 'exec', DictVocab.LAUNCH_ASYNC]
+            ['start-program', DictVocab.START_PROGRAM, 'exec', DictVocab.LAUNCH_ASYNC],
+
+            ['music', DictVocab.START_MUSIC, '/usr/share/applications/rhythmbox.desktop', DictVocab.LAUNCH_SYNC],
+            ['mail', DictVocab.START_MAIL, '/usr/share/applications/thunderbird.desktop', DictVocab.LAUNCH_ASYNC],
+            ['email', DictVocab.START_MAIL, '/usr/share/applications/thunderbird.desktop', DictVocab.LAUNCH_ASYNC],
+            ['movie', DictVocab.START_MOVIE, '/usr/share/applications/vlc.desktop', DictVocab.LAUNCH_SYNC],
+            ['video', DictVocab.START_MOVIE, '/usr/share/applications/vlc.desktop', DictVocab.LAUNCH_SYNC],
+            ['office', DictVocab.START_OFFICE, '/usr/share/applications/libreoffice-startcenter.desktop',DictVocab.LAUNCH_ASYNC],
+            ['internet', DictVocab.START_INTERNET, '/usr/share/applications/google-chrome.desktop',DictVocab.LAUNCH_ASYNC],
+            ['program', DictVocab.START_PROGRAM, 'exec', DictVocab.LAUNCH_ASYNC]
         ]
 
         self.start_op_table = {}
@@ -384,7 +393,7 @@ class DictVocab:
                 pass
             self.room_seen_bool[num] = False
 
-    def _add_to_start_op_table(self, list={}):
+    def _add_to_start_op_table(self, list=[]):
         start_anywhere = True
         start = -1
         for line in list:

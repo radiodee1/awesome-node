@@ -13,8 +13,10 @@ class Op(dict.DictVocab):
         dict.DictVocab.__init__(self)
         self.room_num = 0 ## start in music room
         self.room_num_old = -1
-        self.raw_input_bool = False
+        self.raw_input_bool = False ### should start false!!
         self.speak_aloud_bool = True
+
+        self.words_raw_input = ''
         pass
 
     def get_raw_input_bool(self):
@@ -30,18 +32,29 @@ class Op(dict.DictVocab):
     def execute_command(self, command):
         com = command.split()
         com = self.find_phrases(list=com)
-        move_word = self.arrange_move_pattern(list=com, start_anywhere=True, start=self.room_num)
-        if move_word in self.move_table:
-            self.room_num = self.move_table[move_word]
-        else:
-            move_word = self.arrange_move_pattern(list=com, start_anywhere=False, start=self.room_num)
+        try:
+        ### move from anywhere ###
+            move_word = self.arrange_move_pattern(list=com, start_anywhere=True, start=self.room_num)
             if move_word in self.move_table:
                 self.room_num = self.move_table[move_word]
-                #return ''
-        move_word = self.arrange_move_pattern(list=com, start_anywhere=True, start=self.room_num)
-        if move_word in self.start_op_table:
-            self.start_op(self.start_op_table[move_word])
-            return ''
+            else:
+                ### move from one location ###
+                move_word = self.arrange_move_pattern(list=com, start_anywhere=False, start=self.room_num)
+                if move_word in self.move_table:
+                    self.room_num = self.move_table[move_word]
+
+            ### start an application ###
+            move_word = self.arrange_move_pattern(list=com, start_anywhere=True, start=self.room_num)
+            if move_word in self.start_op_table:
+                self.start_op(self.start_op_table[move_word])
+                return ''
+        except:
+            if self.raw_input_bool == True:
+                return 'raw text'
+            else:
+                return ''
+            pass
+        ### output text ###
         text = self.output_text(self.room_num)
         self.room_num_old = self.room_num
 
@@ -55,6 +68,7 @@ class Op(dict.DictVocab):
         pass
 
     def output_text(self,num):
+        #print(self.words_raw_input)
         txt = ''
         if num in self.text_short_table:
             txt += self.text_short_table[num]
@@ -109,6 +123,10 @@ class Op(dict.DictVocab):
 
             pass
         return nlist
+
+    def set_raw_input(self,input):
+        self.words_raw_input = input
+        pass
 
     def start_op(self, op, list=[]):
         exec_line = ''

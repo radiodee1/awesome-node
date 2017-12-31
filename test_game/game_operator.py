@@ -47,7 +47,9 @@ class Operator(game.Game):
 
     def print_list_suggested(self, apply_on_negate=False):
         apply_on_negate = False
+        if self.play.get_raw_input_bool: apply_on_negate = True
         game.Game.print_list_suggested(self, apply_on_negate)
+        self.play.set_raw_input(self.words_raw_input)
 
     def get_input_text(self, prompt=""):
         #print(prompt,":")
@@ -71,6 +73,7 @@ class Operator(game.Game):
             pass
         else:
             ## use raw input ##
+            print(self.words_raw_input)
             return False
 
     def set_output_text(self, text=""):
