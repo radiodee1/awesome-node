@@ -1,0 +1,2 @@
+This is a hallway between the northern-most rooms. 
+There is an exit to the north, south, west and east.
