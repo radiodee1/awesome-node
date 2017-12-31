@@ -10,9 +10,13 @@ class DictVocab:
     START_OFFICE = 4
     START_MAIL = 5
     START_PROGRAM = 6
+    START_INTERNAL = 7
 
-    LAUNCH_SYNC = 7
-    LAUNCH_ASYNC = 8
+    LAUNCH_SYNC = 8
+    LAUNCH_ASYNC = 9
+    LAUNCH_SEARCH_WEB = 10
+    LAUNCH_SEARCH_FILES = 11
+    LAUNCH_SEARCH_EXECUTABLE = 12
 
     COLUMN_VOCAB = 0
     COLUMN_PROGRAM_KEY = 1
@@ -262,15 +266,15 @@ class DictVocab:
         self._add_to_move_table(list=moves)
 
         text = {
-            'music-room': 'Music Room',
-            'north-hallway': 'North Hallway',
-            'mail-room': 'Mail Room',
-            'internet-room': 'Internet Room',
-            'movie-room': 'Video Room',
-            'middle-hallway':'Middle Hallway',
-            'library-room': 'Library and Office',
-            'south-hallway' : 'South Hallway',
-            'green-house-room': 'Green House'
+            'music-room': 'Music Room.',
+            'north-hallway': 'North Hallway.',
+            'mail-room': 'Mail Room.',
+            'internet-room': 'Internet Room.',
+            'movie-room': 'Video Room.',
+            'middle-hallway':'Middle Hallway.',
+            'library-room': 'Library and Office.',
+            'south-hallway' : 'South Hallway.',
+            'green-house-room': 'Green House.'
         }
 
         self.text_short_table = {}
@@ -286,7 +290,7 @@ class DictVocab:
             ['start-movie', DictVocab.START_MOVIE, '/usr/share/applications/vlc.desktop', DictVocab.LAUNCH_SYNC],
             ['start-office', DictVocab.START_OFFICE, '/usr/share/applications/libreoffice-startcenter.desktop', DictVocab.LAUNCH_ASYNC],
             ['start-internet', DictVocab.START_INTERNET, '/usr/share/applications/google-chrome.desktop', DictVocab.LAUNCH_ASYNC],
-            ['start-program', DictVocab.START_PROGRAM, 'exec', DictVocab.LAUNCH_ASYNC],
+            ['start-program', DictVocab.START_PROGRAM, 'exec', DictVocab.LAUNCH_SEARCH_EXECUTABLE],
 
             ['music', DictVocab.START_MUSIC, '/usr/share/applications/rhythmbox.desktop', DictVocab.LAUNCH_SYNC],
             ['mail', DictVocab.START_MAIL, '/usr/share/applications/thunderbird.desktop', DictVocab.LAUNCH_ASYNC],
@@ -295,7 +299,7 @@ class DictVocab:
             ['video', DictVocab.START_MOVIE, '/usr/share/applications/vlc.desktop', DictVocab.LAUNCH_SYNC],
             ['office', DictVocab.START_OFFICE, '/usr/share/applications/libreoffice-startcenter.desktop',DictVocab.LAUNCH_ASYNC],
             ['internet', DictVocab.START_INTERNET, '/usr/share/applications/google-chrome.desktop',DictVocab.LAUNCH_ASYNC],
-            ['program', DictVocab.START_PROGRAM, 'exec', DictVocab.LAUNCH_ASYNC]
+            ['program', DictVocab.START_PROGRAM, 'exec', DictVocab.LAUNCH_SEARCH_EXECUTABLE]
         ]
 
         self.start_op_table = {}
@@ -320,14 +324,14 @@ class DictVocab:
         return val
         pass
 
-    def arrange_launch_pattern(self, async=False, launch_code='', enum_type=0):
+    def arrange_launch_pattern(self, async=LAUNCH_SYNC, launch_code='', enum_type=0):
         val = ''
         val += launch_code
         val += '+'
         val += str(enum_type)
         val += '+'
-        if async: val += str(DictVocab.LAUNCH_ASYNC)
-        else: val += str(DictVocab.LAUNCH_SYNC)
+        val += str(async)
+        #else: val += str(DictVocab.LAUNCH_SYNC)
 
         return val
         pass
@@ -401,9 +405,9 @@ class DictVocab:
             l = [line[DictVocab.COLUMN_VOCAB]]
             enum = line[DictVocab.COLUMN_PROGRAM_KEY]
             #print(l)
-            async = True
-            if line[DictVocab.COLUMN_SYNC_ASYNC] == DictVocab.LAUNCH_SYNC:
-                async = False
+            async = line[DictVocab.COLUMN_SYNC_ASYNC]
+            #if line[DictVocab.COLUMN_SYNC_ASYNC] == DictVocab.LAUNCH_SYNC:
+            #    async = False
             start_code = self.arrange_launch_pattern(launch_code=code, async=async,enum_type=enum)
             move_word = self.arrange_move_pattern(list=l,start_anywhere=start_anywhere,start=start)
             #print(start_code)

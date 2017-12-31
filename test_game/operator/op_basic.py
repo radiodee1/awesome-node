@@ -131,8 +131,11 @@ class Op(dict.DictVocab):
     def start_op(self, op, list=[]):
         exec_line = ''
         op = str(op).split('+')
+        start = op[1]
+        launch = op[2]
         op = op[0] ## magic index number
-        if os.path.exists(op):
+
+        if os.path.exists(op) or start != DictVocab.START_INTERNAL:
             f = open(op, 'r')
             for l in f:
                 if l.startswith('Exec='):
@@ -146,4 +149,14 @@ class Op(dict.DictVocab):
             else:
                 exec_line += ' ' + ' '.join(list)
                 os.system(exec_line)
+        elif launch == DictVocab.LAUNCH_SEARCH_FILES:
+            print('search files')
+            pass
+        elif launch == DictVocab.LAUNCH_SEARCH_WEB:
+            print('search web')
+            pass
+        elif launch == DictVocab.LAUNCH_SEARCH_EXECUTABLE:
+            print('search exec')
+            pass
         pass
+
