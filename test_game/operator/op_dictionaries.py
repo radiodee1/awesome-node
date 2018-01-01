@@ -129,6 +129,12 @@ class DictVocab:
             ['start','office', 514],
             ['start','program', 515],
 
+            ['who','is', 516],
+            ['what','is', 517],
+            ['when','is', 518],
+            ['where','is', 519],
+            ['why', 'is', 520],
+
             ['north','west', 4],
             ['north','east', 5],
             ['south','west', 6],
@@ -305,6 +311,27 @@ class DictVocab:
         self.start_op_table = {}
 
         self._add_to_start_op_table(list=start)
+
+        self.search_anywhere_table = [
+            ## last item is program to launch !!
+            ['music','start-music'],
+            ['mail', 'start-mail'],
+            ['movie', 'start-movie'],
+            ['office', 'start-office'],
+            ['internet', 'start-internet'],
+            ['program', 'start-program'],
+            ['what-is', 'start-internet'],
+            ['who-is', 'start-internet'],
+            ['when-is', 'start-internet'],
+            ['where-is', 'start-internet'],
+            ['why-is', 'start-internet'],
+            ['search', 'start-internet'],
+            ['search','for', 'start-internet']
+
+        ]
+
+        #self.search_anywhere_table = {}
+
         #print(self.start_op_table)
         #exit()
         pass

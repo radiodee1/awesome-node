@@ -17,6 +17,9 @@ class Op(dict.DictVocab):
         self.speak_aloud_bool = True
 
         self.words_raw_input = ''
+
+        
+
         pass
 
     def get_raw_input_bool(self):
@@ -33,7 +36,7 @@ class Op(dict.DictVocab):
         com = command.split()
         com = self.find_phrases(list=com)
         try:
-        ### move from anywhere ###
+            ### move from anywhere ###
             move_word = self.arrange_move_pattern(list=com, start_anywhere=True, start=self.room_num)
             if move_word in self.move_table:
                 self.room_num = self.move_table[move_word]
@@ -160,3 +163,22 @@ class Op(dict.DictVocab):
             pass
         pass
 
+    def find_words_anywhere(self, list=[]):
+        ## return an op code so that start_op() can be called next
+        com = []
+        for z in self.search_anywhere_table:
+            tot = 0
+            zz = z[:-1]
+            print(zz,'- start list')
+            for i in zz:
+                for j in list:
+                    if i == j:
+                        tot += 1
+            if tot == len(zz):
+                com = z[-1:]
+                print(com,'- new list')
+                break
+
+        move_word = self.arrange_move_pattern(list=com, start_anywhere=True, start=self.room_num)
+        return move_word
+        pass
