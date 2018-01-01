@@ -18,7 +18,7 @@ class Op(dict.DictVocab):
 
         self.words_raw_input = ''
 
-        
+
 
         pass
 
@@ -36,6 +36,11 @@ class Op(dict.DictVocab):
         com = command.split()
         com = self.find_phrases(list=com)
         try:
+            ### anywhere text ###
+            move_word = self.find_words_anywhere(list=com)
+            if move_word in self.start_op_table:
+                self.start_op(self.start_op_table[move_word])
+                return ''
             ### move from anywhere ###
             move_word = self.arrange_move_pattern(list=com, start_anywhere=True, start=self.room_num)
             if move_word in self.move_table:
@@ -169,16 +174,23 @@ class Op(dict.DictVocab):
         for z in self.search_anywhere_table:
             tot = 0
             zz = z[:-1]
-            print(zz,'- start list')
+            #print(zz,'- start list')
             for i in zz:
                 for j in list:
                     if i == j:
                         tot += 1
             if tot == len(zz):
                 com = z[-1:]
-                print(com,'- new list')
+                #print(com,'- new list')
                 break
 
         move_word = self.arrange_move_pattern(list=com, start_anywhere=True, start=self.room_num)
         return move_word
         pass
+
+    def detect_words_anywhere(self , list=[]):
+        word = self.find_words_anywhere(list=list)
+        if word in self.start_op_table:
+            return True
+        else:
+            return False

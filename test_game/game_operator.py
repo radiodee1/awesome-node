@@ -46,13 +46,18 @@ class Operator(game.Game):
         self.words_game.extend(self.words_all)
 
     def print_list_suggested(self, apply_on_negate=False):
-        apply_on_negate = False
-        if self.play.get_raw_input_bool: apply_on_negate = True
-        game.Game.print_list_suggested(self, apply_on_negate)
+        if self.play.detect_words_anywhere(self.words_raw_input) == False:
+
+            apply_on_negate = False
+            if self.play.get_raw_input_bool: apply_on_negate = True
+            game.Game.print_list_suggested(self, apply_on_negate)
+        else:
+            print('start op')
+            self.words_correct = self.words_raw_input
         self.play.set_raw_input(self.words_raw_input)
 
     def get_input_text(self, prompt=""):
-        #print(prompt,":")
+        print('> ',end="")
         return self.voice.voice_detection()
         pass
 

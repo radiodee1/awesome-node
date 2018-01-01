@@ -1,2 +1,4 @@
-Here is the Music Room. You can listen to music from your favorite recordings.
-The operator picks from the Music directory in your home folder. There is an exit to the south.
+You can listen to music from your saved recordings.
+You can say 'music' or 'start music'.
+The operator launches a player for the Music directory in your home folder.
+There is an exit to the south.

@@ -297,10 +297,16 @@ class Game(object, MeasureVec, Vocab):
         self.words_raw_input = input
 
         compare_to_vec = False
+
+        not_in_list = []
         for w in input:
             if w not in self.words_game:
                 compare_to_vec = True
-                print ("not in list:",w)
+                #print ("not in list:",w)
+                not_in_list.append(w)
+
+        if len(not_in_list) > 0:
+            print("not in list: ", ', '.join(not_in_list))
 
         if input[0] == 'check':
             self.enqueue_odd_vec(list_wrong=[], list_right=[], check=True)

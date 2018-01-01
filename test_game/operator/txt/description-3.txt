@@ -1,1 +1,2 @@
-This is the location of the internet browser. There is an exit to the west.
+This is the location of the internet browser. You can say 'internet' or 'search'.
+There is an exit to the west.

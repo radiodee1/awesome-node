@@ -1,2 +1,3 @@
-Collect your mail here.
-This room is where the operator launches your selected mail management program. There is an exit to the east.
+Collect your mail here. You can say 'mail' or 'start mail' to launch.
+This room is where the operator launches your selected mail management program.
+There is an exit to the east.

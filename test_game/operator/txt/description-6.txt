@@ -1,1 +1,2 @@
-Here you can launch the office suite. There is an exit to the west.
+Here you can launch the office suite. You can say 'office' or 'write'.
+There is an exit to the west.

@@ -318,6 +318,7 @@ class DictVocab:
             ['mail', 'start-mail'],
             ['movie', 'start-movie'],
             ['office', 'start-office'],
+            ['write', 'start-office'],
             ['internet', 'start-internet'],
             ['program', 'start-program'],
             ['what-is', 'start-internet'],

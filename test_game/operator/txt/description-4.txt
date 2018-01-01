@@ -1,1 +1,2 @@
-This is the location for the movie viewer. There is an exit to the east.
+This is the location for the movie viewer. You can say 'movie' or 'video'.
+There is an exit to the east.
