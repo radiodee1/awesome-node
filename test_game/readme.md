@@ -35,6 +35,7 @@ rhythmbox
 libreoffice
 vlc
 thunderbird
+google-chrome
 ```
 ## General:
 * This project is a 'Work-In-Progress'.
