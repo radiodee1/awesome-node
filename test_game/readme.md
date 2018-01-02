@@ -109,7 +109,7 @@ The `-load-special` flag must be after all other flags on the terminal command l
 * Download and install the Google-Cloud-Sdk. This package has the `gcloud` command.
   * This includes downloading the google-cloud-sdk file, unpacking it, and executing the command `./google-cloud-sdk/install.sh`
   * You must also restart your terminal.
-* Use Google Cloud Platform Console to create a project and download a project json file. I put my project in a directory called `/home/<myname>/bin` .
+* Use Google Cloud Platform Console to create a project and download a project json file. I put my project json file in a directory called `/home/<myname>/bin` .
 * Use the `gcloud` command to set up your authentication. I used the following: `gcloud auth activate-service-account --key-file=bin/awesome-sr-*.json`
 * https://cloud.google.com/sdk/docs/quickstart-linux See this url for details.
 * Go to the Google Cloud Platform's API's and Services Page. Generate an API key.
