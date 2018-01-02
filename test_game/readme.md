@@ -103,6 +103,7 @@ The `-load-special` flag must be after all other flags on the terminal command l
 * There are two basic methods for training. One uses the `do_w2v_train.py` script and any text you might have. The other method uses the wikipedia articles downloaded above. This second method is more complex and time consuming. It uses three scripts, the `do_w2v_corpus_wiki.py` script, the `do_w2v_corpus_wiki_mod.py` script, and the `do_w2v_train_wiki.py` script.    
 
 ## Notes on using Google Speech Recognition
+The second part of this project dispenses with the frotz program and the textplayer interface. Instead it introduces the 'operator' code. It continues to use the word2vec gensim code.
 * Install all the recommended python packages and make sure they work.
 * Test google speech recognition with the `do_test_google_sr.py` script. The script may be helpful at different times to tell if your setup attempt is working.
 * https://cloud.google.com/sdk/docs/quickstart-linux See this url for details.
