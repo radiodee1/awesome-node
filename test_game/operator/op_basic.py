@@ -2,6 +2,7 @@
 from __future__ import absolute_import, division, print_function
 
 import os.path , sys
+import os
 
 op_dir = os.path.abspath(os.path.join(os.path.dirname(__file__))) + "/"
 #print(op_dir)
@@ -17,7 +18,7 @@ class Op(dict.DictVocab):
         self.speak_aloud_bool = True
 
         self.words_raw_input = ''
-
+        self.words_anywhere_bool = False
 
 
         pass
@@ -37,9 +38,11 @@ class Op(dict.DictVocab):
         com = self.find_phrases(list=com)
         try:
             ### anywhere text ###
+            self.words_anywhere_bool = False
             move_word = self.find_words_anywhere(list=com)
             if move_word in self.start_op_table:
-                self.start_op(self.start_op_table[move_word])
+                self.words_anywhere_bool = True
+                self.start_op(self.start_op_table[move_word],list=com)
                 return ''
             ### move from anywhere ###
             move_word = self.arrange_move_pattern(list=com, start_anywhere=True, start=self.room_num)
@@ -52,6 +55,7 @@ class Op(dict.DictVocab):
                     self.room_num = self.move_table[move_word]
 
             ### start an application ###
+            self.words_anywhere_bool = False
             move_word = self.arrange_move_pattern(list=com, start_anywhere=True, start=self.room_num)
             if move_word in self.start_op_table:
                 self.start_op(self.start_op_table[move_word])
@@ -139,11 +143,11 @@ class Op(dict.DictVocab):
     def start_op(self, op, list=[]):
         exec_line = ''
         op = str(op).split('+')
-        start = op[1]
-        launch = op[2]
+        start = int(op[1])
+        launch = int(op[2])
         op = op[0] ## magic index number
 
-        if os.path.exists(op) or start != DictVocab.START_INTERNAL:
+        if os.path.exists(op) : #and start != int(self.START_INTERNAL):
             f = open(op, 'r')
             for l in f:
                 if l.startswith('Exec='):
@@ -152,21 +156,28 @@ class Op(dict.DictVocab):
             f.close()
             exec_line = exec_line.split()
             exec_line = exec_line[0]
-            if len(list) == 0:
+            if len(list) == 1 or self.words_anywhere_bool == False: #< len(str(op).split('+')):
                 os.system(exec_line)
-            else:
+            elif launch == int(self.LAUNCH_SEARCH_WEB) or start == int(self.START_INTERNET) :
+                LAUNCH_URL = ' "http://www.google.com/search?q='
+                exec_line += LAUNCH_URL
+                exec_line += ' '.join(list)
+                exec_line += '"'
+                os.system(exec_line)
+                pass
+            elif False:
                 exec_line += ' ' + ' '.join(list)
                 os.system(exec_line)
-        elif launch == DictVocab.LAUNCH_SEARCH_FILES:
+        elif launch == self.LAUNCH_SEARCH_FILES:
             print('search files')
             pass
-        elif launch == DictVocab.LAUNCH_SEARCH_WEB:
-            print('search web')
-            pass
-        elif launch == DictVocab.LAUNCH_SEARCH_EXECUTABLE:
+        elif launch == self.LAUNCH_SEARCH_EXECUTABLE:
             print('search exec')
             pass
+        else:
+            print('skip all')
         pass
+
 
     def find_words_anywhere(self, list=[]):
         ## return an op code so that start_op() can be called next
@@ -191,6 +202,8 @@ class Op(dict.DictVocab):
     def detect_words_anywhere(self , list=[]):
         word = self.find_words_anywhere(list=list)
         if word in self.start_op_table:
+            self.words_anywhere_bool = True
             return True
         else:
+            self.words_anywhere_bool = False
             return False

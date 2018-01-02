@@ -20,7 +20,7 @@ class Operator(game.Game):
     def __init__(self):
         game.Game.__init__(self)
         self.multithreading = True
-        print ("Voice Input: Operator I")
+        print ("Operator 1")
         self.play = Op()
         self.run(load_special=False, play=self.play)
 

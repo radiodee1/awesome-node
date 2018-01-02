@@ -295,7 +295,7 @@ class DictVocab:
             ['start-mail', DictVocab.START_MAIL,'/usr/share/applications/thunderbird.desktop', DictVocab.LAUNCH_ASYNC],
             ['start-movie', DictVocab.START_MOVIE, '/usr/share/applications/vlc.desktop', DictVocab.LAUNCH_SYNC],
             ['start-office', DictVocab.START_OFFICE, '/usr/share/applications/libreoffice-startcenter.desktop', DictVocab.LAUNCH_ASYNC],
-            ['start-internet', DictVocab.START_INTERNET, '/usr/share/applications/google-chrome.desktop', DictVocab.LAUNCH_ASYNC],
+            ['start-internet', DictVocab.START_INTERNET, '/usr/share/applications/google-chrome.desktop', DictVocab.LAUNCH_SEARCH_WEB],
             ['start-program', DictVocab.START_PROGRAM, 'exec', DictVocab.LAUNCH_SEARCH_EXECUTABLE],
 
             ['music', DictVocab.START_MUSIC, '/usr/share/applications/rhythmbox.desktop', DictVocab.LAUNCH_SYNC],
@@ -304,7 +304,7 @@ class DictVocab:
             ['movie', DictVocab.START_MOVIE, '/usr/share/applications/vlc.desktop', DictVocab.LAUNCH_SYNC],
             ['video', DictVocab.START_MOVIE, '/usr/share/applications/vlc.desktop', DictVocab.LAUNCH_SYNC],
             ['office', DictVocab.START_OFFICE, '/usr/share/applications/libreoffice-startcenter.desktop',DictVocab.LAUNCH_ASYNC],
-            ['internet', DictVocab.START_INTERNET, '/usr/share/applications/google-chrome.desktop',DictVocab.LAUNCH_ASYNC],
+            ['internet', DictVocab.START_INTERNET, '/usr/share/applications/google-chrome.desktop',DictVocab.LAUNCH_SEARCH_WEB],
             ['program', DictVocab.START_PROGRAM, 'exec', DictVocab.LAUNCH_SEARCH_EXECUTABLE]
         ]
 
