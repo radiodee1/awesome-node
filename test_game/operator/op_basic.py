@@ -60,7 +60,7 @@ class Op(dict.DictVocab):
             if move_word in self.start_op_table:
                 self.start_op(self.start_op_table[move_word])
                 return ''
-        except:
+        except KeyboardInterrupt:
             if self.raw_input_bool == True:
                 return 'raw text'
             else:
