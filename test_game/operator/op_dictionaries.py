@@ -122,14 +122,14 @@ class DictVocab:
             ['green', 'house','room', 508],
             ['green','house', 508],
 
-            ['world','wide','web', 509],
+            ['world','wide','web', 18],
 
-            ['start','movie', 510],
-            ['start','mail', 511],
-            ['start','music', 512],
-            ['start','internet',513],
-            ['start','office', 514],
-            ['start','program', 515],
+            ['start','movie', 16],
+            ['start','mail', 17],
+            ['start','music', 15],
+            ['start','internet',18],
+            ['start','office', 24],
+            ['start','program', 49],
 
             ['who','is', 516],
             ['what','is', 517],
@@ -315,6 +315,7 @@ class DictVocab:
         self._add_to_start_op_table(list=start)
 
         self.search_anywhere_table = [
+
             ## last item is program to launch !!
             ['music','start-music'],
             ['mail', 'start-mail'],
@@ -333,8 +334,16 @@ class DictVocab:
 
         ]
 
-        #self.search_anywhere_table = {}
+        self.search_anywhere_room_table = []
 
+        self.op_for_room_table = {
+            'music': 'start-music',
+            'mail': 'start-mail',
+            'movie': 'start-movie',
+            'office': 'start-office',
+            'internet': 'start-internet',
+            'program': 'start-program'
+        }
         #print(self.start_op_table)
         #exit()
         pass
@@ -347,7 +356,10 @@ class DictVocab:
             val = str(start)
         val += '+'
         for i in range(len(list)):
-            val += str(self.words_dict[list[i]])
+            if list[i] in self.words_dict:
+                val += str(self.words_dict[list[i]])
+            else:
+                val += '-'
             if not i == len(list) -1:
                 val += '+'
         #print(val)

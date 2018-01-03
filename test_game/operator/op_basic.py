@@ -46,6 +46,8 @@ class Op(dict.DictVocab, opdo.DoCommands):
             move_word = self.find_words_anywhere(list=com)
             if move_word in self.start_op_table:
                 self.words_anywhere_bool = True
+                if move_word in self.move_table:
+                    self.room_num = self.move_table[move_word]
                 self.start_op(self.start_op_table[move_word],list=com)
                 return ''
             ### move from anywhere ###
@@ -62,6 +64,8 @@ class Op(dict.DictVocab, opdo.DoCommands):
             self.words_anywhere_bool = False
             move_word = self.arrange_move_pattern(list=com, start_anywhere=True, start=self.room_num)
             if move_word in self.start_op_table:
+                if move_word in self.move_table:
+                    self.room_num = self.move_table[move_word]
                 self.start_op(self.start_op_table[move_word])
                 return ''
         except KeyboardInterrupt:
@@ -181,9 +185,13 @@ class Op(dict.DictVocab, opdo.DoCommands):
 
 
     def find_words_anywhere(self, list=[]):
-        ## return an op code so that start_op() can be called next
+        ## return an op code so that start_op() can be called next ##
+
+        ### create table for each room with preferred outcome on top ###
+        self.room_determined_table_order(self.room_num)
+
         com = []
-        for z in self.search_anywhere_table:
+        for z in self.search_anywhere_room_table:
             tot = 0
             zz = z[:-1]
             #print(zz,'- start list')
@@ -208,3 +216,20 @@ class Op(dict.DictVocab, opdo.DoCommands):
         else:
             self.words_anywhere_bool = False
             return False
+
+    def room_determined_table_order(self, num):
+        ## make a table with preferred op on top ##
+        room = self.rooms['room-' + str(num)]
+
+        zz = []
+        for z in self.search_anywhere_table:
+            if z[0] in self.rooms and self.rooms[z[0]] == room:
+
+                zz = z
+                break
+        if len(zz) > 0:
+            self.search_anywhere_room_table = [zz]
+        else:
+            self.search_anywhere_room_table = []
+        self.search_anywhere_room_table.extend(self.search_anywhere_table)
+        pass
