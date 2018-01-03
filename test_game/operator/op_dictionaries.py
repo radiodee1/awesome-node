@@ -92,7 +92,9 @@ class DictVocab:
 
             'office': 48,
             'program': 49,
-            'email': 50
+            'email': 50,
+            'play': 51,
+            'the': 52
 
         }
         self.words_phrase = [

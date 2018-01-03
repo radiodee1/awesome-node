@@ -7,11 +7,15 @@ import os
 op_dir = os.path.abspath(os.path.join(os.path.dirname(__file__))) + "/"
 #print(op_dir)
 import op_dictionaries as dict
+import op_do as opdo
 
 
-class Op(dict.DictVocab):
+
+class Op(dict.DictVocab, opdo.DoCommands):
     def __init__(self):
         dict.DictVocab.__init__(self)
+        opdo.DoCommands.__init__(self)
+
         self.room_num = 0 ## start in music room
         self.room_num_old = -1
         self.raw_input_bool = False ### should start false!!
@@ -156,17 +160,14 @@ class Op(dict.DictVocab):
             f.close()
             exec_line = exec_line.split()
             exec_line = exec_line[0]
-            if len(list) == 1 or self.words_anywhere_bool == False: #< len(str(op).split('+')):
-                os.system(exec_line)
-            elif launch == int(self.LAUNCH_SEARCH_WEB) or start == int(self.START_INTERNET) :
+            if launch == int(self.LAUNCH_SEARCH_WEB) or start == int(self.START_INTERNET) :
                 LAUNCH_URL = ' "http://www.google.com/search?q='
                 exec_line += LAUNCH_URL
                 exec_line += ' '.join(list)
                 exec_line += '"'
                 os.system(exec_line)
                 pass
-            elif False:
-                exec_line += ' ' + ' '.join(list)
+            elif True:
                 os.system(exec_line)
         elif launch == self.LAUNCH_SEARCH_FILES:
             print('search files')
