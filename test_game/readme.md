@@ -1,10 +1,11 @@
 ## Notes:
-
+This repository has become a two part project. The first part works with text input and the gensim word2vec program. The second part uses the same code but also includes some code for speech oriented input and output. This second part uses google cloud speech recognition.
+## Referenced Sources:
 Refer to these other projects.
 
 * https://github.com/danielricks/textplayer
 * https://github.com/DavidGriffith/frotz.git
-
+* https://radimrehurek.com/gensim/index.html
 
 
 setup the directory structure:
@@ -77,6 +78,17 @@ $ ./do_w2v_corpus_wiki.py data/enwiki.xxx.xml.bz2 data/wiki.en.10000.txt
 $ ./do_w2v_train.py
 $ ./launch_game.sh
 
+````
+Alternately the sample above could be concluded in the following manor if you intend to process the large wikipedia download yourself.
+````bash
+$ ./do_w2v_corpus_wiki.py data/enwiki.xxx.xml.bz2 data/wiki.en.xxx.txt
+$ ./do_w2v_corpus_wiki_mod.py data/wiki.en.*.txt data/wiki.en.mod.txt
+## the command above puts a period after every 1000 words.
+$ mkdir data/saved
+$ mv data/wiki.en.*.txt data/saved/.
+## the command above stores the raw wiki material in a separate folder.
+$ ./do_w2v_train_wiki.py data/wiki.en.mod.txt
+$ ./launch_game.sh
 ````
 
 ## Using `do_w2v_test.py` after training your model:
