@@ -88,6 +88,7 @@ $ mkdir data/saved
 $ mv data/wiki.en.*.txt data/saved/.
 ## the command above stores the raw wiki material in a separate folder.
 $ ./do_w2v_train_wiki.py data/wiki.en.mod.txt
+## the command above takes many hours
 $ ./launch_game.sh
 ````
 
