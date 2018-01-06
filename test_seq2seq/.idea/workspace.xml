@@ -41,11 +41,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="do_make_dir.sh" pinned="false" current-in-tab="true">
+      <file leaf-file-name="do_make_dir.sh" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/do_make_dir.sh">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="72">
               <caret line="4" column="7" lean-forward="false" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="do_launch_nmt.sh" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/do_launch_nmt.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="162">
+              <caret line="9" column="17" lean-forward="false" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -57,6 +67,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/do_make_dir.sh" />
+        <option value="$PROJECT_DIR$/do_launch_nmt.sh" />
       </list>
     </option>
   </component>
@@ -205,6 +216,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="4" column="7" lean-forward="false" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/do_launch_nmt.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="17" lean-forward="false" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
           <folding />
         </state>
       </provider>
