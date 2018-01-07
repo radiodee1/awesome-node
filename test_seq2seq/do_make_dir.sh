@@ -26,7 +26,8 @@ if [ -f data/RC_2015-01.bz2 ] ; then
             echo "already moved"
             
         else
-            bunzip2 -k RC_2015-01.bz2
+            echo "unzip may take some time..."
+            bunzip2 -kv RC_2015-01.bz2
             mv RC_2015-01 ../tmp/chat_new/.    
         fi
   
