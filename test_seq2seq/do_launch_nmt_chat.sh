@@ -2,6 +2,7 @@
 
 cd nmt
 python3 -m nmt.nmt \
+    --attention=scaled_luong \
     --src=vi --tgt=en \
     --vocab_prefix=../tmp/nmt_data/vocab  \
     --train_prefix=../tmp/nmt_data/train \
