@@ -8,6 +8,32 @@ git clone --recursive https://github.com/daniel-kukiela/nmt-chatbot
 ## cd nmt-chatbot/
 
 pip3 install tqdm colorama regex
-mkdir data/
 
-mkdir tmp/chat_model tmp/chat_data
+
+mkdir tmp/chat_model tmp/chat_data tmp/chat_new
+
+if [ -f data/RC_2015-01.bz2 ] ; then
+    echo "found RC"
+    cd data/
+    
+    if [ -f RC_2015-01 ] ; then
+    
+        echo "already unzipped"
+        mv RC_2015-01 ../tmp/chat_new/.
+        
+    else
+        if [ -f ../tmp/chat_new/RC_2015-01 ] ; then
+            echo "already moved"
+            
+        else
+            bunzip2 -k RC_2015-01.bz2
+            mv RC_2015-01 ../tmp/chat_new/.    
+        fi
+  
+    
+    fi
+    cd ../
+else
+    
+    echo "nothing for RC_2015-01"
+fi
