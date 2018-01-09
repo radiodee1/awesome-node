@@ -12,7 +12,7 @@ python3 -m nmt.nmt \
     --num_train_steps=12000 \
     --steps_per_stats=100 \
     --num_layers=2 \
-    --num_units=128 \
+    --num_units=512 \
     --dropout=0.2 \
     --metrics=bleu \
     --encoder_type=bi \
