@@ -4,3 +4,6 @@ nmt-chatbot/
 data/
 *.db
 *.db-journal
+*.to
+*.from
+
