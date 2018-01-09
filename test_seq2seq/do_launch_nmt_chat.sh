@@ -14,4 +14,9 @@ python3 -m nmt.nmt \
     --num_layers=2 \
     --num_units=128 \
     --dropout=0.2 \
-    --metrics=bleu
+    --metrics=bleu \
+    --encoder_type=bi \
+    --beam_width=10 \
+    --length_penalty_weight=1.0 \
+    --num_translations_per_input=10
+    
