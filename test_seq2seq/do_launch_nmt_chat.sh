@@ -3,12 +3,12 @@
 cd nmt
 python3 -m nmt.nmt \
     --attention=scaled_luong \
-    --src=vi --tgt=en \
-    --vocab_prefix=../tmp/nmt_data/vocab  \
-    --train_prefix=../tmp/nmt_data/train \
-    --dev_prefix=../tmp/nmt_data/tst2012  \
-    --test_prefix=../tmp/nmt_data/tst2013 \
-    --out_dir=../tmp/nmt_model \
+    --src=from --tgt=to \
+    --vocab_prefix=../tmp/chat_data/vocab  \
+    --train_prefix=../tmp/chat_data/train \
+    --dev_prefix=../tmp/chat_data/test  \
+    --test_prefix=../tmp/chat_data/test \
+    --out_dir=../tmp/chat_model \
     --num_train_steps=12000 \
     --steps_per_stats=100 \
     --num_layers=2 \
