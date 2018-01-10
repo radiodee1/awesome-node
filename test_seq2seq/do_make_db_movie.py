@@ -1,8 +1,11 @@
+#!/usr/bin/python3
+
+
 import sqlite3
-import json
+#import json
 from datetime import datetime
 
-timeframe = '2015-01'
+timeframe = 'movie_lines'
 sql_transaction = []
 
 connection = sqlite3.connect('{}.db'.format(timeframe))
@@ -12,7 +15,9 @@ def create_table():
     c.execute("CREATE TABLE IF NOT EXISTS parent_reply(parent_id TEXT PRIMARY KEY, comment_id TEXT UNIQUE, parent TEXT, comment TEXT, subreddit TEXT, unix INT, score INT)")
 
 def format_data(data):
+    data = str(data)
     data = data.replace('\n',' newlinechar ').replace('\r',' newlinechar ').replace('"',"'")
+    data = data[:-3]
     return data
 
 def transaction_bldr(sql):
@@ -48,6 +53,14 @@ def sql_insert_no_parent(commentid,parentid,comment,subreddit,time,score):
         transaction_bldr(sql)
     except Exception as e:
         print('s0 insertion',str(e))
+
+def sql_insert_complete(commentid,parentid,parent,comment,subreddit,time,score):
+    try:
+        sql = """INSERT INTO parent_reply (parent_id, comment_id,parent, comment, subreddit, unix, score) VALUES ("{}","{}","{}","{}","{}",{},{});""".format(parentid, commentid,parent, comment, subreddit, int(time), score)
+        transaction_bldr(sql)
+    except Exception as e:
+        print('s0 insertion',str(e))
+
 
 def acceptable(data):
     if len(data.split(' ')) > 50 or len(data) < 1:
@@ -90,31 +103,40 @@ if __name__ == '__main__':
     row_counter = 0
     paired_rows = 0
 
-    with open('tmp/chat_new/RC_{}'.format(timeframe), buffering=1000) as f:
-        for row in f:
+    with open('{}.txt'.format(timeframe), 'rb' ,buffering=1000) as f:
+        num = 0
+        body = ''
+        reply = ''
+        for row in f: #contents: #f
+
             row_counter += 1
-            row = json.loads(row)
-            parent_id = row['parent_id']
-            body = format_data(row['body'])
-            created_utc = row['created_utc']
-            score = row['score']
-            comment_id = row['name']
-            subreddit = row['subreddit']
-            parent_data = find_parent(parent_id)
-            if score >= 2:
-                existing_comment_score = find_existing_score(parent_id)
-                if existing_comment_score:
-                    if score > existing_comment_score:
-                        if acceptable(body):
-                            sql_insert_replace_comment(comment_id,parent_id,parent_data,body,subreddit,created_utc,score)
-                            
-                else:
-                    if acceptable(body):
-                        if parent_data:
-                            sql_insert_has_parent(comment_id,parent_id,parent_data,body,subreddit,created_utc,score)
-                            paired_rows += 1
-                        else:
-                            sql_insert_no_parent(comment_id,parent_id,body,subreddit,created_utc,score)
-                            
+            row_in = str(row).split()
+            parent_id = num #row['parent_id']
+            pos = 0
+            for i in range(len(row_in)):
+                if row_in[i].endswith('+'):
+                    pos = i + 1
+                pass
+            row_out = ' '.join(row_in[pos:])
+
+            created_utc = 0  # row['created_utc']
+            score = 5  # row['score']
+            comment_id = 'name-'+str(num)  # = row['name']
+            subreddit = 0  # row['subreddit']
+            parent_data = False  # num # find_parent(parent_id)
+            #print(format_data(row_out), num)
+
+
+            if num % 2 == 0:
+                body = format_data(row_out)
+            else:
+                reply = format_data(row_out)
+                if acceptable(body) and acceptable(reply):
+                    sql_insert_complete(comment_id,parent_id,body,reply,subreddit,created_utc,score)
+
+
+
             if row_counter % 100000 == 0:
                 print('Total Rows Read: {}, Paired Rows: {}, Time: {}'.format(row_counter, paired_rows, str(datetime.now())))
+
+            num += 1
