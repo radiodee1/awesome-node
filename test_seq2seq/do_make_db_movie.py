@@ -2,7 +2,7 @@
 
 
 import sqlite3
-#import json
+import os
 from datetime import datetime
 
 timeframe = 'movie_lines'
@@ -138,3 +138,5 @@ if __name__ == '__main__':
                 print('Total Rows Read: {}, Paired Rows: {}, Time: {}'.format(row_counter, paired_rows, str(datetime.now())))
 
             num += 1
+
+    os.system("mv movie_lines.db input.db")

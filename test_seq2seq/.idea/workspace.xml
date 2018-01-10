@@ -96,8 +96,8 @@
       <file leaf-file-name="do_make_db_movie.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/do_make_db_movie.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="580">
-              <caret line="134" column="100" lean-forward="false" selection-start-line="134" selection-start-column="100" selection-end-line="134" selection-end-column="100" />
+            <state relative-caret-position="706">
+              <caret line="141" column="41" lean-forward="false" selection-start-line="141" selection-start-column="41" selection-end-line="141" selection-end-column="41" />
               <folding>
                 <element signature="e#21#35#0" expanded="true" />
               </folding>
@@ -620,8 +620,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/do_make_db_movie.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
-          <caret line="134" column="100" lean-forward="false" selection-start-line="134" selection-start-column="100" selection-end-line="134" selection-end-column="100" />
+        <state relative-caret-position="706">
+          <caret line="141" column="41" lean-forward="false" selection-start-line="141" selection-start-column="41" selection-end-line="141" selection-end-column="41" />
           <folding>
             <element signature="e#21#35#0" expanded="true" />
           </folding>
