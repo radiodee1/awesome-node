@@ -18,5 +18,5 @@ python3 -m nmt.nmt \
     --encoder_type=bi \
     --beam_width=10 \
     --length_penalty_weight=1.0 \
-    --num_translations_per_input=10
+    --num_translations_per_input=1
     

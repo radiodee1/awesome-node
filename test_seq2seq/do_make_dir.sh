@@ -38,3 +38,15 @@ else
     
     echo "nothing for RC_2015-01"
 fi
+
+if [ -f data/cornell_movie_dialogs_corpus.zip ] ; then
+    if [ -d data/cornell\ movie-dialogs\ corpus ] ; then
+        echo "unzipped"
+    else
+        cd data
+        unzip cornell_movie_dialogs_corpus.zip
+        cp cornell\ movie-dialogs\ corpus/movie_lines.txt ..
+        cd ..
+
+    fi
+fi

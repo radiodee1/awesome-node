@@ -6,4 +6,4 @@ data/
 *.db-journal
 *.to
 *.from
-
+*.txt
