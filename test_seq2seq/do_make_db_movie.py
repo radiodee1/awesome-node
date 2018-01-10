@@ -134,8 +134,6 @@ if __name__ == '__main__':
                 if acceptable(body) and acceptable(reply):
                     sql_insert_complete(comment_id,parent_id,body,reply,subreddit,created_utc,score)
 
-
-
             if row_counter % 100000 == 0:
                 print('Total Rows Read: {}, Paired Rows: {}, Time: {}'.format(row_counter, paired_rows, str(datetime.now())))
 

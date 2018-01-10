@@ -4,7 +4,7 @@ import sqlite3
 import pandas as pd
 import os
 
-timeframes = ['2015-01']
+timeframes = ['input']
 
 for timeframe in timeframes:
     connection = sqlite3.connect('{}.db'.format(timeframe))
