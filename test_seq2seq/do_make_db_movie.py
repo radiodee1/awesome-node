@@ -15,9 +15,11 @@ def create_table():
     c.execute("CREATE TABLE IF NOT EXISTS parent_reply(parent_id TEXT PRIMARY KEY, comment_id TEXT UNIQUE, parent TEXT, comment TEXT, subreddit TEXT, unix INT, score INT)")
 
 def format_data(data):
-    data = str(data)
+    #data = str(data)
+
     data = data.replace('\n',' newlinechar ').replace('\r',' newlinechar ').replace('"',"'")
     data = data[:-3]
+    #data = data.encode('utf8')
     return data
 
 def transaction_bldr(sql):
@@ -128,9 +130,9 @@ if __name__ == '__main__':
 
 
             if num % 2 == 0:
-                body = format_data(row_out)
+                body = str(format_data(row_out))
             else:
-                reply = format_data(row_out)
+                reply = str(format_data(row_out))
                 if acceptable(body) and acceptable(reply):
                     sql_insert_complete(comment_id,parent_id,body,reply,subreddit,created_utc,score)
 

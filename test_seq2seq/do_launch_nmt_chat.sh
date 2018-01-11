@@ -10,13 +10,18 @@ python3 -m nmt.nmt \
     --test_prefix=../tmp/chat_data/test \
     --out_dir=../tmp/chat_model \
     --num_train_steps=12000 \
-    --steps_per_stats=100 \
+    --steps_per_stats=10 \
+    --infer_batch_size=10 \
     --num_layers=2 \
     --num_units=512 \
     --dropout=0.2 \
     --metrics=bleu \
     --encoder_type=bi \
+    --num_gpus=0 \
     --beam_width=10 \
-    --length_penalty_weight=1.0 \
-    --num_translations_per_input=1
+    --length_penalty_weight=0 \
+    --batch_size=16 \
+    --optimizer=adam 
+
+ 
     
