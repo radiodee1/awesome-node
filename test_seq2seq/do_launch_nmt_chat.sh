@@ -10,7 +10,7 @@ python3 -m nmt.nmt \
     --test_prefix=../tmp/chat_data/test \
     --out_dir=../tmp/chat_model \
     --num_train_steps=12000 \
-    --steps_per_stats=100 \
+    --steps_per_stats=10 \
     --infer_batch_size=10 \
     --num_layers=2 \
     --num_units=512 \

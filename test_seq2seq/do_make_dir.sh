@@ -5,8 +5,9 @@ mkdir tmp
 mkdir ./tmp/nmt_model
 
 git clone --recursive https://github.com/daniel-kukiela/nmt-chatbot
-## cd nmt-chatbot/
-
+cd nmt-chatbot/
+ln -s ../tmp/chat_model model
+cd ..
 
 pip3 install tqdm colorama regex
 
