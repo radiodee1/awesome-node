@@ -1,4 +1,4 @@
-cd nmt/
+cd nmt-chatbot/
 
-python3 -m nmt.inference_test
+python3 inference.py
 #python3 -m nmt.inference
