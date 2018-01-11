@@ -13,7 +13,7 @@ python3 -m nmt.nmt \
     --steps_per_stats=10 \
     --infer_batch_size=10 \
     --num_layers=2 \
-    --num_units=512 \
+    --num_units=128 \
     --dropout=0.2 \
     --metrics=bleu \
     --encoder_type=bi \
