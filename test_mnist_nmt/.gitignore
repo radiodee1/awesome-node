@@ -2,4 +2,8 @@ nmt/
 data/
 model/
 raw/
+test.from
+test.to
+train.from
+train.to
 
