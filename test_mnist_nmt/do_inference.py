@@ -13,13 +13,43 @@ import tensorflow as tf
 import colorama
 import json
 
+#data_dir = '../data/'
 out_dir = '../model/'
 current_stdout = None
 
 file_hparam = open('model/hparams','r')
 f = file_hparam.read()
 hparams = json.loads(f)
+hparams2 = {}
 
+for i in hparams:
+    if hparams[i] is not None:
+        hparams2[i] = hparams[i]
+hparams = hparams2
+file_hparam.close()
+
+#print(hparams)
+
+def setup_test_data():
+    file_x = open('data/test.from', 'r')
+    file_y = open('data/test.to', 'r')
+    count = len(file_y.readlines())
+    print(count)
+    file_x.seek(0)
+    file_y.seek(0)
+    xx = file_x.readlines()
+    yy = file_y.readlines()
+    #print(len(xx), len(yy),'<-- len')
+    for z in range(len(yy)):
+        x = str(xx[z]).strip()
+        y = str(yy[z]).strip()
+        print(z,'z')
+        print(x,'x')
+        print(y,'y')
+
+        s = start_inference(x)
+        print(s, 'output')
+        if z > 3: exit()
 
 # That will not be as easy as training script, as code relies on input and output file in deep levels of code
 # It also outputs massive amount of info
@@ -236,7 +266,7 @@ def process_questions(questions, include_blacklisted = True):
     prepared_questions = []
     for question in questions:
         question = question.strip()
-        prepared_questions.append(tokenize(question) if question else '##emptyquestion##')
+        prepared_questions.append(question if question else '##emptyquestion##')
 
     # Run inference
     answers_list = inference_helper(prepared_questions)
@@ -244,8 +274,8 @@ def process_questions(questions, include_blacklisted = True):
     # Process answers
     prepared_answers_list = []
     for index, answers in enumerate(answers_list):
-        answers = detokenize(answers)
-        answers = replace_in_answers(answers, 'answers')
+        #answers = detokenize(answers)
+        #answers = replace_in_answers(answers, 'answers')
         answers_score = score_answers(answers, 'answers')
         best_index, best_score = get_best_score(answers_score, include_blacklisted)
 
@@ -256,8 +286,14 @@ def process_questions(questions, include_blacklisted = True):
 
     return prepared_answers_list
 
+def score_answers(a, name):
+    print('here')
+    return 1
+
+
 # interactive mode
 if __name__ == "__main__":
+
 
     # Input file
     if sys.stdin.isatty() == False:
@@ -274,6 +310,9 @@ if __name__ == "__main__":
     # Interactive mode
     print("\n\nStarting interactive mode (first response will take a while):")
     colorama.init()
+
+    #setup_test_data()
+
 
     # QAs
     while True:
