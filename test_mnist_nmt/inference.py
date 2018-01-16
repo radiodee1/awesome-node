@@ -3,16 +3,18 @@
 import sys
 import os
 sys.path.append(os.path.realpath(os.path.dirname(__file__)))
-sys.path.append(os.path.realpath(os.path.dirname(__file__)) + "/nmt")
+#sys.path.append(os.path.realpath(os.path.dirname(__file__)) + "/nmt")
+#sys.path.append(os.path.realpath(os.path.dirname(__file__)) + "/nmt/nmt")
+
 import argparse
-#from setup.settings import hparams, out_dir
-from nmt import nmt
+from nmt.nmt import nmt
+#import nmt
 import tensorflow as tf
-#from core.tokenizer import tokenize, detokenize
-#from core.sentence import score_answers, replace_in_answers
+
 import colorama
 import json
 
+print(sys.path,'----')
 #data_dir = '../data/'
 out_dir = '../model/'
 current_stdout = None
@@ -307,11 +309,11 @@ if __name__ == "__main__":
 
         sys.exit()
 
+    setup_test_data()
+
     # Interactive mode
     print("\n\nStarting interactive mode (first response will take a while):")
     colorama.init()
-
-    #setup_test_data()
 
 
     # QAs
