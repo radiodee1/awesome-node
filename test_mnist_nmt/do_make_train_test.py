@@ -9,6 +9,8 @@ w = 28
 
 subbatch = 100
 
+both_coords = True
+
 def add_to_file(in_line, out_line, name):
     ##
     with open(name+'.from','a', encoding='utf8') as f:
@@ -32,7 +34,13 @@ def look_at_image(mnist_part, name='', short=False, batch=1000, subbatch=10):
                     if batch_xs[i][j * w + k] > d:
                         z = 1
                     if  short: print(z, end='')
-                    if z == 1: s += ' ' + '/' + str(k) + '/'
+                    if z == 1: 
+                        if both_coords:
+                            # two coords
+                            s += ' ' + '/' + str(k) + '/' + str(j) + '/'
+                        else:
+                            # one coord
+                            s += ' ' + '/' + str(k) + '/'
                 if  short: print('|')
             if  short: print(name + ' val=', batch_ys[i])
             if not short: add_to_file(s, str(batch_ys[i]), name)
