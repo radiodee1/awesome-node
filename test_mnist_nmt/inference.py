@@ -26,15 +26,17 @@ hparams2 = {}
 
 for i in hparams:
     if hparams[i] is not None:
+
         hparams2[i] = hparams[i]
 hparams = hparams2
 file_hparam.close()
 
 #print(hparams)
+os.chdir('./nmt')
 
 def setup_test_data():
-    file_x = open('data/test.from', 'r')
-    file_y = open('data/test.to', 'r')
+    file_x = open('../data/test.from', 'r')
+    file_y = open('../data/test.to', 'r')
     count = len(file_y.readlines())
     print(count)
     file_x.seek(0)
@@ -49,7 +51,7 @@ def setup_test_data():
         print(x,'x')
         print(y,'y')
 
-        s = start_inference(x)
+        s = start_inference([x])
         print(s, 'output')
         if z > 3: exit()
 
@@ -67,10 +69,12 @@ def do_start_inference(out_dir, hparams):
 
     # Silence all outputs
     #os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-    global current_stdout
-    current_stdout = sys.stdout
-    sys.stdout = open(os.devnull, "w")
 
+    #global current_stdout
+    #current_stdout = sys.stdout
+    #sys.stdout = open(os.devnull, "w")
+
+    print(6)
     # Modified autorun from nmt.py (bottom of the file)
     # We want to use original argument parser (for validation, etc)
     nmt_parser = argparse.ArgumentParser()
@@ -80,12 +84,14 @@ def do_start_inference(out_dir, hparams):
     # And now we can run TF with modified arguments
     #tf.app.run(main=nmt.main, argv=[os.getcwd() + '\nmt\nmt\nmt.py'] + unparsed)
 
+    print(7)
     # Add output (model) folder to flags
     flags.out_dir = out_dir
 
     # Make hparams
     hparams = nmt.create_hparams(flags)
 
+    print(8)
     ## Train / Decode
     if not tf.gfile.Exists(flags.out_dir):
         nmt.utils.print_out("# Model folder (out_dir) doesn't exist")
@@ -94,10 +100,12 @@ def do_start_inference(out_dir, hparams):
     # Load hparams from model folder
     hparams = nmt.create_or_load_hparams(flags.out_dir, hparams, flags.hparams_path, save_hparams=True)
 
+    print(9)
     # Choose checkpoint (provided with hparams or last one)
     if not flags.ckpt:
         flags.ckpt = tf.train.latest_checkpoint(flags.out_dir)
 
+    print(10)
     # Create model
     if not hparams.attention:
         model_creator = nmt.inference.nmt_model.Model
@@ -109,6 +117,7 @@ def do_start_inference(out_dir, hparams):
         raise ValueError("Unknown model architecture")
     infer_model = nmt.inference.model_helper.create_infer_model(model_creator, hparams, None)
 
+    print(11)
     return (infer_model, flags, hparams)
 
 # Inference
@@ -199,13 +208,16 @@ def start_inference(question):
 
     global inference_helper, inference_object
 
+    print(1)
     # Start inference, set global tuple with model, flags and hparams
     inference_object = do_start_inference(out_dir, hparams)
 
+    print(2)
     # First inference() call calls that method
     # Now we have everything running, so replace inference() with actual function call
     inference_helper = lambda question: do_inference(question, *inference_object)
 
+    print(3)
     # Rerun inference() call
     return inference_helper(question)
 

@@ -24,8 +24,8 @@
       <file leaf-file-name="inference.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/inference.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="9" column="12" lean-forward="false" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="12" />
+            <state relative-caret-position="684">
+              <caret line="53" column="31" lean-forward="false" selection-start-line="53" selection-start-column="31" selection-end-line="53" selection-end-column="31" />
               <folding>
                 <element signature="e#20#30#0" expanded="true" />
               </folding>
@@ -128,9 +128,9 @@
       <find>exit</find>
       <find>process_questions</find>
       <find>hparams</find>
-      <find>do_start_inference</find>
-      <find>start_inference</find>
       <find>nmt</find>
+      <find>start_inference</find>
+      <find>do_start_inference</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -508,8 +508,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/inference.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="12" lean-forward="false" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="12" />
+        <state relative-caret-position="684">
+          <caret line="53" column="31" lean-forward="false" selection-start-line="53" selection-start-column="31" selection-end-line="53" selection-end-column="31" />
           <folding>
             <element signature="e#20#30#0" expanded="true" />
           </folding>
