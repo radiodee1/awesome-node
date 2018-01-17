@@ -13,3 +13,21 @@ else
     echo "sequences file created"
     cd ..
 fi
+
+if [ -f raw/train-labels-idx1-ubyte.gz ] ; then
+    echo ""
+else
+    cd raw/
+    wget http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
+    gunzip train-labels-idx1-ubyte.gz
+    cd ..
+fi
+
+if [ -f raw/t10k-labels-idx1-ubyte.gz ] ; then
+    echo ""
+else
+    cd raw/
+    wget http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
+    gunzip t10k-labels-idx1-ubyte.gz
+    cd ..
+fi
