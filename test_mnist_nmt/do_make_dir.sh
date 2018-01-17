@@ -14,6 +14,10 @@ else
     cd ..
 fi
 
+exit
+
+## do_make_train_test.py does this!!
+
 if [ -f raw/train-labels-idx1-ubyte.gz ] ; then
     echo ""
 else
