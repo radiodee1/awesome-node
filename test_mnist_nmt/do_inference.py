@@ -76,7 +76,7 @@ def do_start_inference(out_dir, hparams):
     # Silence all outputs
     #os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-    if False:
+    if True:
         global current_stdout
         current_stdout = sys.stdout
         sys.stdout = open(os.devnull, "w")
