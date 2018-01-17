@@ -13,7 +13,7 @@ python3 -m nmt.nmt \
     --num_train_steps=55000 \
     --steps_per_stats=100 \
     --infer_batch_size=10 \
-    --num_layers=2 \
+    --num_layers=4 \
     --num_units=256 \
     --dropout=0.2 \
     --metrics=bleu \
