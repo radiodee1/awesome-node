@@ -35,9 +35,11 @@
         <entry file="file://$PROJECT_DIR$/do_make_train_test.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="702">
-              <caret line="87" column="17" lean-forward="false" selection-start-line="87" selection-start-column="17" selection-end-line="87" selection-end-column="17" />
+              <caret line="88" column="17" lean-forward="false" selection-start-line="88" selection-start-column="17" selection-end-line="88" selection-end-column="17" />
               <folding>
                 <element signature="e#20#29#0" expanded="true" />
+                <marker date="1516222858540" expanded="true" signature="940:1337" ph="..." />
+                <marker date="1516222858540" expanded="true" signature="1180:1337" ph="..." />
               </folding>
             </state>
           </provider>
@@ -46,8 +48,8 @@
       <file leaf-file-name="do_make_dir.sh" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/do_make_dir.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="558">
-              <caret line="31" column="9" lean-forward="false" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
+            <state relative-caret-position="630">
+              <caret line="35" column="9" lean-forward="false" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -250,7 +252,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="484" y="75" width="1400" height="1000" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -357,6 +358,8 @@
           <caret line="54" column="21" lean-forward="false" selection-start-line="54" selection-start-column="21" selection-end-line="54" selection-end-column="21" />
           <folding>
             <element signature="e#20#29#0" expanded="true" />
+            <marker date="1516222858540" expanded="true" signature="940:1337" ph="..." />
+            <marker date="1516222858540" expanded="true" signature="1180:1337" ph="..." />
           </folding>
         </state>
       </provider>
@@ -650,8 +653,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/do_make_dir.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="31" column="9" lean-forward="false" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
+        <state relative-caret-position="630">
+          <caret line="35" column="9" lean-forward="false" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -659,9 +662,11 @@
     <entry file="file://$PROJECT_DIR$/do_make_train_test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="702">
-          <caret line="87" column="17" lean-forward="false" selection-start-line="87" selection-start-column="17" selection-end-line="87" selection-end-column="17" />
+          <caret line="88" column="17" lean-forward="false" selection-start-line="88" selection-start-column="17" selection-end-line="88" selection-end-column="17" />
           <folding>
             <element signature="e#20#29#0" expanded="true" />
+            <marker date="1516222858540" expanded="true" signature="940:1337" ph="..." />
+            <marker date="1516222858540" expanded="true" signature="1180:1337" ph="..." />
           </folding>
         </state>
       </provider>
