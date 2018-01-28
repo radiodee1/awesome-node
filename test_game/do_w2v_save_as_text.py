@@ -23,4 +23,5 @@ import gensim.models.word2vec as w2v
 if True:
     print("stage: load model")
     word2vec_book = w2v.Word2Vec.load(os.path.join("trained", "word2vec_book.w2v"))
-    word2vec_book.save(os.path.join("trained", "word2vec_book.w2v.txt"))
+    print("stage: save model")
+    word2vec_book.wv.save_word2vec_format(os.path.join("trained", "word2vec_book.w2v.txt"),binary=False)
